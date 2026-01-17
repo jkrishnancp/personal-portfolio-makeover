@@ -81,31 +81,39 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Summary Section */}
-      <section id="summary" className="py-20 px-6 md:px-12 lg:px-24">
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="section-label">About</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-8 font-display">Executive Summary</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">{summaryData.text}</p>
+      {/* Summary Section - Gradient Background */}
+      <section id="summary" className="py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/10 to-primary/5"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <span className="inline-block px-4 py-1 rounded-full bg-accent/20 text-accent text-sm font-medium uppercase tracking-widest mb-4">About</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 font-display">Executive Summary</h2>
+          <div className="p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border shadow-lg">
+            <p className="text-lg text-muted-foreground leading-relaxed">{summaryData.text}</p>
+          </div>
         </div>
       </section>
 
-      {/* Career Timeline */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
+      {/* Career Timeline - Colorful Cards */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 gradient-hero text-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <span className="section-label">Journey</span>
+            <span className="text-accent text-sm font-medium uppercase tracking-widest">Journey</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Career Progression</h2>
           </div>
           <div className="flex flex-wrap items-center gap-4 justify-center">
             {careerTimeline.map((item, index) => (
               <div key={index} className="flex items-center gap-4">
-                <div className="text-center p-4 rounded-lg bg-card border border-border">
-                  <span className="font-semibold text-foreground block">{item.stage}</span>
-                  <p className="text-sm text-muted-foreground mt-1">{item.focus}</p>
+                <div className="text-center p-5 rounded-xl bg-white/10 border border-white/20 backdrop-blur-sm hover:bg-white/15 transition-all hover:scale-105">
+                  <div className="w-8 h-8 rounded-full bg-accent mx-auto mb-3 flex items-center justify-center text-accent-foreground font-bold text-sm">
+                    {index + 1}
+                  </div>
+                  <span className="font-semibold text-white block">{item.stage}</span>
+                  <p className="text-sm text-white/70 mt-1">{item.focus}</p>
                 </div>
                 {index < careerTimeline.length - 1 && (
-                  <ChevronRight className="w-5 h-5 text-accent hidden md:block" />
+                  <ChevronRight className="w-6 h-6 text-accent hidden md:block" />
                 )}
               </div>
             ))}
@@ -113,23 +121,35 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Security Philosophy */}
-      <section className="py-20 px-6 md:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto">
+      {/* Security Philosophy - Colorful Grid */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-tl from-accent/5 via-transparent to-primary/5"></div>
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <span className="section-label">Philosophy</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Leadership Principles</h2>
+            <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium uppercase tracking-widest mb-4">Philosophy</span>
+            <h2 className="text-3xl md:text-4xl font-bold font-display">Leadership Principles</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {securityPhilosophy.map((item) => (
-              <div key={item.number} className="card-executive p-6">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                  <span className="text-lg font-bold text-accent">{item.number}</span>
+            {securityPhilosophy.map((item) => {
+              const colors = [
+                'from-blue-500/20 to-blue-600/10 border-blue-500/30',
+                'from-amber-500/20 to-amber-600/10 border-amber-500/30',
+                'from-emerald-500/20 to-emerald-600/10 border-emerald-500/30',
+                'from-purple-500/20 to-purple-600/10 border-purple-500/30',
+                'from-rose-500/20 to-rose-600/10 border-rose-500/30',
+                'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30',
+              ];
+              const colorClass = colors[(item.number - 1) % colors.length];
+              return (
+                <div key={item.number} className={`p-6 rounded-xl bg-gradient-to-br ${colorClass} border backdrop-blur-sm hover:scale-105 transition-transform`}>
+                  <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center mb-4">
+                    <span className="text-xl font-bold text-accent-foreground">{item.number}</span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">{item.principle}</h3>
+                  <p className="text-muted-foreground mt-2">{item.detail}</p>
                 </div>
-                <h3 className="text-lg font-semibold">{item.principle}</h3>
-                <p className="text-muted-foreground mt-2">{item.detail}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
