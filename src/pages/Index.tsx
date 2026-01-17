@@ -1,5 +1,5 @@
-import { profileData, summaryData, careerTimeline, securityPhilosophy, impactHighlights, experienceData, skillsData, activeBuilding, projectsData, ninetyDayPlan, educationData, certificationsData } from "@/data/portfolioData";
-import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp } from "lucide-react";
+import { profileData, summaryData, statsData, careerTimeline, securityPhilosophy, impactHighlights, experienceData, skillsData, activeBuilding, featuredProjects, projectCategories, ninetyDayPlan, educationData, certificationsData, industriesServed } from "@/data/portfolioData";
+import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, FolderOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
@@ -46,17 +46,21 @@ const Index = () => {
 
             {/* Stats Card */}
             <div className="w-full lg:w-auto">
-              <div className="grid grid-cols-3 gap-6 p-8 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
                 <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-accent">20+</div>
+                  <div className="text-3xl md:text-4xl font-bold text-accent">{statsData.yearsExperience}</div>
                   <div className="text-sm text-white/70 mt-1">Years</div>
                 </div>
-                <div className="text-center border-x border-white/10">
-                  <div className="text-3xl md:text-4xl font-bold text-accent">400+</div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-accent">{statsData.projectsDelivered}</div>
+                  <div className="text-sm text-white/70 mt-1">Projects</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-accent">{statsData.teamSize}</div>
                   <div className="text-sm text-white/70 mt-1">Team Size</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-accent">20</div>
+                  <div className="text-3xl md:text-4xl font-bold text-accent">{statsData.countries}</div>
                   <div className="text-sm text-white/70 mt-1">Countries</div>
                 </div>
               </div>
@@ -67,16 +71,13 @@ const Index = () => {
 
       {/* Industries Bar */}
       <section className="py-6 px-6 bg-card border-b border-border">
-        <div className="max-w-6xl mx-auto flex flex-wrap justify-center items-center gap-8 md:gap-16 text-muted-foreground font-medium">
-          <span>Agency</span>
-          <span className="text-accent">◆</span>
-          <span>Enterprise</span>
-          <span className="text-accent">◆</span>
-          <span>Retail</span>
-          <span className="text-accent">◆</span>
-          <span>Banking</span>
-          <span className="text-accent">◆</span>
-          <span>Global Operations</span>
+        <div className="max-w-6xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-12 text-muted-foreground font-medium text-sm">
+          {industriesServed.map((industry, index) => (
+            <span key={index} className="flex items-center gap-6">
+              {industry}
+              {index < industriesServed.length - 1 && <span className="text-accent hidden md:inline">◆</span>}
+            </span>
+          ))}
         </div>
       </section>
 
@@ -147,6 +148,74 @@ const Index = () => {
                   <Zap className="w-4 h-4 text-accent" />
                 </div>
                 <p className="text-primary-foreground/90">{highlight}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Project Categories - NEW */}
+      <section id="projects" className="py-20 px-6 md:px-12 lg:px-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="section-label">Portfolio</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">250+ Projects Across 12 Domains</h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">Comprehensive security programs delivered across enterprise, BFSI, retail, healthcare, manufacturing, and public sector organizations.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projectCategories.map((cat, index) => (
+              <div key={index} className="card-executive p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold font-display">{cat.category}</h3>
+                  <span className="px-3 py-1 text-sm bg-accent/10 text-accent rounded-full font-semibold">{cat.count}+</span>
+                </div>
+                <p className="text-muted-foreground text-sm mb-4">{cat.description}</p>
+                <div className="flex flex-wrap gap-1">
+                  {cat.technologies.slice(0, 4).map((tech, i) => (
+                    <span key={i} className="px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded">{tech}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Projects */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="section-label">Highlights</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Featured Projects</h2>
+          </div>
+          <div className="grid lg:grid-cols-2 gap-6">
+            {featuredProjects.map((project) => (
+              <div key={project.id} className="card-executive p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="px-3 py-1 text-xs bg-accent/10 text-accent rounded font-medium">{project.category}</span>
+                  <span className="text-sm text-muted-foreground">{project.duration}</span>
+                </div>
+                <h3 className="text-lg font-bold mb-2 font-display">{project.title}</h3>
+                <p className="text-sm text-muted-foreground mb-1"><span className="font-medium text-foreground">Role:</span> {project.role}</p>
+                <div className="space-y-3 text-sm mt-4">
+                  <div>
+                    <span className="font-semibold text-red-600 dark:text-red-400">Problem:</span>
+                    <p className="text-muted-foreground mt-1">{project.problem}</p>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-accent">Solution:</span>
+                    <p className="text-muted-foreground mt-1">{project.solution}</p>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-green-600 dark:text-green-400">Result:</span>
+                    <p className="text-muted-foreground mt-1">{project.result}</p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
+                  {project.technologies.map((tech, i) => (
+                    <span key={i} className="px-2 py-1 text-xs bg-primary/5 text-primary border border-primary/20 rounded">{tech}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -225,7 +294,9 @@ const Index = () => {
             <span className="section-label">Expertise</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Core Competencies</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-12">
+          
+          {/* Top Strengths & Leveling Up */}
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
             <div className="card-executive p-8">
               <h3 className="text-xl font-semibold mb-6 flex items-center gap-3 font-display">
                 <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
@@ -256,6 +327,20 @@ const Index = () => {
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* Technical Skills Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {skillsData.technicalSkills.map((category, index) => (
+              <div key={index} className="card-executive p-6">
+                <h4 className="font-semibold mb-4">{category.category}</h4>
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map((skill, i) => (
+                    <span key={i} className="px-2 py-1 text-xs bg-muted text-muted-foreground rounded">{skill}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -288,39 +373,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Projects */}
-      <section id="projects" className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="section-label">Portfolio</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Featured Projects</h2>
-          </div>
-          <div className="grid lg:grid-cols-3 gap-6">
-            {projectsData.map((project) => (
-              <div key={project.id} className="card-executive p-6">
-                <h3 className="text-lg font-bold mb-4 font-display">{project.title}</h3>
-                <div className="space-y-4 text-sm">
-                  <div>
-                    <span className="font-semibold text-red-600 dark:text-red-400">Problem</span>
-                    <p className="text-muted-foreground mt-1">{project.problem}</p>
-                  </div>
-                  <div>
-                    <span className="font-semibold text-accent">Solution</span>
-                    <p className="text-muted-foreground mt-1">{project.solution}</p>
-                  </div>
-                  <div>
-                    <span className="font-semibold text-green-600 dark:text-green-400">Result</span>
-                    <p className="text-muted-foreground mt-1">{project.result}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* 90-Day Plan */}
-      <section className="py-20 px-6 md:px-12 lg:px-24">
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="section-label">Hiring?</span>
@@ -348,7 +402,7 @@ const Index = () => {
       </section>
 
       {/* Education */}
-      <section id="education" className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
+      <section id="education" className="py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="section-label">Education</span>
@@ -370,7 +424,7 @@ const Index = () => {
       </section>
 
       {/* Certifications */}
-      <section id="certifications" className="py-20 px-6 md:px-12 lg:px-24">
+      <section id="certifications" className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="section-label">Credentials</span>

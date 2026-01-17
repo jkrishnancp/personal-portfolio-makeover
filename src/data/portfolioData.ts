@@ -13,6 +13,13 @@ export const summaryData = {
   text: `I am a cybersecurity leader with deep experience across security operations, cloud security, vulnerability management, and governance programs. I specialize in building practical, measurable security capabilities that scale across complex enterprise environments. My work focuses on transforming security from reactive operations into reliable systems: improving detection quality, reducing exposure, automating visibility, and aligning security priorities with business risk. Today, I continue to invest in detection engineering, automation, and AI-driven security workflows while leading programs that strengthen operational maturity and executive-level decision making.`
 };
 
+export const statsData = {
+  yearsExperience: "20+",
+  projectsDelivered: "250+",
+  countries: "20+",
+  teamSize: "400+"
+};
+
 export const careerTimeline = [
   { stage: "Security Analyst", focus: "Technical foundations" },
   { stage: "Security Engineer", focus: "Platform ownership" },
@@ -31,12 +38,170 @@ export const securityPhilosophy = [
 ];
 
 export const impactHighlights = [
-  "Reduced vulnerability remediation backlog by 40% by redesigning prioritization and reporting workflows.",
-  "Improved SOC detection quality and reduced false positives through telemetry alignment and tuning.",
-  "Built executive dashboards providing real-time visibility across cloud, endpoint, and identity risks.",
-  "Standardized incident response processes improving MTTR and response consistency.",
-  "Consolidated overlapping security tools to improve visibility while reducing operational complexity.",
-  "Delivered automation that replaced manual reporting and analysis workflows."
+  "Reduced vulnerability remediation backlog by 40% through redesigned prioritization and workflows.",
+  "Improved SOC detection quality and reduced false positives via telemetry alignment.",
+  "Built executive dashboards providing real-time visibility across cloud, endpoint, and identity.",
+  "Standardized incident response processes improving MTTR and consistency.",
+  "Consolidated overlapping security tools reducing operational complexity.",
+  "Delivered automation replacing manual reporting and analysis workflows."
+];
+
+// Project categories summarized from 250+ projects database
+export const projectCategories = [
+  {
+    category: "SIEM & Detection",
+    count: 35,
+    description: "SIEM deployments, migrations, detection engineering, and log management across Splunk, Elastic, Microsoft Sentinel, QRadar, and Datadog.",
+    highlights: ["Splunk → Elastic global migration", "SIEM cost optimization & tiering", "UEBA pilots", "Detection content development"],
+    technologies: ["Microsoft Sentinel", "Splunk", "Elastic", "IBM QRadar", "Datadog", "Sumo Logic"]
+  },
+  {
+    category: "SOC Operations",
+    count: 30,
+    description: "SOC operating model builds, tiering structures, SLAs, analyst training, metrics programs, and case management standardization.",
+    highlights: ["SOC operating model builds", "Tier structure & SLA frameworks", "Analyst skill matrices", "KPI/metrics programs"],
+    technologies: ["ServiceNow", "SOAR platforms", "Ticketing systems", "PagerDuty"]
+  },
+  {
+    category: "Zero Trust & IAM",
+    count: 28,
+    description: "Zero trust strategy, ZTNA rollouts, conditional access, PAM implementations, MFA programs, and access review governance.",
+    highlights: ["Zero trust roadmaps", "ZTNA/SASE rollouts", "PAM implementations", "Service account governance"],
+    technologies: ["Azure AD", "Okta", "CyberArk", "Conditional Access", "ZTNA/SASE"]
+  },
+  {
+    category: "MDR/XDR & Endpoint",
+    count: 25,
+    description: "MDR provider selection, XDR use-case development, endpoint telemetry expansion, and SOC-MDR handoff processes.",
+    highlights: ["MDR provider RFP & transitions", "XDR use-case packs", "Endpoint coverage expansion", "Containment playbooks"],
+    technologies: ["CrowdStrike", "Microsoft Defender XDR", "SentinelOne", "Carbon Black"]
+  },
+  {
+    category: "Cloud Security",
+    count: 25,
+    description: "Cloud security baselines, landing zone controls, CSPM implementations, container security, and DevSecOps integration.",
+    highlights: ["Landing zone security controls", "Cloud asset inventory", "API security baselines", "DevSecOps pipelines"],
+    technologies: ["AWS", "Azure", "GCP", "Kubernetes", "CSPM tools", "CI/CD security"]
+  },
+  {
+    category: "GRC & Audit",
+    count: 30,
+    description: "Compliance programs, audit readiness, control frameworks, policy governance, TPRM, and evidence automation.",
+    highlights: ["ISO 27001 implementations", "PCI DSS programs", "SOC 2 readiness", "Control testing automation"],
+    technologies: ["ISO 27001", "PCI DSS", "SOC 2", "NIST", "Risk registers"]
+  },
+  {
+    category: "SOAR & Automation",
+    count: 20,
+    description: "SOAR platform implementations, playbook automation, IOC enrichment workflows, and ITSM integrations.",
+    highlights: ["SOAR platform builds", "Automated enrichment workflows", "ITSM case integrations", "Automation ROI models"],
+    technologies: ["Cortex XSOAR", "Splunk SOAR", "Azure Logic Apps", "ServiceNow SecOps"]
+  },
+  {
+    category: "Vulnerability Management",
+    count: 22,
+    description: "Vulnerability programs, patch governance, remediation sprint models, database hardening, and exposure management.",
+    highlights: ["Enterprise vuln programs", "Remediation sprint models", "Patch compliance governance", "Database hardening"],
+    technologies: ["Qualys", "Tenable", "Rapid7", "KEV prioritization"]
+  },
+  {
+    category: "Network Security",
+    count: 18,
+    description: "Network segmentation, firewall governance, NAC rollouts, proxy modernization, and egress controls.",
+    highlights: ["Micro-segmentation pilots", "Firewall rulebase cleanup", "NAC (802.1X) rollouts", "Proxy modernization"],
+    technologies: ["NGFW", "IDS/IPS", "NAC", "DNS Security", "Proxy/SWG"]
+  },
+  {
+    category: "Data Protection",
+    count: 12,
+    description: "DLP programs, data classification, encryption standards, and insider risk programs.",
+    highlights: ["DLP policy frameworks", "Data classification schemes", "Insider risk correlation", "Legal hold alignment"],
+    technologies: ["M365 DLP", "Endpoint DLP", "CASB", "Encryption", "eDiscovery"]
+  },
+  {
+    category: "Forensics & IR",
+    count: 15,
+    description: "Forensic readiness, evidence handling, memory capture, cloud forensics, and investigation protocols.",
+    highlights: ["Forensic triage playbooks", "Memory capture workflows", "Cloud forensics", "Legal/HR investigation protocols"],
+    technologies: ["EDR forensics", "CloudTrail", "PCAP analysis", "Disk imaging"]
+  },
+  {
+    category: "IT Security & Hardening",
+    count: 18,
+    description: "AD hardening, server/endpoint standards, PKI, legacy system risk treatment, and configuration baselines.",
+    highlights: ["AD hardening programs", "Server hardening standards", "Linux hardening", "Legacy risk treatment"],
+    technologies: ["Active Directory", "GPO", "SCCM", "Intune", "PKI"]
+  }
+];
+
+// Featured highlight projects (top 6 from the database)
+export const featuredProjects = [
+  {
+    id: 1,
+    title: "Global SIEM Migration (Splunk → Elastic)",
+    category: "SIEM",
+    role: "Program Lead",
+    duration: "6 months",
+    problem: "Enterprise needed to re-platform SIEM and rebuild detection content without disrupting operations.",
+    solution: "Led end-to-end migration, aligned log sources, built ingestion pipelines, optimized detections with ATT&CK testing.",
+    result: "Improved query performance, reduced ingestion cost, increased detection coverage.",
+    technologies: ["Splunk", "Elastic", "Beats", "Logstash"]
+  },
+  {
+    id: 2,
+    title: "Zero Trust Strategy & Roadmap",
+    category: "Zero Trust",
+    role: "Owner",
+    duration: "3 months",
+    problem: "Enterprise lacked a clear Zero Trust vision aligned to risk priorities.",
+    solution: "Defined target-state architecture, phased roadmap across identity, device, network, and application access.",
+    result: "Clear north star established, accelerated control adoption across the organization.",
+    technologies: ["ZTNA", "Azure AD", "Conditional Access", "PAM"]
+  },
+  {
+    id: 3,
+    title: "Enterprise Vulnerability Management Program",
+    category: "Vulnerability Mgmt",
+    role: "Owner",
+    duration: "6 months",
+    problem: "No structured SLAs, remediation workflows, or executive reporting for vulnerabilities.",
+    solution: "Built asset + vulnerability operating model with SLAs, KEV prioritization, and ITSM integration.",
+    result: "Reduced critical backlog, improved compliance posture, measurable exposure reduction.",
+    technologies: ["Qualys", "Tenable", "ITSM", "KEV/VPR"]
+  },
+  {
+    id: 4,
+    title: "SOC Operating Model Build",
+    category: "SOC",
+    role: "Owner",
+    duration: "3 months",
+    problem: "SOC lacked defined tiers, SLAs, escalation paths, and coverage model.",
+    solution: "Established operating model, standardized case management, defined KPIs, implemented playbooks.",
+    result: "Predictable operations, reduced MTTR, improved analyst efficiency.",
+    technologies: ["ITSM", "SOAR", "Playbooks"]
+  },
+  {
+    id: 5,
+    title: "Cloud Security Baseline & Guardrails",
+    category: "Cloud Security",
+    role: "Program Owner",
+    duration: "12 months",
+    problem: "Multi-cloud environment lacked consistent security controls and governance.",
+    solution: "Defined landing zone controls, implemented CSPM, integrated DevSecOps pipelines.",
+    result: "Standardized security posture, reduced misconfigurations, improved audit readiness.",
+    technologies: ["AWS", "Azure", "CSPM", "CI/CD", "Kubernetes"]
+  },
+  {
+    id: 6,
+    title: "SOAR Platform Implementation",
+    category: "SOAR/Automation",
+    role: "Platform Engineer",
+    duration: "9 months",
+    problem: "Manual enrichment and response workflows causing analyst burnout and slow MTTR.",
+    solution: "Deployed SOAR platform, built IOC enrichment workflows, integrated ITSM for case management.",
+    result: "Automated 60%+ of Tier-1 tasks, reduced analyst toil, accelerated remediation.",
+    technologies: ["Cortex XSOAR", "ServiceNow", "Azure Logic Apps"]
+  }
 ];
 
 export const experienceData = [
@@ -57,11 +222,11 @@ export const experienceData = [
       "Risk governance and compliance"
     ],
     outcomes: [
+      "Delivered 150+ security initiatives",
       "Reduced incident response time by 35%",
-      "Implemented SIEM, SOAR, and XDR platforms",
-      "Led zero-trust initiatives for remote workforce"
+      "Led zero-trust transformation"
     ],
-    stack: ["Microsoft Sentinel", "Defender XDR", "Azure", "Power Automate"]
+    stack: ["Microsoft Sentinel", "Defender XDR", "Azure", "CrowdStrike"]
   },
   {
     id: 2,
@@ -75,14 +240,14 @@ export const experienceData = [
       platforms: "Hybrid infrastructure"
     },
     responsibilities: [
-      "PCI DSS compliance program design",
+      "PCI DSS compliance program",
       "Security operations for enterprise applications",
-      "Secure SDLC integration"
+      "Vendor and contract management"
     ],
     outcomes: [
       "Achieved PCI DSS Level 1 certification",
-      "Reduced security incident response time",
-      "Achieved 20%+ cost reduction in vendor contracts"
+      "Built centralized SOC",
+      "20%+ cost reduction in vendor contracts"
     ],
     stack: ["RSA Archer", "Qualys", "SAP Security", "Oracle"]
   },
@@ -95,17 +260,17 @@ export const experienceData = [
     scope: {
       teamSize: "15+ professionals",
       regions: "32 countries",
-      platforms: "Enterprise retail & hospitality"
+      platforms: "Retail & hospitality"
     },
     responsibilities: [
       "SOC oversight and threat management",
       "IT security policy development",
-      "Continuous risk management"
+      "Risk management and compliance"
     ],
     outcomes: [
-      "Managed security across 18 malls, 12 hotels, 172 stores",
+      "Managed 18 malls, 12 hotels, 172 stores",
       "Implemented RSA Archer for compliance",
-      "Designed next-gen network security architecture"
+      "Designed next-gen network security"
     ],
     stack: ["RSA Archer", "SIEM", "ISO 27001", "PCI DSS"]
   },
@@ -122,15 +287,15 @@ export const experienceData = [
     },
     responsibilities: [
       "Enterprise UC deployments",
-      "Security consulting and architecture",
+      "Security consulting",
       "IAM implementation"
     ],
     outcomes: [
-      "Delivered multi-million dollar projects",
-      "Standardized infrastructure post-acquisition",
-      "Pioneered cloud-first strategies"
+      "Multi-million dollar project delivery",
+      "Infrastructure standardization",
+      "Cloud-first strategy adoption"
     ],
-    stack: ["Microsoft UC", "Azure", "AWS", "IAM Solutions"]
+    stack: ["Microsoft UC", "Azure", "AWS", "IAM"]
   }
 ];
 
@@ -147,6 +312,14 @@ export const skillsData = {
     "AI-driven SOC workflows",
     "Detection quality metrics",
     "Executive security reporting"
+  ],
+  technicalSkills: [
+    { category: "SIEM/Detection", skills: ["Microsoft Sentinel", "Splunk", "Elastic", "QRadar", "Datadog"] },
+    { category: "Endpoint/XDR", skills: ["CrowdStrike", "Defender XDR", "SentinelOne", "Carbon Black"] },
+    { category: "Cloud Security", skills: ["AWS Security Hub", "Azure Security Center", "CSPM", "Kubernetes"] },
+    { category: "Identity/Access", skills: ["Azure AD", "Okta", "CyberArk", "Conditional Access"] },
+    { category: "GRC/Compliance", skills: ["ISO 27001", "PCI DSS", "SOC 2", "NIST", "RSA Archer"] },
+    { category: "Automation", skills: ["Cortex XSOAR", "Splunk SOAR", "Azure Logic Apps", "ServiceNow"] }
   ]
 };
 
@@ -170,30 +343,6 @@ export const activeBuilding = [
     name: "Security Dashboard Automation",
     description: "Unified executive reporting across multiple security platforms.",
     status: "Production"
-  }
-];
-
-export const projectsData = [
-  {
-    id: 1,
-    title: "Global Security Operations Transformation",
-    problem: "Fragmented security monitoring across 20 countries with slow incident response times.",
-    solution: "Implemented cloud-native SIEM/SOAR solutions and established 24/7 threat monitoring capabilities.",
-    result: "Reduced MTTD by 60%, achieved 99.9% uptime, saved $2M annually through automation."
-  },
-  {
-    id: 2,
-    title: "PCI DSS Compliance Program",
-    problem: "Non-compliant payment systems across 250+ retail locations.",
-    solution: "Designed comprehensive compliance program with tokenization and security controls.",
-    result: "Achieved PCI DSS Level 1 certification with zero data breaches."
-  },
-  {
-    id: 3,
-    title: "Enterprise SOC Establishment",
-    problem: "No centralized threat visibility across 32 countries.",
-    solution: "Built centralized SOC with 24/7 monitoring and integrated threat intelligence.",
-    result: "Reduced incident response time by 40% with unified visibility across all business units."
   }
 ];
 
@@ -239,21 +388,32 @@ export const certificationsData = {
     { name: "CISM", fullName: "Certified Information Security Manager", issuer: "ISACA" },
     { name: "CISA", fullName: "Certified Information Systems Auditor", issuer: "ISACA" },
     { name: "CEH", fullName: "Certified Ethical Hacker", issuer: "EC-Council" },
-    { name: "ISO 27001 Lead Implementer", fullName: "ISO 27001 Lead Implementer", issuer: "PECB" },
-    { name: "ISO 27001 Lead Auditor", fullName: "ISO 27001 Lead Auditor", issuer: "PECB" }
+    { name: "ISO 27001 LI", fullName: "ISO 27001 Lead Implementer", issuer: "PECB" },
+    { name: "ISO 27001 LA", fullName: "ISO 27001 Lead Auditor", issuer: "PECB" }
   ],
   cloud: [
-    { name: "Azure Security Engineer", fullName: "Microsoft Azure Security Engineer", issuer: "Microsoft" },
-    { name: "AWS Security Specialty", fullName: "AWS Certified Security Specialty", issuer: "AWS" }
+    { name: "Azure Security", fullName: "Microsoft Azure Security Engineer", issuer: "Microsoft" },
+    { name: "AWS Security", fullName: "AWS Certified Security Specialty", issuer: "AWS" }
   ],
   leadership: [
     { name: "PMP", fullName: "Project Management Professional", issuer: "PMI" },
-    { name: "ITIL v4 Foundation", fullName: "ITIL v4 Foundation", issuer: "Axelos" },
-    { name: "Six Sigma Green Belt", fullName: "Six Sigma Green Belt", issuer: "ASQ" }
+    { name: "ITIL v4", fullName: "ITIL v4 Foundation", issuer: "Axelos" },
+    { name: "Six Sigma", fullName: "Six Sigma Green Belt", issuer: "ASQ" }
   ],
   dataAI: [
-    { name: "Azure AI Fundamentals", fullName: "Microsoft Azure AI Fundamentals", issuer: "Microsoft" },
-    { name: "Azure Data Fundamentals", fullName: "Microsoft Azure Data Fundamentals", issuer: "Microsoft" },
-    { name: "Power BI Data Analyst", fullName: "Microsoft Power BI Data Analyst", issuer: "Microsoft" }
+    { name: "Azure AI", fullName: "Microsoft Azure AI Fundamentals", issuer: "Microsoft" },
+    { name: "Azure Data", fullName: "Microsoft Azure Data Fundamentals", issuer: "Microsoft" },
+    { name: "Power BI", fullName: "Microsoft Power BI Data Analyst", issuer: "Microsoft" }
   ]
 };
+
+// Industries served
+export const industriesServed = [
+  "Enterprise (Global)",
+  "Banking & Financial Services",
+  "Retail",
+  "Manufacturing",
+  "Healthcare",
+  "Public Sector",
+  "SaaS/Cloud"
+];
