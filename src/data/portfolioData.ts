@@ -411,19 +411,16 @@ export const ninetyDayPlan = {
 export const educationData = [
   {
     degree: "Master of Business Administration (MBA)",
-    institution: "Sikkim Manipal University",
     year: "2013",
     focus: "Information Technology Management"
   },
   {
     degree: "Graduate Diploma in Business Administration (GDBA)",
-    institution: "Symbiosis Centre for Distance Learning",
     year: "2009",
     focus: "Business Administration"
   },
   {
     degree: "Diploma in Computer Applications",
-    institution: "Board of Technical Education, Kerala",
     year: "2003",
     focus: "Computer Applications"
   }
