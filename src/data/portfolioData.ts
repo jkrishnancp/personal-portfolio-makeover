@@ -43,10 +43,61 @@ export const impactHighlights = [
   "Improved SOC detection quality and reduced false positives via telemetry alignment.",
   "Built executive dashboards providing real-time visibility across cloud, endpoint, and identity.",
   "Led 50+ incident investigations with average resolution time under 4 hours and 98% eradication success rate.",
-  "Consolidated overlapping security tools reducing operational complexity.",
+  "Consolidated overlapping security tools reducing operational complexity and saving $400K+ annually.",
   "Delivered automation replacing manual reporting and analysis workflows.",
-  "Achieved 85% phishing simulation pass rate through security awareness training and champion programs."
+  "Achieved 85% phishing simulation pass rate through security awareness training and champion programs.",
+  "Present quarterly security posture and risk updates to C-suite and Audit Committee.",
+  "Negotiated vendor contracts achieving 25% cost reduction on MDR and SIEM renewals."
 ];
+
+export const executiveReporting = {
+  audiences: ["Board of Directors", "Audit Committee", "C-Suite (CEO, CFO, CTO)", "Risk Committee"],
+  deliverables: [
+    "Quarterly security posture reports with risk trending and remediation progress",
+    "Board-ready executive dashboards covering threats, incidents, and compliance status",
+    "Annual security strategy presentations with budget justification and ROI metrics",
+    "Incident briefings translating technical events into business impact narratives"
+  ],
+  kpisDashboards: ["MTTR/MTTD", "Detection coverage %", "Vulnerability SLA compliance", "Phishing click rates", "Third-party risk scores"]
+};
+
+export const costOptimization = {
+  totalSavings: "$1.2M+",
+  highlights: [
+    { action: "SIEM license consolidation", savings: "$400K/year", detail: "Migrated from Splunk to Elastic, reduced ingestion costs" },
+    { action: "MDR vendor renegotiation", savings: "$180K/year", detail: "Competitive RFP achieved 25% cost reduction" },
+    { action: "Tool stack rationalization", savings: "$350K/year", detail: "Eliminated 4 overlapping security tools" },
+    { action: "Automation ROI", savings: "$270K/year", detail: "SOAR reduced manual analyst hours by 40%" }
+  ]
+};
+
+export const thoughtLeadership = {
+  speaking: [
+    "Speaker at regional ISACA chapter events on SOC modernization",
+    "Panelist at cybersecurity leadership roundtables",
+    "Internal knowledge-sharing sessions on Zero Trust and detection engineering"
+  ],
+  contributions: [
+    "Detection rule libraries shared with security community",
+    "Security operations playbook templates",
+    "Mentorship of 20+ security professionals across career levels"
+  ]
+};
+
+export const openToRoles = {
+  headline: "Open to CISO, VP Security, or Director-level opportunities",
+  interests: [
+    "CISO / VP of Security – building and leading enterprise security programs",
+    "Security Operations leadership – scaling SOC, MDR, and detection capabilities",
+    "Strategic advisory – board-level security consulting and fractional CISO engagements",
+    "Consulting – security program assessments, GRC strategy, and transformation initiatives"
+  ],
+  preferences: [
+    "Remote-first or hybrid roles",
+    "Organizations committed to security as a business enabler",
+    "Opportunities to build, not just maintain"
+  ]
+};
 
 // Project categories summarized from 250+ projects database
 export const projectCategories = [
@@ -396,16 +447,34 @@ export const activeBuilding = [
 
 export const ninetyDayPlan = {
   days1to30: {
-    title: "Days 1–30",
-    items: ["Understand security posture", "Validate telemetry", "Identify risk hotspots", "Align stakeholders"]
+    title: "Days 1–30: Discovery & Assessment",
+    items: [
+      "Understand security posture through tooling audit and gap analysis",
+      "Validate telemetry coverage across cloud, endpoint, and identity",
+      "Identify top 5 risk hotspots with remediation owners",
+      "Align with stakeholders (IT, Legal, Compliance, Business Units)"
+    ],
+    outcome: "Deliver Security State Assessment with prioritized risk register"
   },
   days31to60: {
-    title: "Days 31–60",
-    items: ["Stabilize SOC operations", "Improve detection quality", "Close high-risk gaps"]
+    title: "Days 31–60: Stabilization & Quick Wins",
+    items: [
+      "Stabilize SOC operations – refine escalation paths and SLAs",
+      "Improve detection quality – tune high-noise alerts, add ATT&CK coverage",
+      "Close 3 high-risk gaps identified in Day 30 assessment",
+      "Launch security champion pilot in 2 business units"
+    ],
+    outcome: "Publish first KPI dashboard: MTTR, detection coverage %, SLA compliance"
   },
   days61to90: {
-    title: "Days 61–90",
-    items: ["Deliver automation", "Publish KPIs", "Present roadmap"]
+    title: "Days 61–90: Scale & Strategic Roadmap",
+    items: [
+      "Deliver first automation wins – SOAR playbooks for top 5 use cases",
+      "Present 12-month security roadmap to C-suite with budget requirements",
+      "Establish quarterly business review cadence with executive sponsors",
+      "Define Year 1 OKRs: reduce MTTR by 30%, achieve 90% detection coverage"
+    ],
+    outcome: "Board-ready roadmap with KPIs: risk reduction trajectory, compliance milestones, cost projections"
   }
 };
 

@@ -1,5 +1,5 @@
-import { profileData, summaryData, statsData, securityPhilosophy, impactHighlights, experienceData, skillsData, activeBuilding, featuredProjects, projectCategories, ninetyDayPlan, educationData, certificationsData, industriesServed } from "@/data/portfolioData";
-import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, CheckCircle2, ChevronLeft } from "lucide-react";
+import { profileData, summaryData, statsData, securityPhilosophy, impactHighlights, experienceData, skillsData, activeBuilding, featuredProjects, projectCategories, ninetyDayPlan, educationData, certificationsData, industriesServed, executiveReporting, costOptimization, thoughtLeadership, openToRoles } from "@/data/portfolioData";
+import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, CheckCircle2, ChevronLeft, Users, DollarSign, Mic, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { useRef, useState } from "react";
@@ -499,6 +499,81 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Executive Reporting & Board Communication */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-primary/5 to-accent/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="section-label">Executive Presence</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Board & C-Suite Communication</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="card-executive p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold font-display">Audiences</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {executiveReporting.audiences.map((audience, i) => (
+                  <span key={i} className="px-3 py-1.5 text-sm bg-primary/10 text-primary rounded-full font-medium">{audience}</span>
+                ))}
+              </div>
+            </div>
+            <div className="card-executive p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold font-display">KPIs & Dashboards</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {executiveReporting.kpisDashboards.map((kpi, i) => (
+                  <span key={i} className="px-3 py-1.5 text-sm bg-muted text-muted-foreground rounded">{kpi}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 card-executive p-6">
+            <h3 className="text-lg font-bold mb-4 font-display">Deliverables</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              {executiveReporting.deliverables.map((item, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Cost Optimization */}
+      <section className="py-20 px-6 md:px-12 lg:px-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="section-label">Value Delivered</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Cost Optimization</h2>
+            <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
+              <DollarSign className="w-5 h-5" />
+              <span className="text-2xl font-bold">{costOptimization.totalSavings}</span>
+              <span className="text-sm">Total Annual Savings</span>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {costOptimization.highlights.map((item, index) => (
+              <div key={index} className="card-executive p-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-bold font-display">{item.action}</h3>
+                  <span className="px-3 py-1 text-sm bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full font-semibold">{item.savings}</span>
+                </div>
+                <p className="text-muted-foreground">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 90-Day Plan */}
       <section className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
         <div className="max-w-6xl mx-auto">
@@ -513,16 +588,107 @@ const Index = () => {
                   <span className="text-lg font-bold text-accent">{index + 1}</span>
                 </div>
                 <h3 className="text-xl font-bold text-primary mb-4 font-display">{phase.title}</h3>
-                <ul className="space-y-3">
+                <ul className="space-y-3 mb-4">
                   {phase.items.map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-muted-foreground">
-                      <ChevronRight className="w-4 h-4 text-accent flex-shrink-0" />
+                    <li key={i} className="flex items-start gap-3 text-muted-foreground text-sm">
+                      <ChevronRight className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
                       {item}
                     </li>
                   ))}
                 </ul>
+                <div className="pt-4 border-t border-border">
+                  <div className="flex items-center gap-2 text-accent">
+                    <Target className="w-4 h-4" />
+                    <span className="text-sm font-medium">Outcome:</span>
+                  </div>
+                  <p className="text-sm text-foreground mt-1">{phase.outcome}</p>
+                </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Thought Leadership */}
+      <section className="py-20 px-6 md:px-12 lg:px-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="section-label">Influence</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Thought Leadership</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="card-executive p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <Mic className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold font-display">Speaking & Panels</h3>
+              </div>
+              <ul className="space-y-4">
+                {thoughtLeadership.speaking.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="card-executive p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold font-display">Community Contributions</h3>
+              </div>
+              <ul className="space-y-4">
+                {thoughtLeadership.contributions.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Open To Roles */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-accent/10 to-primary/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="section-label">Opportunities</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">{openToRoles.headline}</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="card-executive p-6">
+              <h3 className="text-lg font-bold mb-4 font-display flex items-center gap-2">
+                <Briefcase className="w-5 h-5 text-accent" />
+                Role Interests
+              </h3>
+              <ul className="space-y-3">
+                {openToRoles.interests.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <ChevronRight className="w-4 h-4 text-accent flex-shrink-0 mt-1" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="card-executive p-6">
+              <h3 className="text-lg font-bold mb-4 font-display flex items-center gap-2">
+                <Target className="w-5 h-5 text-accent" />
+                Preferences
+              </h3>
+              <ul className="space-y-3">
+                {openToRoles.preferences.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
