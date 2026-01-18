@@ -443,7 +443,7 @@ const Index = () => {
           {/* Top Strengths & Leveling Up */}
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             <div className="card-executive p-8">
-              <h3 className="text-xl font-semibold mb-6 flex items-center gap-3 font-display">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-3 font-display">
                 <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
                   <Shield className="w-5 h-5 text-accent" />
                 </div>
@@ -458,7 +458,7 @@ const Index = () => {
               </div>
             </div>
             <div className="card-executive p-8">
-              <h3 className="text-xl font-semibold mb-6 flex items-center gap-3 font-display">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-3 font-display">
                 <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
                   <TrendingUp className="w-5 h-5 text-accent" />
                 </div>
@@ -478,7 +478,7 @@ const Index = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {skillsData.technicalSkills.map((category, index) => (
               <div key={index} className="card-executive p-6">
-                <h4 className="font-semibold mb-4">{category.category}</h4>
+                <h4 className="font-bold mb-4 font-display">{category.category}</h4>
                 <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill, i) => (
                     <span key={i} className="px-2 py-1 text-xs bg-muted text-muted-foreground rounded">{skill}</span>
@@ -501,7 +501,7 @@ const Index = () => {
             {activeBuilding.map((project, index) => (
               <div key={index} className="card-executive p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold font-display">{project.name}</h3>
+                  <h3 className="text-xl font-bold font-display">{project.name}</h3>
                   <span className={`px-3 py-1 text-xs font-medium rounded ${
                     project.status === 'Production' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
                     project.status === 'Active development' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
@@ -554,7 +554,7 @@ const Index = () => {
             </div>
           </div>
           <div className="mt-8 card-executive p-6">
-            <h3 className="text-lg font-bold mb-4 font-display">Deliverables</h3>
+            <h3 className="text-xl font-bold mb-4 font-display">Deliverables</h3>
             <div className="grid md:grid-cols-2 gap-4">
               {executiveReporting.deliverables.map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -583,7 +583,7 @@ const Index = () => {
             {costOptimization.highlights.map((item, index) => (
               <div key={index} className="card-executive p-6">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-bold font-display">{item.action}</h3>
+                  <h3 className="text-xl font-bold font-display">{item.action}</h3>
                   <span className="px-3 py-1 text-sm bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full font-semibold">{item.savings}</span>
                 </div>
                 <p className="text-muted-foreground">{item.detail}</p>
@@ -681,7 +681,7 @@ const Index = () => {
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="card-executive p-6">
-              <h3 className="text-lg font-bold mb-4 font-display flex items-center gap-2">
+              <h3 className="text-xl font-bold mb-4 font-display flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-accent" />
                 Role Interests
               </h3>
@@ -695,7 +695,7 @@ const Index = () => {
               </ul>
             </div>
             <div className="card-executive p-6">
-              <h3 className="text-lg font-bold mb-4 font-display flex items-center gap-2">
+              <h3 className="text-xl font-bold mb-4 font-display flex items-center gap-2">
                 <Target className="w-5 h-5 text-accent" />
                 Preferences
               </h3>
@@ -727,7 +727,7 @@ const Index = () => {
                 <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4">
                   <GraduationCap className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="font-bold font-display">{edu.degree}</h3>
+                <h3 className="text-xl font-bold font-display">{edu.degree}</h3>
                 <p className="text-muted-foreground text-sm mt-2">{edu.year} • {edu.focus}</p>
               </div>
             ))}
@@ -736,7 +736,7 @@ const Index = () => {
           {/* Certifications Row */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="card-executive p-6">
-              <h3 className="font-semibold text-lg flex items-center gap-2 mb-4 font-display">
+              <h3 className="text-xl font-bold flex items-center gap-2 mb-4 font-display">
                 <Shield className="w-5 h-5 text-accent" />
                 Cybersecurity
               </h3>
@@ -747,7 +747,7 @@ const Index = () => {
               </div>
             </div>
             <div className="card-executive p-6">
-              <h3 className="font-semibold text-lg flex items-center gap-2 mb-4 font-display">
+              <h3 className="text-xl font-bold flex items-center gap-2 mb-4 font-display">
                 <Zap className="w-5 h-5 text-accent" />
                 Cloud
               </h3>
@@ -758,7 +758,7 @@ const Index = () => {
               </div>
             </div>
             <div className="card-executive p-6">
-              <h3 className="font-semibold text-lg flex items-center gap-2 mb-4 font-display">
+              <h3 className="text-xl font-bold flex items-center gap-2 mb-4 font-display">
                 <Award className="w-5 h-5 text-accent" />
                 Leadership
               </h3>
@@ -769,7 +769,7 @@ const Index = () => {
               </div>
             </div>
             <div className="card-executive p-6">
-              <h3 className="font-semibold text-lg flex items-center gap-2 mb-4 font-display">
+              <h3 className="text-xl font-bold flex items-center gap-2 mb-4 font-display">
                 <Target className="w-5 h-5 text-accent" />
                 Data & AI
               </h3>
