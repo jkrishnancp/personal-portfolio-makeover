@@ -150,91 +150,49 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Career Timeline - Visual Journey */}
-      <section className="py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden relative">
-        {/* Background decorations */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="max-w-6xl mx-auto relative z-10">
+      {/* Career Timeline - Elegant Vertical */}
+      <section className="py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-slate-900 to-slate-800 text-white">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-accent text-sm font-medium uppercase tracking-widest">Journey</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Career Progression</h2>
             <p className="text-white/60 mt-4">20+ years building security programs</p>
           </div>
           
-          {/* Timeline with years bar */}
+          {/* Vertical Timeline */}
           <div className="relative">
-            {/* Year markers - Desktop only */}
-            <div className="hidden md:flex justify-between items-center mb-4 px-2 text-xs text-white/50">
-              <span>2005</span>
-              <span>2010</span>
-              <span>2015</span>
-              <span>2020</span>
-              <span>Present</span>
-            </div>
+            {/* Central line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent via-cyan-400 to-emerald-400 transform -translate-x-1/2"></div>
             
-            {/* Progress bar background */}
-            <div className="hidden md:block h-3 bg-white/10 rounded-full mb-8 overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 via-teal-500 via-amber-500 to-emerald-500 rounded-full" style={{ width: '100%' }}></div>
-            </div>
-            
-            {/* Career cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="space-y-0">
               {careerTimeline.map((item, index) => {
-                const colors = [
-                  { gradient: 'from-blue-500/20 to-blue-600/5', border: 'border-blue-500/40', badge: 'bg-blue-500' },
-                  { gradient: 'from-cyan-500/20 to-cyan-600/5', border: 'border-cyan-500/40', badge: 'bg-cyan-500' },
-                  { gradient: 'from-teal-500/20 to-teal-600/5', border: 'border-teal-500/40', badge: 'bg-teal-500' },
-                  { gradient: 'from-purple-500/20 to-purple-600/5', border: 'border-purple-500/40', badge: 'bg-purple-500' },
-                  { gradient: 'from-amber-500/20 to-amber-600/5', border: 'border-amber-500/40', badge: 'bg-amber-500' },
-                  { gradient: 'from-emerald-500/20 to-emerald-600/5', border: 'border-emerald-500/40', badge: 'bg-emerald-500' },
-                ];
-                const color = colors[index % colors.length];
+                const isLeft = index % 2 === 0;
+                const colors = ['bg-blue-500', 'bg-cyan-500', 'bg-teal-500', 'bg-purple-500', 'bg-amber-500', 'bg-emerald-500'];
+                const bgColor = colors[index % colors.length];
                 
                 return (
-                  <div 
-                    key={index} 
-                    className={`relative p-6 rounded-2xl bg-gradient-to-br ${color.gradient} border ${color.border} backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:shadow-xl group`}
-                  >
-                    {/* Step number */}
-                    <div className={`absolute -top-3 -left-3 w-10 h-10 ${color.badge} rounded-full flex items-center justify-center shadow-lg`}>
-                      <span className="text-white font-bold">{index + 1}</span>
-                    </div>
-                    
-                    {/* Duration badge */}
-                    <div className="flex justify-end mb-4">
-                      <span className={`px-3 py-1 text-xs font-bold ${color.badge} text-white rounded-full`}>
-                        {item.years}
-                      </span>
-                    </div>
-                    
+                  <div key={index} className={`relative flex items-center ${isLeft ? 'flex-row' : 'flex-row-reverse'} group`}>
                     {/* Content */}
-                    <h3 className="text-lg font-bold text-white mb-2 pr-4">{item.stage}</h3>
-                    <p className="text-white/60 text-sm mb-3">{item.focus}</p>
-                    
-                    {/* Period */}
-                    <div className="flex items-center gap-2 text-white/40 text-xs">
-                      <div className="w-2 h-2 rounded-full bg-white/40"></div>
-                      {item.period}
-                    </div>
-                    
-                    {/* Cumulative years indicator */}
-                    <div className="mt-4 pt-4 border-t border-white/10">
-                      <div className="flex items-center justify-between">
-                        <span className="text-white/40 text-xs">Total Experience</span>
-                        <span className="text-accent font-bold">{item.cumulative}+ yrs</span>
-                      </div>
-                      {/* Mini progress bar */}
-                      <div className="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full ${color.badge} rounded-full transition-all duration-500`}
-                          style={{ width: `${(item.cumulative / 21) * 100}%` }}
-                        ></div>
+                    <div className={`w-5/12 ${isLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                      <div className={`p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm transform transition-all duration-300 group-hover:bg-white/10 group-hover:scale-105`}>
+                        <div className={`inline-block px-3 py-1 ${bgColor} text-white text-xs font-bold rounded-full mb-3`}>
+                          {item.years}
+                        </div>
+                        <h3 className="text-lg font-bold text-white">{item.stage}</h3>
+                        <p className="text-white/60 text-sm mt-1">{item.focus}</p>
+                        <p className="text-white/40 text-xs mt-2">{item.period}</p>
                       </div>
                     </div>
+                    
+                    {/* Center node */}
+                    <div className="w-2/12 flex justify-center relative z-10">
+                      <div className={`w-12 h-12 ${bgColor} rounded-full flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110`}>
+                        <span className="text-white font-bold">{index + 1}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Empty space */}
+                    <div className="w-5/12"></div>
                   </div>
                 );
               })}
@@ -324,16 +282,20 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Projects */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
+      {/* Featured Projects - Horizontal Carousel */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50 overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="section-label">Highlights</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Featured Projects</h2>
           </div>
-          <div className="grid lg:grid-cols-2 gap-6">
-            {featuredProjects.map((project) => (
-              <div key={project.id} className="card-executive p-6">
+        </div>
+        
+        {/* Scrolling carousel */}
+        <div className="relative">
+          <div className="flex gap-6 animate-scroll hover:pause-animation">
+            {[...featuredProjects, ...featuredProjects].map((project, idx) => (
+              <div key={idx} className="flex-shrink-0 w-[400px] card-executive p-6 bg-card">
                 <div className="flex items-center justify-between mb-4">
                   <span className="px-3 py-1 text-xs bg-accent/10 text-accent rounded font-medium">{project.category}</span>
                   <span className="text-sm text-muted-foreground">{project.duration}</span>
@@ -343,19 +305,19 @@ const Index = () => {
                 <div className="space-y-3 text-sm mt-4">
                   <div>
                     <span className="font-semibold text-red-600 dark:text-red-400">Problem:</span>
-                    <p className="text-muted-foreground mt-1">{project.problem}</p>
+                    <p className="text-muted-foreground mt-1 line-clamp-2">{project.problem}</p>
                   </div>
                   <div>
                     <span className="font-semibold text-accent">Solution:</span>
-                    <p className="text-muted-foreground mt-1">{project.solution}</p>
+                    <p className="text-muted-foreground mt-1 line-clamp-2">{project.solution}</p>
                   </div>
                   <div>
                     <span className="font-semibold text-green-600 dark:text-green-400">Result:</span>
-                    <p className="text-muted-foreground mt-1">{project.result}</p>
+                    <p className="text-muted-foreground mt-1 line-clamp-2">{project.result}</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
-                  {project.technologies.map((tech, i) => (
+                  {project.technologies.slice(0, 3).map((tech, i) => (
                     <span key={i} className="px-2 py-1 text-xs bg-primary/5 text-primary border border-primary/20 rounded">{tech}</span>
                   ))}
                 </div>
@@ -365,67 +327,74 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Experience */}
+      {/* Experience - Box Layout */}
       <section id="experience" className="py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="section-label">Experience</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Professional History</h2>
           </div>
-          <div className="space-y-6">
-            {experienceData.map((job) => (
-              <div key={job.id} className="card-executive p-8">
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                  <div>
-                    <h3 className="text-xl font-bold font-display">{job.title}</h3>
-                    <p className="text-accent font-semibold mt-1">{job.company}</p>
-                    <p className="text-muted-foreground text-sm mt-1">{job.location} • {job.period}</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {experienceData.map((job, index) => {
+              const colors = [
+                'border-l-blue-500',
+                'border-l-cyan-500',
+                'border-l-teal-500',
+                'border-l-purple-500',
+                'border-l-amber-500',
+                'border-l-emerald-500',
+              ];
+              const borderColor = colors[index % colors.length];
+              
+              return (
+                <div key={job.id} className={`card-executive p-6 border-l-4 ${borderColor} hover:shadow-lg transition-shadow`}>
+                  {/* Header */}
+                  <div className="mb-4">
+                    <span className="inline-block px-2 py-1 text-xs bg-accent/10 text-accent rounded mb-2">{job.period}</span>
+                    <h3 className="text-lg font-bold font-display leading-tight">{job.title}</h3>
+                    <p className="text-accent font-semibold text-sm mt-1">{job.company}</p>
+                    <p className="text-muted-foreground text-xs mt-1">{job.location}</p>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {job.stack.map((tech, i) => (
-                      <span key={i} className="px-3 py-1 text-xs bg-primary/5 text-primary border border-primary/20 rounded">
+                  
+                  {/* Scope */}
+                  <div className="mb-4 p-3 bg-muted/50 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Briefcase className="w-4 h-4 text-accent" />
+                      <span className="text-xs font-semibold text-foreground">Scope</span>
+                    </div>
+                    <div className="text-xs text-muted-foreground space-y-1">
+                      <p>Team: {job.scope.teamSize}</p>
+                      <p>Regions: {job.scope.regions}</p>
+                    </div>
+                  </div>
+                  
+                  {/* Key Outcomes */}
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <TrendingUp className="w-4 h-4 text-accent" />
+                      <span className="text-xs font-semibold text-foreground">Key Outcomes</span>
+                    </div>
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      {job.outcomes.slice(0, 2).map((o, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-accent mt-0.5">•</span>
+                          {o}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-1 pt-3 border-t border-border">
+                    {job.stack.slice(0, 3).map((tech, i) => (
+                      <span key={i} className="px-2 py-0.5 text-xs bg-primary/5 text-primary border border-primary/20 rounded">
                         {tech}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div className="grid md:grid-cols-3 gap-8 text-sm">
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                      <Briefcase className="w-4 h-4 text-accent" />
-                      Scope
-                    </h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>Team: {job.scope.teamSize}</li>
-                      <li>Regions: {job.scope.regions}</li>
-                      <li>Platforms: {job.scope.platforms}</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                      <Target className="w-4 h-4 text-accent" />
-                      Responsibilities
-                    </h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                      {job.responsibilities.map((r, i) => (
-                        <li key={i}>• {r}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4 text-accent" />
-                      Outcomes
-                    </h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                      {job.outcomes.map((o, i) => (
-                        <li key={i}>• {o}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
