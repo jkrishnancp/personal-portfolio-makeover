@@ -10,7 +10,7 @@ export const profileData = {
 };
 
 export const summaryData = {
-  text: `I am a cybersecurity leader with deep experience across security operations, cloud security, vulnerability management, and governance programs. I specialize in building practical, measurable security capabilities that scale across complex enterprise environments. My work focuses on transforming security from reactive operations into reliable systems: improving detection quality, reducing exposure, automating visibility, and aligning security priorities with business risk. Today, I continue to invest in detection engineering, automation, and AI-driven security workflows while leading programs that strengthen operational maturity and executive-level decision making.`
+  text: `I am a cybersecurity leader with deep experience across security operations, cloud security, vulnerability management, and governance programs. I specialize in building practical, measurable security capabilities that scale across complex enterprise environments. My work focuses on transforming security from reactive operations into reliable systems: improving detection quality, reducing exposure, automating visibility, and aligning security priorities with business risk. I translate security strategy into executive-ready risk narratives and regulatory compliance programs. Today, I continue to invest in detection engineering, automation, and AI-driven security workflows while leading programs that strengthen operational maturity and executive-level decision making.`
 };
 
 export const statsData = {
@@ -26,7 +26,7 @@ export const careerTimeline = [
   { stage: "Senior Security Analyst", focus: "Security expertise", years: "1 yr", period: "2011-2012", cumulative: 8 },
   { stage: "Team Lead", focus: "Operational execution", years: "1 yr", period: "2012-2013", cumulative: 9 },
   { stage: "Manager - Security Ops", focus: "Process + People", years: "10 yrs", period: "2013-2023", cumulative: 19 },
-  { stage: "Senior Director", focus: "Strategy + Scale", years: "2+ yrs", period: "2023-Present", cumulative: 21 }
+  { stage: "Senior Director", focus: "Strategy + Scale", years: "3 yrs", period: "2023-Present", cumulative: 22 }
 ];
 
 export const securityPhilosophy = [
@@ -42,9 +42,10 @@ export const impactHighlights = [
   "Reduced vulnerability remediation backlog by 40% through redesigned prioritization and workflows.",
   "Improved SOC detection quality and reduced false positives via telemetry alignment.",
   "Built executive dashboards providing real-time visibility across cloud, endpoint, and identity.",
-  "Standardized incident response processes improving MTTR and consistency.",
+  "Led 50+ incident investigations with average resolution time under 4 hours and 98% eradication success rate.",
   "Consolidated overlapping security tools reducing operational complexity.",
-  "Delivered automation replacing manual reporting and analysis workflows."
+  "Delivered automation replacing manual reporting and analysis workflows.",
+  "Achieved 85% phishing simulation pass rate through security awareness training and champion programs."
 ];
 
 // Project categories summarized from 250+ projects database
@@ -209,9 +210,9 @@ export const experienceData = [
   {
     id: 1,
     title: "Senior Director - Security Operations",
-    company: "UltraViolet Cyber",
+    company: "UltraViolet Cyber (MDR provider serving 500+ enterprises)",
     location: "San Francisco Bay Area",
-    period: "2023 – Present (2+ years)",
+    period: "2023 – Present (3 years)",
     scope: {
       teamSize: "Global SOC teams",
       regions: "Multi-region",
@@ -232,7 +233,7 @@ export const experienceData = [
   {
     id: 2,
     title: "Manager - Security Operations",
-    company: "METMOX",
+    company: "METMOX (Cybersecurity consulting firm)",
     location: "San Francisco Bay Area",
     period: "2013 – 2023 (10 years)",
     scope: {
@@ -255,7 +256,7 @@ export const experienceData = [
   {
     id: 3,
     title: "Team Lead - Incident Management",
-    company: "Verizon Business",
+    company: "Verizon Business (Global telecom & managed security)",
     location: "Mumbai, India",
     period: "2012 – 2013 (1 year)",
     scope: {
@@ -278,7 +279,7 @@ export const experienceData = [
   {
     id: 4,
     title: "Senior Security Analyst",
-    company: "Super Computers Trading",
+    company: "Super Computers Trading (Enterprise IT solutions)",
     location: "Abu Dhabi, UAE",
     period: "2011 – 2012 (8 months)",
     scope: {
@@ -301,7 +302,7 @@ export const experienceData = [
   {
     id: 5,
     title: "Assistant Manager - Information Security",
-    company: "Geojit Financial Services",
+    company: "Geojit Financial Services (Stock brokerage & wealth management)",
     location: "Cochin, India",
     period: "2007 – 2011 (4 years 8 months)",
     scope: {
@@ -324,7 +325,7 @@ export const experienceData = [
   {
     id: 6,
     title: "System Administrator",
-    company: "Safe Software",
+    company: "Safe Software (Software development firm)",
     location: "Palakkad, India",
     period: "2005 – 2007 (2 years)",
     scope: {
