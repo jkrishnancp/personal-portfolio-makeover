@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ExternalLink } from "lucide-react";
+import { Menu, X, ExternalLink, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import profileAvatar from "@/assets/profile-avatar.jpg";
 
 const navItems = [
   { label: "Summary", href: "#summary" },
@@ -15,6 +23,12 @@ const navItems = [
 
 const externalLinks = [
   { label: "Security Blueprints", href: "/security-blueprints.html" },
+  { label: "Cyber Periodic Table", href: "/cybersecurity-periodic-table.html" },
+];
+
+const dropdownLinks = [
+  { label: "Blog", href: "https://jayakrishnancp.tech" },
+  { label: "n8n Projects", href: "https://n8n.jayakrishnancp.com" },
   { label: "Cyber Periodic Table", href: "/cybersecurity-periodic-table.html" },
 ];
 
@@ -83,6 +97,33 @@ export function Header() {
                 {item.label}
               </a>
             ))}
+            
+            {/* Avatar Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-9 w-9 rounded-full ml-2 p-0">
+                  <Avatar className="h-9 w-9 border-2 border-accent">
+                    <AvatarImage src={profileAvatar} alt="Jay Prakash" />
+                    <AvatarFallback className="bg-accent text-accent-foreground">JP</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
+                {dropdownLinks.map((item) => (
+                  <DropdownMenuItem key={item.label} asChild>
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith("http") ? "_blank" : undefined}
+                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      {item.label}
+                      {item.href.startsWith("http") && <ExternalLink className="w-3 h-3 ml-auto" />}
+                    </a>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
 
           {/* Mobile Menu Button */}
