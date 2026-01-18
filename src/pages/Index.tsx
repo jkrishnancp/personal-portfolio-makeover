@@ -1,9 +1,16 @@
 import { profileData, summaryData, statsData, securityPhilosophy, impactHighlights, experienceData, skillsData, activeBuilding, featuredProjects, projectCategories, ninetyDayPlan, educationData, certificationsData, industriesServed, executiveReporting, costOptimization, thoughtLeadership, openToRoles } from "@/data/portfolioData";
-import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, CheckCircle2, ChevronLeft, Users, DollarSign, Mic, Sparkles } from "lucide-react";
+import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, CheckCircle2, ChevronLeft, Users, DollarSign, Mic, Sparkles, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { useRef, useState } from "react";
 import executiveSummaryBg from "@/assets/executive-summary-bg.jpg";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 const Index = () => {
   const portfolioRef = useRef<HTMLDivElement>(null);
@@ -15,6 +22,7 @@ const Index = () => {
   const [featuredCanScrollRight, setFeaturedCanScrollRight] = useState(true);
   const [experienceCanScrollLeft, setExperienceCanScrollLeft] = useState(false);
   const [experienceCanScrollRight, setExperienceCanScrollRight] = useState(true);
+  const [selectedExperience, setSelectedExperience] = useState<typeof experienceData[0] | null>(null);
 
   const checkScroll = (ref: React.RefObject<HTMLDivElement>, setLeft: (v: boolean) => void, setRight: (v: boolean) => void) => {
     if (ref.current) {
@@ -354,9 +362,13 @@ const Index = () => {
                   'border-l-emerald-500',
                 ];
                 const borderColor = colors[index % colors.length];
-                
+
                 return (
-                  <div key={job.id} className={`w-[340px] flex-shrink-0 card-executive p-6 border-l-4 ${borderColor} hover:shadow-lg transition-shadow`}>
+                  <div
+                    key={job.id}
+                    className={`w-[340px] flex-shrink-0 card-executive p-6 border-l-4 ${borderColor} hover:shadow-lg transition-all cursor-pointer hover:scale-[1.02]`}
+                    onClick={() => setSelectedExperience(job)}
+                  >
                     {/* Header */}
                     <div className="mb-4">
                       <span className="inline-block px-2 py-1 text-xs bg-accent/10 text-accent rounded mb-2">{job.period}</span>
@@ -364,7 +376,7 @@ const Index = () => {
                       <p className="text-accent font-semibold text-sm mt-1">{job.company}</p>
                       <p className="text-muted-foreground text-xs mt-1">{job.location}</p>
                     </div>
-                    
+
                     {/* Scope */}
                     <div className="mb-4 p-3 bg-muted/50 rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
@@ -376,7 +388,7 @@ const Index = () => {
                         <p>Regions: {job.scope.regions}</p>
                       </div>
                     </div>
-                    
+
                     {/* Key Outcomes */}
                     <div className="mb-4">
                       <div className="flex items-center gap-2 mb-2">
@@ -392,7 +404,7 @@ const Index = () => {
                         ))}
                       </ul>
                     </div>
-                    
+
                     {/* Tech Stack */}
                     <div className="flex flex-wrap gap-1 pt-3 border-t border-border">
                       {job.stack.slice(0, 3).map((tech, i) => (
@@ -400,6 +412,11 @@ const Index = () => {
                           {tech}
                         </span>
                       ))}
+                    </div>
+
+                    {/* Click hint */}
+                    <div className="mt-3 text-xs text-muted-foreground/60 text-center">
+                      Click to view details
                     </div>
                   </div>
                 );
@@ -788,6 +805,95 @@ const Index = () => {
           </p>
         </div>
       </footer>
+
+      {/* Experience Details Dialog */}
+      <Dialog open={!!selectedExperience} onOpenChange={(open) => !open && setSelectedExperience(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          {selectedExperience && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-xl font-bold font-display text-foreground">
+                  {selectedExperience.title}
+                </DialogTitle>
+                <DialogDescription asChild>
+                  <div className="space-y-3 pt-2">
+                    <p className="text-accent font-semibold text-base">
+                      {selectedExperience.company}
+                    </p>
+                    <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4" />
+                        {selectedExperience.period}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="w-4 h-4" />
+                        {selectedExperience.location}
+                      </span>
+                    </div>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-6 mt-4">
+                {/* Scope */}
+                <div className="p-4 bg-muted/50 rounded-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Briefcase className="w-5 h-5 text-accent" />
+                    <span className="font-semibold text-foreground">Scope</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    <p><span className="font-medium text-foreground">Team:</span> {selectedExperience.scope.teamSize}</p>
+                    <p><span className="font-medium text-foreground">Regions:</span> {selectedExperience.scope.regions}</p>
+                    <p><span className="font-medium text-foreground">Platforms:</span> {selectedExperience.scope.platforms}</p>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Target className="w-5 h-5 text-accent" />
+                    <span className="font-semibold text-foreground">Role Overview</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {selectedExperience.description}
+                  </div>
+                </div>
+
+                {/* Key Outcomes */}
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <TrendingUp className="w-5 h-5 text-accent" />
+                    <span className="font-semibold text-foreground">Key Outcomes</span>
+                  </div>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    {selectedExperience.outcomes.map((outcome, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                        {outcome}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Tech Stack */}
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Shield className="w-5 h-5 text-accent" />
+                    <span className="font-semibold text-foreground">Technologies & Tools</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedExperience.stack.map((tech, i) => (
+                      <span key={i} className="px-3 py-1 text-sm bg-primary/10 text-primary border border-primary/20 rounded-full">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

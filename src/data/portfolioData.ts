@@ -279,7 +279,17 @@ export const experienceData = [
       "Led phishing defense and SOAR solutions implementation",
       "Ensured seamless security operations in hybrid and cloud environments"
     ],
-    stack: ["Zero Trust", "AI/ML", "MDR", "XDR", "SOAR"]
+    stack: ["Zero Trust", "AI/ML", "MDR", "XDR", "SOAR"],
+    description: `As the Senior Director of Security Operations at UltraViolet Cyber, I focus on delivering practical, results-driven cybersecurity solutions tailored to meet enterprise needs. Over my career, I've led transformative projects, including implementing Zero Trust architectures (ZIA and ZPA), deploying AI-powered tools for proactive threat detection, and rolling out enterprise-grade EDR solutions. My hands-on approach ensures that critical projects are completed efficiently—often within 90-120 days—while maintaining 100% SLA compliance.
+
+Building and leading teams is a passion of mine. From creating MDR operations to driving security processes for SIEM, XDR, CASB, and CSPM, I strive to develop teams that can take on the toughest security challenges with confidence. I'm also deeply involved in leveraging AI and automation, such as SOAR platforms, to simplify incident response and improve resolution times.
+
+Key Responsibilities:
+• Lead security operations strategy and execution for 500+ enterprise clients
+• Drive Zero Trust adoption and AI-powered threat detection initiatives
+• Manage global SOC teams across multiple regions and time zones
+• Ensure 100% SLA compliance while delivering projects within 90-120 days
+• Collaborate with C-suite executives on security roadmaps and risk management`
   },
   {
     id: 2,
@@ -302,7 +312,18 @@ export const experienceData = [
       "Designed scalable security programs aligned with business goals",
       "Enhanced operational efficiency and resilience"
     ],
-    stack: ["SIEM", "EDR", "Cloud Security", "DLP"]
+    stack: ["SIEM", "EDR", "Cloud Security", "DLP"],
+    description: `Evaluated current security processes, tools, and practices as a member of the information security team reporting directly to the CISO. Charged with evaluating the effectiveness of current solutions and identifying gaps in security protection. Developed a comprehensive security architecture framework to evaluate and manage security architecture strategy for both traditional on-premises and cloud environments.
+
+Worked with vendors and cross-organizationally to identify, evaluate, and test (pilot) solutions. Technologies evaluated included data loss prevention (DLP), endpoint detection and response (EDR), traditional endpoint security, email security solutions (on-prem and Office 365), network security tools and capabilities, identity and access management tools and capabilities, application security practices, and cloud security tools.
+
+Key Responsibilities:
+• Lead the response to Cyber Security threats and incidents for the collection, analysis, and preservation of digital evidence
+• Oversee day-to-day operations of multiple teams of security analysts and investigators
+• Manage critical security infrastructure including IPS, SIEM, and endpoint protection
+• Conduct root cause analysis to identify gaps and recommendations ultimately remediating risks to the firm
+• Plan, research, and design robust security architectures
+• Define, implement and maintain corporate security policies and procedures`
   },
   {
     id: 3,
@@ -325,7 +346,17 @@ export const experienceData = [
       "Standardized incident handling procedures",
       "Enhanced team capabilities and performance"
     ],
-    stack: ["Incident Response", "SIEM", "SOC Operations"]
+    stack: ["Incident Response", "SIEM", "SOC Operations"],
+    description: `As a member of the enterprise architecture team, charged with broad responsibilities to inject security practices into the overall application stack. Reviewed overall environment and developed an incremental roadmap for addressing critical gaps and charting a progressive course to more effective enterprise security over time. Included collaborating with the team driving a DevOps initiative, as well as initiating changes to implement and leverage SecOps automation.
+
+Key Responsibilities:
+• Analysis of organization's overall security risks and requirements, rating the importance of company's products and offerings
+• Design, configuration, implementation and support of the information infrastructure to protect the business from potential security breaches
+• Create reports for assigned areas of responsibility; Manage Security Programs
+• Lead and mentor a team of 6 people and took ownership of their deliverables
+• Monitor security audit and intrusion detection system logs for system and network anomalies
+• Investigate and escalate security violations, attempts to gain unauthorized access, virus infections that may affect the network
+• Assist in performing product evaluations and recommends products/services for network security`
   },
   {
     id: 4,
@@ -348,7 +379,17 @@ export const experienceData = [
       "Implemented security monitoring solutions",
       "Reduced vulnerability exposure"
     ],
-    stack: ["Security Analysis", "Vulnerability Assessment", "SIEM"]
+    stack: ["Security Analysis", "Vulnerability Assessment", "SIEM"],
+    description: `Held multifaceted responsibilities including implementation, design architecture, upgrades, health checks and advanced troubleshooting.
+
+Key Responsibilities:
+• Address and administer peer-level client relationships
+• Facilitate participation in business development and technical pre-sales activities
+• Primary contact for operations and SOC Operations
+• Designing, implementation, integration, and administration of SIEM technologies
+• Conduct knowledge transfer and security awareness sessions for resources
+• Vulnerability Assessment and Penetration Testing
+• Being primary contacts for operations and SOC Operations`
   },
   {
     id: 5,
@@ -371,7 +412,21 @@ export const experienceData = [
       "Achieved regulatory compliance",
       "Built security awareness programs"
     ],
-    stack: ["Information Security", "Compliance", "Risk Management"]
+    stack: ["Information Security", "Compliance", "Risk Management"],
+    description: `Key Responsibilities:
+• Coordinating the implementation of data processing with personnel and outside vendors and conduct tests to ensure the processing activities and security measures
+• Modifying the security files for incorporating new software and correcting the errors
+• Evaluating the security features of various information systems and products
+• Responsible for handling the disaster scenarios and implementing redundancy, protection mechanisms for critical resources
+• Applying skills and knowledge to initiate good security practice and planning
+• Ensures that right training is provided to all levels of the staff
+• Taking responsibility for providing all arrangements for physical and logical security policies
+• Installation of internal and external firewalls & IPS to ensure that the device is configured optimally
+• Evaluating and investigating various threats
+• Configure network switches/routers/Juniper SSG devices as per the configuration baselines
+• Vendor Management, Incident Management, and Change management
+• Monitor mail logs and critical services for warning/errors, coordinate with anti-spam provider for blacklisting/whitelisting
+• Help Desk in Charge, handling client queries, assigning persons to rectify the same`
   },
   {
     id: 6,
@@ -394,7 +449,14 @@ export const experienceData = [
       "Implemented infrastructure improvements",
       "Supported business operations"
     ],
-    stack: ["System Administration", "Network Management", "IT Support"]
+    stack: ["System Administration", "Network Management", "IT Support"],
+    description: `Key Responsibilities:
+• Installation of Workstations/servers at the client end
+• Installation of Networking Devices and Software's for Co-Operate Banks
+• Preparing Documentation for every instruments and location
+• Maintaining 100% Uptime on Banking Hours
+• Backing up and Restoration of SQL databases
+• Installing backup devices on Servers`
   }
 ];
 
