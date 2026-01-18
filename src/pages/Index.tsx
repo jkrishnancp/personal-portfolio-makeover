@@ -520,14 +520,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Education */}
+      {/* Education & Certifications Combined */}
       <section id="education" className="py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <span className="section-label">Education</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Academic Background</h2>
+            <span className="section-label">Credentials</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Education & Certifications</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          
+          {/* Education Row */}
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
             {educationData.map((edu, index) => (
               <div key={index} className="card-executive p-6">
                 <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4">
@@ -539,16 +541,8 @@ const Index = () => {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section id="certifications" className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="section-label">Credentials</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Licenses & Certifications</h2>
-          </div>
+          
+          {/* Certifications Row */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="card-executive p-6">
               <h3 className="font-semibold text-lg flex items-center gap-2 mb-4 font-display">

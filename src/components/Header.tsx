@@ -76,14 +76,11 @@ export function Header() {
               <a
                 key={item.label}
                 href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent/10 hover:text-accent flex items-center gap-1 ${
                   isScrolled ? "text-foreground" : "text-white/90"
                 }`}
               >
                 {item.label}
-                <ExternalLink className="w-3 h-3" />
               </a>
             ))}
           </nav>
@@ -117,12 +114,9 @@ export function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-3 text-foreground hover:bg-accent/10 hover:text-accent rounded-md transition-colors flex items-center gap-2"
+                  className="px-4 py-3 text-foreground hover:bg-accent/10 hover:text-accent rounded-md transition-colors"
                 >
                   {item.label}
-                  <ExternalLink className="w-4 h-4" />
                 </a>
               ))}
             </nav>
