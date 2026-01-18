@@ -27,8 +27,8 @@ from html.parser import HTMLParser
 from datetime import datetime
 
 # Configuration
-PORTFOLIO_URL = "../index.html"
-BLUEPRINTS_URL = "../security-blueprints.html"
+PORTFOLIO_URL = "/"
+BLUEPRINTS_URL = "/security-blueprints.html"
 THEME_CSS = "theme.css"
 
 # Header template
