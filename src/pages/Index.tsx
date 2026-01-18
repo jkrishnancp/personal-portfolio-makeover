@@ -127,7 +127,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium uppercase tracking-widest mb-4">Philosophy</span>
-            <h2 className="text-3xl md:text-4xl font-bold font-display">Leadership Principles</h2>
+            <h2 className="text-3xl md:text-4xl font-bold font-display">Security Philosophy</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {securityPhilosophy.map((item) => {
@@ -159,15 +159,16 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-accent text-sm font-medium uppercase tracking-widest">Impact</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Key Achievements</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Impact Highlights</h2>
+            <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto">Action → Outcome → Business Value</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {impactHighlights.map((highlight, index) => (
-              <div key={index} className="flex items-start gap-4 p-6 rounded-lg bg-white/5 border border-white/10">
-                <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-4 h-4 text-accent" />
+              <div key={index} className="flex items-start gap-4 p-6 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-5 h-5 text-accent" />
                 </div>
-                <p className="text-primary-foreground/90">{highlight}</p>
+                <p className="text-primary-foreground/90 leading-relaxed">{highlight}</p>
               </div>
             ))}
           </div>

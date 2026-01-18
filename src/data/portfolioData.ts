@@ -1,10 +1,10 @@
 export const profileData = {
-  name: "Jay Prakash",
+  name: "Jayakrishnan C Prakash",
   title: "Cybersecurity Leader",
   subtitle: "Security Operations | Cloud | Automation",
   tagline: "I build and lead security programs that improve detection, reduce risk, and create operational clarity at scale.",
-  email: "jayakrishnan.r.nair@gmail.com",
-  linkedin: "https://www.linkedin.com/in/jayakrishnanrnair/",
+  email: "jay@jayakrishnancp.com",
+  linkedin: "https://www.linkedin.com/in/jaykrishnancp/",
   resumeUrl: "#",
   keywords: ["SOC Operations", "Detection Engineering", "Cloud Security", "Vulnerability Management", "GRC Programs", "Automation"]
 };
@@ -208,94 +208,140 @@ export const experienceData = [
   {
     id: 1,
     title: "Senior Director - Security Operations",
-    company: "Publicis Sapient",
-    location: "UAE",
-    period: "Oct 2018 – Present",
+    company: "UltraViolet Cyber",
+    location: "San Francisco Bay Area",
+    period: "2023 – Present (2+ years)",
     scope: {
-      teamSize: "400+ professionals",
-      regions: "20 countries",
+      teamSize: "Global SOC teams",
+      regions: "Multi-region",
       platforms: "Multi-cloud (Azure, AWS, GCP)"
     },
     responsibilities: [
-      "SOC leadership and strategic direction",
-      "Detection engineering and platform ownership",
-      "Risk governance and compliance"
+      "Zero Trust strategy and implementation",
+      "AI/ML-driven threat detection and automation",
+      "MDR/XDR program leadership"
     ],
     outcomes: [
-      "Delivered 150+ security initiatives",
-      "Reduced incident response time by 35%",
-      "Led zero-trust transformation"
+      "Spearheaded AI-driven anomaly detection deployment",
+      "Led phishing defense and SOAR solutions implementation",
+      "Ensured seamless security operations in hybrid and cloud environments"
     ],
-    stack: ["Microsoft Sentinel", "Defender XDR", "Azure", "CrowdStrike"]
+    stack: ["Zero Trust", "AI/ML", "MDR", "XDR", "SOAR"]
   },
   {
     id: 2,
-    title: "Deputy General Manager - IT Security",
-    company: "Malabar Gold & Diamonds",
-    location: "Kerala, India",
-    period: "Jul 2015 – Oct 2018",
+    title: "Manager - Security Operations",
+    company: "METMOX",
+    location: "San Francisco Bay Area",
+    period: "2013 – 2023 (10 years)",
     scope: {
-      teamSize: "25+ professionals",
-      regions: "250+ retail locations",
+      teamSize: "Security operations team",
+      regions: "Enterprise-wide",
       platforms: "Hybrid infrastructure"
     },
     responsibilities: [
-      "PCI DSS compliance program",
-      "Security operations for enterprise applications",
-      "Vendor and contract management"
+      "SIEM platform management and optimization",
+      "EDR and endpoint security programs",
+      "Cloud security and DLP implementation"
     ],
     outcomes: [
-      "Achieved PCI DSS Level 1 certification",
-      "Built centralized SOC",
-      "20%+ cost reduction in vendor contracts"
+      "Built and scaled enterprise security operations",
+      "Designed scalable security programs aligned with business goals",
+      "Enhanced operational efficiency and resilience"
     ],
-    stack: ["RSA Archer", "Qualys", "SAP Security", "Oracle"]
+    stack: ["SIEM", "EDR", "Cloud Security", "DLP"]
   },
   {
     id: 3,
-    title: "IT Security Specialist",
-    company: "Majid Al Futtaim Holdings",
-    location: "Dubai, UAE",
-    period: "Jul 2011 – Jul 2015",
+    title: "Team Lead - Incident Management",
+    company: "Verizon Business",
+    location: "Mumbai, India",
+    period: "2012 – 2013 (1 year)",
     scope: {
-      teamSize: "15+ professionals",
-      regions: "32 countries",
-      platforms: "Retail & hospitality"
+      teamSize: "Incident response team",
+      regions: "APAC",
+      platforms: "Enterprise networks"
     },
     responsibilities: [
-      "SOC oversight and threat management",
-      "IT security policy development",
-      "Risk management and compliance"
+      "Incident management and response leadership",
+      "SOC operations oversight",
+      "Process standardization and improvement"
     ],
     outcomes: [
-      "Managed 18 malls, 12 hotels, 172 stores",
-      "Implemented RSA Archer for compliance",
-      "Designed next-gen network security"
+      "Improved incident response times",
+      "Standardized incident handling procedures",
+      "Enhanced team capabilities and performance"
     ],
-    stack: ["RSA Archer", "SIEM", "ISO 27001", "PCI DSS"]
+    stack: ["Incident Response", "SIEM", "SOC Operations"]
   },
   {
     id: 4,
-    title: "Manager – Unified Communications & Security",
-    company: "TechM (Mahindra Satyam)",
-    location: "Multiple Locations",
-    period: "Jun 2007 – Jul 2011",
+    title: "Senior Security Analyst",
+    company: "Super Computers Trading",
+    location: "Abu Dhabi, UAE",
+    period: "2011 – 2012 (8 months)",
     scope: {
-      teamSize: "Cross-functional teams",
-      regions: "Global enterprises",
-      platforms: "Microsoft stack"
+      teamSize: "Security team",
+      regions: "Middle East",
+      platforms: "Enterprise infrastructure"
     },
     responsibilities: [
-      "Enterprise UC deployments",
-      "Security consulting",
-      "IAM implementation"
+      "Security analysis and threat assessment",
+      "Vulnerability management",
+      "Security monitoring and alerting"
     ],
     outcomes: [
-      "Multi-million dollar project delivery",
-      "Infrastructure standardization",
-      "Cloud-first strategy adoption"
+      "Strengthened security posture",
+      "Implemented security monitoring solutions",
+      "Reduced vulnerability exposure"
     ],
-    stack: ["Microsoft UC", "Azure", "AWS", "IAM"]
+    stack: ["Security Analysis", "Vulnerability Assessment", "SIEM"]
+  },
+  {
+    id: 5,
+    title: "Assistant Manager - Information Security",
+    company: "Geojit Financial Services",
+    location: "Cochin, India",
+    period: "2007 – 2011 (4 years 8 months)",
+    scope: {
+      teamSize: "IT Security team",
+      regions: "Pan-India",
+      platforms: "Financial services infrastructure"
+    },
+    responsibilities: [
+      "Information security program management",
+      "Compliance and audit coordination",
+      "Security policy development"
+    ],
+    outcomes: [
+      "Established security governance framework",
+      "Achieved regulatory compliance",
+      "Built security awareness programs"
+    ],
+    stack: ["Information Security", "Compliance", "Risk Management"]
+  },
+  {
+    id: 6,
+    title: "System Administrator",
+    company: "Safe Software",
+    location: "Palakkad, India",
+    period: "2005 – 2007 (2 years)",
+    scope: {
+      teamSize: "IT team",
+      regions: "Local",
+      platforms: "Enterprise systems"
+    },
+    responsibilities: [
+      "System administration and maintenance",
+      "Network management",
+      "IT infrastructure support"
+    ],
+    outcomes: [
+      "Maintained high system availability",
+      "Implemented infrastructure improvements",
+      "Supported business operations"
+    ],
+    stack: ["System Administration", "Network Management", "IT Support"]
   }
 ];
 
