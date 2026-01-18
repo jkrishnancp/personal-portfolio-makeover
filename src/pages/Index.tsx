@@ -1,13 +1,38 @@
-import { profileData, summaryData, statsData, careerTimeline, securityPhilosophy, impactHighlights, experienceData, skillsData, activeBuilding, featuredProjects, projectCategories, ninetyDayPlan, educationData, certificationsData, industriesServed } from "@/data/portfolioData";
-import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, FolderOpen, CheckCircle2 } from "lucide-react";
+import { profileData, summaryData, statsData, securityPhilosophy, impactHighlights, experienceData, skillsData, activeBuilding, featuredProjects, projectCategories, ninetyDayPlan, educationData, certificationsData, industriesServed } from "@/data/portfolioData";
+import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, CheckCircle2, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/Header";
+import { useRef, useState } from "react";
 import executiveSummaryBg from "@/assets/executive-summary-bg.jpg";
 
 const Index = () => {
+  const portfolioRef = useRef<HTMLDivElement>(null);
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const [portfolioCanScrollLeft, setPortfolioCanScrollLeft] = useState(false);
+  const [portfolioCanScrollRight, setPortfolioCanScrollRight] = useState(true);
+  const [featuredCanScrollLeft, setFeaturedCanScrollLeft] = useState(false);
+  const [featuredCanScrollRight, setFeaturedCanScrollRight] = useState(true);
+
+  const checkScroll = (ref: React.RefObject<HTMLDivElement>, setLeft: (v: boolean) => void, setRight: (v: boolean) => void) => {
+    if (ref.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+      setLeft(scrollLeft > 0);
+      setRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  const scroll = (ref: React.RefObject<HTMLDivElement>, direction: "left" | "right", setLeft: (v: boolean) => void, setRight: (v: boolean) => void) => {
+    if (ref.current) {
+      ref.current.scrollBy({ left: direction === "left" ? -700 : 700, behavior: "smooth" });
+      setTimeout(() => checkScroll(ref, setLeft, setRight), 300);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Header />
       {/* Hero Section */}
-      <section className="relative py-24 px-6 md:px-12 lg:px-24 gradient-hero text-white">
+      <section className="relative pt-32 pb-24 px-6 md:px-12 lg:px-24 gradient-hero text-white">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             {/* Main Content */}
@@ -150,59 +175,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Career Timeline - Elegant Vertical */}
-      <section className="py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-slate-900 to-slate-800 text-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-accent text-sm font-medium uppercase tracking-widest">Journey</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Career Progression</h2>
-            <p className="text-white/60 mt-4">20+ years building security programs</p>
-          </div>
-          
-          {/* Vertical Timeline */}
-          <div className="relative">
-            {/* Central line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent via-cyan-400 to-emerald-400 transform -translate-x-1/2"></div>
-            
-            <div className="space-y-0">
-              {careerTimeline.map((item, index) => {
-                const isLeft = index % 2 === 0;
-                const colors = ['bg-blue-500', 'bg-cyan-500', 'bg-teal-500', 'bg-purple-500', 'bg-amber-500', 'bg-emerald-500'];
-                const bgColor = colors[index % colors.length];
-                
-                return (
-                  <div key={index} className={`relative flex items-center ${isLeft ? 'flex-row' : 'flex-row-reverse'} group`}>
-                    {/* Content */}
-                    <div className={`w-5/12 ${isLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                      <div className={`p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm transform transition-all duration-300 group-hover:bg-white/10 group-hover:scale-105`}>
-                        <div className={`inline-block px-3 py-1 ${bgColor} text-white text-xs font-bold rounded-full mb-3`}>
-                          {item.years}
-                        </div>
-                        <h3 className="text-lg font-bold text-white">{item.stage}</h3>
-                        <p className="text-white/60 text-sm mt-1">{item.focus}</p>
-                        <p className="text-white/40 text-xs mt-2">{item.period}</p>
-                      </div>
-                    </div>
-                    
-                    {/* Center node */}
-                    <div className="w-2/12 flex justify-center relative z-10">
-                      <div className={`w-12 h-12 ${bgColor} rounded-full flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110`}>
-                        <span className="text-white font-bold">{index + 1}</span>
-                      </div>
-                    </div>
-                    
-                    {/* Empty space */}
-                    <div className="w-5/12"></div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Security Philosophy - Colorful Grid */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+      <section id="philosophy" className="py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-tl from-accent/5 via-transparent to-primary/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
@@ -235,7 +210,7 @@ const Index = () => {
       </section>
 
       {/* Impact Highlights */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-primary text-primary-foreground">
+      <section id="impact" className="py-20 px-6 md:px-12 lg:px-24 bg-primary text-primary-foreground">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-accent text-sm font-medium uppercase tracking-widest">Impact</span>
@@ -255,24 +230,37 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Project Categories - NEW */}
-      <section id="projects" className="py-20 px-6 md:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="section-label">Portfolio</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">250+ Projects Across 12 Domains</h2>
-            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">Comprehensive security programs delivered across enterprise, BFSI, retail, healthcare, manufacturing, and public sector organizations.</p>
+      {/* Portfolio - Horizontal Carousel with 2 rows */}
+      <section id="portfolio" className="py-20 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <span className="section-label">Portfolio</span>
+              <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">250+ Projects Across 12 Domains</h2>
+              <p className="text-muted-foreground mt-2 max-w-xl">Comprehensive security programs delivered across enterprise, BFSI, retail, healthcare, manufacturing, and public sector.</p>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="icon" className="rounded-full" onClick={() => scroll(portfolioRef, "left", setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} disabled={!portfolioCanScrollLeft}>
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+              <Button variant="outline" size="icon" className="rounded-full" onClick={() => scroll(portfolioRef, "right", setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} disabled={!portfolioCanScrollRight}>
+                <ChevronRight className="w-5 h-5" />
+              </Button>
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+        
+        <div ref={portfolioRef} onScroll={() => checkScroll(portfolioRef, setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} className="overflow-x-auto px-6 md:px-12 lg:px-24 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+          <div className="grid grid-rows-2 grid-flow-col gap-4" style={{ width: "max-content" }}>
             {projectCategories.map((cat, index) => (
-              <div key={index} className="card-executive p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold font-display">{cat.category}</h3>
-                  <span className="px-3 py-1 text-sm bg-accent/10 text-accent rounded-full font-semibold">{cat.count}+</span>
+              <div key={index} className="w-[320px] card-executive p-5 bg-card">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-base font-bold font-display">{cat.category}</h3>
+                  <span className="px-2 py-0.5 text-sm bg-accent/10 text-accent rounded-full font-semibold">{cat.count}+</span>
                 </div>
-                <p className="text-muted-foreground text-sm mb-4">{cat.description}</p>
+                <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{cat.description}</p>
                 <div className="flex flex-wrap gap-1">
-                  {cat.technologies.slice(0, 4).map((tech, i) => (
+                  {cat.technologies.slice(0, 3).map((tech, i) => (
                     <span key={i} className="px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded">{tech}</span>
                   ))}
                 </div>
@@ -283,19 +271,28 @@ const Index = () => {
       </section>
 
       {/* Featured Projects - Horizontal Carousel */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-muted/50 overflow-hidden">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="section-label">Highlights</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Featured Projects</h2>
+      <section id="featured-projects" className="py-20 bg-muted/50 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <span className="section-label">Highlights</span>
+              <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Featured Projects</h2>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="icon" className="rounded-full" onClick={() => scroll(featuredRef, "left", setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} disabled={!featuredCanScrollLeft}>
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+              <Button variant="outline" size="icon" className="rounded-full" onClick={() => scroll(featuredRef, "right", setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} disabled={!featuredCanScrollRight}>
+                <ChevronRight className="w-5 h-5" />
+              </Button>
+            </div>
           </div>
         </div>
         
-        {/* Scrolling carousel */}
-        <div className="relative">
-          <div className="flex gap-6 animate-scroll hover:pause-animation">
-            {[...featuredProjects, ...featuredProjects].map((project, idx) => (
-              <div key={idx} className="flex-shrink-0 w-[400px] card-executive p-6 bg-card">
+        <div ref={featuredRef} onScroll={() => checkScroll(featuredRef, setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} className="overflow-x-auto px-6 md:px-12 lg:px-24 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+          <div className="flex gap-6" style={{ width: "max-content" }}>
+            {featuredProjects.map((project) => (
+              <div key={project.id} className="w-[380px] card-executive p-6 bg-card">
                 <div className="flex items-center justify-between mb-4">
                   <span className="px-3 py-1 text-xs bg-accent/10 text-accent rounded font-medium">{project.category}</span>
                   <span className="text-sm text-muted-foreground">{project.duration}</span>
