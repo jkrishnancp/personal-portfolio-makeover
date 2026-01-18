@@ -17,46 +17,11 @@
     <meta name="twitter:site" content="@jayakrishnancp" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     
-    <style>
-      /* Disable text selection */
-      body {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-    </style>
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      // Disable right-click context menu
-      document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-      });
-      
-      // Disable keyboard shortcuts for copying and dev tools
-      document.addEventListener('keydown', function(e) {
-        // Disable Ctrl+C, Ctrl+X, Ctrl+U, Ctrl+S
-        if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u' || e.key === 's' || e.key === 'C' || e.key === 'X' || e.key === 'U' || e.key === 'S')) {
-          e.preventDefault();
-        }
-        // Disable F12 (dev tools)
-        if (e.key === 'F12') {
-          e.preventDefault();
-        }
-        // Disable Ctrl+Shift+I (dev tools), Ctrl+Shift+J (console), Ctrl+Shift+C (inspect)
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-          e.preventDefault();
-        }
-      });
-      
-      // Disable drag
-      document.addEventListener('dragstart', function(e) {
-        e.preventDefault();
-      });
-    </script>
+    <script src="/js/content-protection.js"></script>
   </body>
 </html>
