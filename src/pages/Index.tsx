@@ -536,7 +536,6 @@ const Index = () => {
                   <GraduationCap className="w-5 h-5 text-accent" />
                 </div>
                 <h3 className="font-bold font-display">{edu.degree}</h3>
-                <p className="text-accent font-medium mt-2">{edu.institution}</p>
                 <p className="text-muted-foreground text-sm mt-2">{edu.year} • {edu.focus}</p>
               </div>
             ))}
