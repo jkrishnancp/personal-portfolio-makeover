@@ -65,7 +65,7 @@ export default {
       },
       fontFamily: {
         sans: [
-          "Space Grotesk",
+          "Inter",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
@@ -77,8 +77,13 @@ export default {
           "Noto Sans",
           "sans-serif",
         ],
+        display: [
+          "Playfair Display",
+          "Georgia",
+          "Times New Roman",
+          "serif",
+        ],
         mono: [
-          "Space Mono",
           "ui-monospace",
           "SFMono-Regular",
           "Menlo",
