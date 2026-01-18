@@ -276,6 +276,13 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 mb-8">
           <span className="section-label">Highlights</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Featured Projects</h2>
+          <p className="text-muted-foreground mt-2">
+            Explore detailed security implementation blueprints on the{" "}
+            <a href="/security-blueprints.html" className="text-accent hover:underline font-medium">
+              Security Blueprints
+            </a>{" "}
+            page.
+          </p>
         </div>
         
         <div className="relative max-w-7xl mx-auto">
