@@ -403,46 +403,86 @@
             overflow-x: hidden;
         }
         
-        /* Back button */
-        .back-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 50;
+        /* Header Navigation - matching blueprint theme */
+        .blueprint-header {
+            background: var(--navy);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .blueprint-header .logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.25rem;
+            color: var(--gold);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .blueprint-header .logo:hover {
+            color: var(--gold-light);
+        }
+        
+        .blueprint-header nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .blueprint-header nav a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            text-decoration: none;
+        }
+        
+        .blueprint-header nav a:hover {
+            color: var(--gold);
+            background: var(--navy-light);
+        }
+        
+        .back-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--navy-dark);
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px hsla(45, 80%, 50%, 0.3);
-            transition: all 0.3s ease;
+            gap: 0.5rem;
+            color: var(--gold);
+            font-weight: 500;
         }
         
-        .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px hsla(45, 80%, 50%, 0.4);
+        .back-link::before {
+            content: '←';
         }
         
-        .back-button svg {
-            width: 16px;
-            height: 16px;
+        @media (max-width: 768px) {
+            .blueprint-header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .blueprint-header nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Back to Home Button -->
-    <a href="/" class="back-button">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-        </svg>
-        Back to Home
-    </a>
+    <!-- Header Navigation - matching blueprint style -->
+    <header class="blueprint-header">
+        <a href="/" class="logo">Jay Prakash</a>
+        <nav>
+            <a href="/" class="back-link">Back to Portfolio</a>
+            <a href="/security-blueprints.html">All Blueprints</a>
+        </nav>
+    </header>
     
         
     <div class="container">
