@@ -153,7 +153,7 @@ const Index = () => {
       {/* Career Timeline - Visual Journey */}
       <section className="py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden relative">
         {/* Background decorations */}
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
         </div>
@@ -162,75 +162,78 @@ const Index = () => {
           <div className="text-center mb-16">
             <span className="text-accent text-sm font-medium uppercase tracking-widest">Journey</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Career Progression</h2>
-            <p className="text-white/60 mt-4">20+ years of growth in cybersecurity</p>
+            <p className="text-white/60 mt-4">20+ years building security programs</p>
           </div>
           
-          {/* Desktop Timeline */}
-          <div className="hidden lg:block relative">
-            {/* Central connecting line */}
-            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-accent to-emerald-500 transform -translate-y-1/2 rounded-full"></div>
+          {/* Timeline with years bar */}
+          <div className="relative">
+            {/* Year markers - Desktop only */}
+            <div className="hidden md:flex justify-between items-center mb-4 px-2 text-xs text-white/50">
+              <span>2005</span>
+              <span>2010</span>
+              <span>2015</span>
+              <span>2020</span>
+              <span>Present</span>
+            </div>
             
-            <div className="flex justify-between items-center relative">
+            {/* Progress bar background */}
+            <div className="hidden md:block h-3 bg-white/10 rounded-full mb-8 overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 via-teal-500 via-amber-500 to-emerald-500 rounded-full" style={{ width: '100%' }}></div>
+            </div>
+            
+            {/* Career cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {careerTimeline.map((item, index) => {
                 const colors = [
-                  { bg: 'from-blue-500 to-blue-600', glow: 'shadow-blue-500/50' },
-                  { bg: 'from-cyan-500 to-cyan-600', glow: 'shadow-cyan-500/50' },
-                  { bg: 'from-teal-500 to-teal-600', glow: 'shadow-teal-500/50' },
-                  { bg: 'from-amber-500 to-amber-600', glow: 'shadow-amber-500/50' },
-                  { bg: 'from-emerald-500 to-emerald-600', glow: 'shadow-emerald-500/50' },
+                  { gradient: 'from-blue-500/20 to-blue-600/5', border: 'border-blue-500/40', badge: 'bg-blue-500' },
+                  { gradient: 'from-cyan-500/20 to-cyan-600/5', border: 'border-cyan-500/40', badge: 'bg-cyan-500' },
+                  { gradient: 'from-teal-500/20 to-teal-600/5', border: 'border-teal-500/40', badge: 'bg-teal-500' },
+                  { gradient: 'from-purple-500/20 to-purple-600/5', border: 'border-purple-500/40', badge: 'bg-purple-500' },
+                  { gradient: 'from-amber-500/20 to-amber-600/5', border: 'border-amber-500/40', badge: 'bg-amber-500' },
+                  { gradient: 'from-emerald-500/20 to-emerald-600/5', border: 'border-emerald-500/40', badge: 'bg-emerald-500' },
                 ];
                 const color = colors[index % colors.length];
-                const isTop = index % 2 === 0;
                 
                 return (
-                  <div key={index} className="flex flex-col items-center group relative">
-                    {/* Content card - alternating top/bottom */}
-                    <div className={`absolute ${isTop ? 'bottom-20' : 'top-20'} w-48 transform transition-all duration-300 group-hover:scale-105`}>
-                      <div className={`p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-xl ${color.glow}`}>
-                        <h3 className="font-bold text-white text-sm leading-tight">{item.stage}</h3>
-                        <p className="text-white/70 text-xs mt-2">{item.focus}</p>
-                      </div>
-                      {/* Connector line */}
-                      <div className={`absolute left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gradient-to-b ${isTop ? 'top-full from-white/40 to-transparent' : 'bottom-full from-transparent to-white/40'}`}></div>
+                  <div 
+                    key={index} 
+                    className={`relative p-6 rounded-2xl bg-gradient-to-br ${color.gradient} border ${color.border} backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:shadow-xl group`}
+                  >
+                    {/* Step number */}
+                    <div className={`absolute -top-3 -left-3 w-10 h-10 ${color.badge} rounded-full flex items-center justify-center shadow-lg`}>
+                      <span className="text-white font-bold">{index + 1}</span>
                     </div>
                     
-                    {/* Center node */}
-                    <div className={`relative z-10 w-14 h-14 rounded-full bg-gradient-to-br ${color.bg} flex items-center justify-center shadow-lg ${color.glow} transform transition-all duration-300 group-hover:scale-110`}>
-                      <span className="text-white font-bold text-lg">{index + 1}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          
-          {/* Mobile/Tablet Timeline - Vertical */}
-          <div className="lg:hidden relative">
-            {/* Vertical connecting line */}
-            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-accent to-emerald-500 rounded-full"></div>
-            
-            <div className="space-y-8">
-              {careerTimeline.map((item, index) => {
-                const colors = [
-                  { bg: 'from-blue-500 to-blue-600', border: 'border-blue-500/30' },
-                  { bg: 'from-cyan-500 to-cyan-600', border: 'border-cyan-500/30' },
-                  { bg: 'from-teal-500 to-teal-600', border: 'border-teal-500/30' },
-                  { bg: 'from-amber-500 to-amber-600', border: 'border-amber-500/30' },
-                  { bg: 'from-emerald-500 to-emerald-600', border: 'border-emerald-500/30' },
-                ];
-                const color = colors[index % colors.length];
-                
-                return (
-                  <div key={index} className="flex items-center gap-6 group">
-                    {/* Node */}
-                    <div className={`relative z-10 w-16 h-16 rounded-full bg-gradient-to-br ${color.bg} flex items-center justify-center shadow-lg flex-shrink-0 transform transition-all duration-300 group-hover:scale-110`}>
-                      <span className="text-white font-bold text-xl">{index + 1}</span>
+                    {/* Duration badge */}
+                    <div className="flex justify-end mb-4">
+                      <span className={`px-3 py-1 text-xs font-bold ${color.badge} text-white rounded-full`}>
+                        {item.years}
+                      </span>
                     </div>
                     
                     {/* Content */}
-                    <div className={`flex-1 p-5 rounded-xl bg-white/10 backdrop-blur-sm border ${color.border} transform transition-all duration-300 group-hover:bg-white/15`}>
-                      <h3 className="font-bold text-white">{item.stage}</h3>
-                      <p className="text-white/70 text-sm mt-1">{item.focus}</p>
+                    <h3 className="text-lg font-bold text-white mb-2 pr-4">{item.stage}</h3>
+                    <p className="text-white/60 text-sm mb-3">{item.focus}</p>
+                    
+                    {/* Period */}
+                    <div className="flex items-center gap-2 text-white/40 text-xs">
+                      <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                      {item.period}
+                    </div>
+                    
+                    {/* Cumulative years indicator */}
+                    <div className="mt-4 pt-4 border-t border-white/10">
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/40 text-xs">Total Experience</span>
+                        <span className="text-accent font-bold">{item.cumulative}+ yrs</span>
+                      </div>
+                      {/* Mini progress bar */}
+                      <div className="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full ${color.badge} rounded-full transition-all duration-500`}
+                          style={{ width: `${(item.cumulative / 21) * 100}%` }}
+                        ></div>
+                      </div>
                     </div>
                   </div>
                 );
