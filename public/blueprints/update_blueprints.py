@@ -303,9 +303,14 @@ def main():
     # Copy theme.css to output directory if not dry run
     if not args.dry_run:
         theme_src = Path(__file__).parent / 'theme.css'
+        theme_dst = output_dir / 'theme.css'
         if theme_src.exists():
-            shutil.copy(theme_src, output_dir / 'theme.css')
-            print(f"\nCopied theme.css to {output_dir}")
+            # Check if source and destination are the same file to avoid SameFileError
+            if theme_src.resolve() != theme_dst.resolve():
+                shutil.copy(theme_src, theme_dst)
+                print(f"\nCopied theme.css to {output_dir}")
+            else:
+                print(f"\ntheme.css already exists in {output_dir}")
     
     # Save file mapping
     mapping_path = output_dir / 'file_mapping.json'
