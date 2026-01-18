@@ -1,6 +1,7 @@
 import { profileData, summaryData, statsData, careerTimeline, securityPhilosophy, impactHighlights, experienceData, skillsData, activeBuilding, featuredProjects, projectCategories, ninetyDayPlan, educationData, certificationsData, industriesServed } from "@/data/portfolioData";
-import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, FolderOpen } from "lucide-react";
+import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, FolderOpen, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import executiveSummaryBg from "@/assets/executive-summary-bg.jpg";
 
 const Index = () => {
   return (
@@ -81,16 +82,70 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Summary Section - Gradient Background */}
-      <section id="summary" className="py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/10 to-primary/5"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <span className="inline-block px-4 py-1 rounded-full bg-accent/20 text-accent text-sm font-medium uppercase tracking-widest mb-4">About</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 font-display">Executive Summary</h2>
-          <div className="p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border shadow-lg">
-            <p className="text-lg text-muted-foreground leading-relaxed">{summaryData.text}</p>
+      {/* Executive Summary - Eye-Catching Section */}
+      <section id="summary" className="relative py-28 px-6 md:px-12 lg:px-24 overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${executiveSummaryBg})` }}
+        />
+        {/* Overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/75"></div>
+        
+        {/* Animated decorative elements */}
+        <div className="absolute top-10 right-10 w-32 h-32 border border-accent/30 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-10 left-10 w-24 h-24 border border-accent/20 rounded-full animate-pulse delay-150"></div>
+        <div className="absolute top-1/2 right-1/4 w-2 h-2 bg-accent rounded-full animate-ping"></div>
+        
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="grid lg:grid-cols-5 gap-12 items-center">
+            {/* Left Content - Main Summary */}
+            <div className="lg:col-span-3 space-y-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 border border-accent/30 backdrop-blur-sm">
+                <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span className="text-accent text-sm font-medium uppercase tracking-widest">About Me</span>
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-bold text-white font-display leading-tight">
+                Executive <span className="text-accent">Summary</span>
+              </h2>
+              
+              <p className="text-lg md:text-xl text-white/80 leading-relaxed">
+                {summaryData.text}
+              </p>
+              
+              {/* Quick highlights */}
+              <div className="flex flex-wrap gap-4 pt-4">
+                {["Systems Thinker", "Operational Leader", "Risk Focused"].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2 text-white/90">
+                    <CheckCircle2 className="w-5 h-5 text-accent" />
+                    <span className="font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Right Content - Stats Cards */}
+            <div className="lg:col-span-2">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center transform hover:scale-105 transition-transform">
+                  <div className="text-4xl font-bold text-accent mb-2">{statsData.yearsExperience}</div>
+                  <div className="text-white/70 text-sm">Years Experience</div>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center transform hover:scale-105 transition-transform">
+                  <div className="text-4xl font-bold text-accent mb-2">{statsData.projectsDelivered}</div>
+                  <div className="text-white/70 text-sm">Projects</div>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center transform hover:scale-105 transition-transform">
+                  <div className="text-4xl font-bold text-accent mb-2">{statsData.countries}</div>
+                  <div className="text-white/70 text-sm">Countries</div>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center transform hover:scale-105 transition-transform">
+                  <div className="text-4xl font-bold text-accent mb-2">{statsData.teamSize}</div>
+                  <div className="text-white/70 text-sm">Team Size</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
