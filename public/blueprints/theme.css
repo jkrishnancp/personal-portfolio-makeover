@@ -193,7 +193,55 @@ a:hover {
   padding: var(--spacing-2xl) var(--spacing-xl);
 }
 
-/* Metadata Box */
+/* Metadata Box - Card Style */
+.metadata {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.metadata .meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.metadata .meta-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(200, 80%, 55%);
+  font-weight: 600;
+}
+
+.metadata .meta-value {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+/* Tags in metadata */
+.metadata .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.metadata .tag {
+  background: var(--navy-700);
+  color: var(--text-secondary);
+  padding: 0.25em 0.6em;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Legacy blueprint-meta support */
 .blueprint-meta {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
