@@ -8,10 +8,13 @@ import executiveSummaryBg from "@/assets/executive-summary-bg.jpg";
 const Index = () => {
   const portfolioRef = useRef<HTMLDivElement>(null);
   const featuredRef = useRef<HTMLDivElement>(null);
+  const experienceRef = useRef<HTMLDivElement>(null);
   const [portfolioCanScrollLeft, setPortfolioCanScrollLeft] = useState(false);
   const [portfolioCanScrollRight, setPortfolioCanScrollRight] = useState(true);
   const [featuredCanScrollLeft, setFeaturedCanScrollLeft] = useState(false);
   const [featuredCanScrollRight, setFeaturedCanScrollRight] = useState(true);
+  const [experienceCanScrollLeft, setExperienceCanScrollLeft] = useState(false);
+  const [experienceCanScrollRight, setExperienceCanScrollRight] = useState(true);
 
   const checkScroll = (ref: React.RefObject<HTMLDivElement>, setLeft: (v: boolean) => void, setRight: (v: boolean) => void) => {
     if (ref.current) {
@@ -232,167 +235,174 @@ const Index = () => {
 
       {/* Portfolio - Horizontal Carousel with 2 rows */}
       <section id="portfolio" className="py-20 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <span className="section-label">Portfolio</span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">250+ Projects Across 12 Domains</h2>
-              <p className="text-muted-foreground mt-2 max-w-xl">Comprehensive security programs delivered across enterprise, BFSI, retail, healthcare, manufacturing, and public sector.</p>
-            </div>
-            <div className="flex gap-2">
-              <Button variant="outline" size="icon" className="rounded-full" onClick={() => scroll(portfolioRef, "left", setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} disabled={!portfolioCanScrollLeft}>
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
-              <Button variant="outline" size="icon" className="rounded-full" onClick={() => scroll(portfolioRef, "right", setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} disabled={!portfolioCanScrollRight}>
-                <ChevronRight className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
+        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 mb-8">
+          <span className="section-label">Portfolio</span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">250+ Projects Across 12 Domains</h2>
+          <p className="text-muted-foreground mt-2 max-w-xl">Comprehensive security programs delivered across enterprise, BFSI, retail, healthcare, manufacturing, and public sector.</p>
         </div>
         
-        <div ref={portfolioRef} onScroll={() => checkScroll(portfolioRef, setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} className="overflow-x-auto px-6 md:px-12 lg:px-24 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-          <div className="grid grid-rows-2 grid-flow-col gap-4" style={{ width: "max-content" }}>
-            {projectCategories.map((cat, index) => (
-              <div key={index} className="w-[320px] card-executive p-5 bg-card">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-base font-bold font-display">{cat.category}</h3>
-                  <span className="px-2 py-0.5 text-sm bg-accent/10 text-accent rounded-full font-semibold">{cat.count}+</span>
+        <div className="relative max-w-7xl mx-auto">
+          <Button variant="outline" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm shadow-lg hidden md:flex" onClick={() => scroll(portfolioRef, "left", setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} disabled={!portfolioCanScrollLeft}>
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+          
+          <div ref={portfolioRef} onScroll={() => checkScroll(portfolioRef, setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} className="overflow-x-auto px-6 md:px-16 lg:px-20 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+            <div className="grid grid-rows-2 grid-flow-col gap-4" style={{ width: "max-content" }}>
+              {projectCategories.map((cat, index) => (
+                <div key={index} className="w-[320px] card-executive p-5 bg-card">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-base font-bold font-display">{cat.category}</h3>
+                    <span className="px-2 py-0.5 text-sm bg-accent/10 text-accent rounded-full font-semibold">{cat.count}+</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{cat.description}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {cat.technologies.slice(0, 3).map((tech, i) => (
+                      <span key={i} className="px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded">{tech}</span>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{cat.description}</p>
-                <div className="flex flex-wrap gap-1">
-                  {cat.technologies.slice(0, 3).map((tech, i) => (
-                    <span key={i} className="px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded">{tech}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+          
+          <Button variant="outline" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm shadow-lg hidden md:flex" onClick={() => scroll(portfolioRef, "right", setPortfolioCanScrollLeft, setPortfolioCanScrollRight)} disabled={!portfolioCanScrollRight}>
+            <ChevronRight className="w-5 h-5" />
+          </Button>
         </div>
       </section>
 
       {/* Featured Projects - Horizontal Carousel */}
       <section id="featured-projects" className="py-20 bg-muted/50 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <span className="section-label">Highlights</span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Featured Projects</h2>
-            </div>
-            <div className="flex gap-2">
-              <Button variant="outline" size="icon" className="rounded-full" onClick={() => scroll(featuredRef, "left", setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} disabled={!featuredCanScrollLeft}>
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
-              <Button variant="outline" size="icon" className="rounded-full" onClick={() => scroll(featuredRef, "right", setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} disabled={!featuredCanScrollRight}>
-                <ChevronRight className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
+        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 mb-8">
+          <span className="section-label">Highlights</span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Featured Projects</h2>
         </div>
         
-        <div ref={featuredRef} onScroll={() => checkScroll(featuredRef, setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} className="overflow-x-auto px-6 md:px-12 lg:px-24 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-          <div className="flex gap-6" style={{ width: "max-content" }}>
-            {featuredProjects.map((project) => (
-              <div key={project.id} className="w-[380px] card-executive p-6 bg-card">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 text-xs bg-accent/10 text-accent rounded font-medium">{project.category}</span>
-                  <span className="text-sm text-muted-foreground">{project.duration}</span>
-                </div>
-                <h3 className="text-lg font-bold mb-2 font-display">{project.title}</h3>
-                <p className="text-sm text-muted-foreground mb-1"><span className="font-medium text-foreground">Role:</span> {project.role}</p>
-                <div className="space-y-3 text-sm mt-4">
-                  <div>
-                    <span className="font-semibold text-red-600 dark:text-red-400">Problem:</span>
-                    <p className="text-muted-foreground mt-1 line-clamp-2">{project.problem}</p>
+        <div className="relative max-w-7xl mx-auto">
+          <Button variant="outline" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm shadow-lg hidden md:flex" onClick={() => scroll(featuredRef, "left", setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} disabled={!featuredCanScrollLeft}>
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+          
+          <div ref={featuredRef} onScroll={() => checkScroll(featuredRef, setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} className="overflow-x-auto px-6 md:px-16 lg:px-20 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+            <div className="flex gap-6" style={{ width: "max-content" }}>
+              {featuredProjects.map((project) => (
+                <div key={project.id} className="w-[380px] card-executive p-6 bg-card">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="px-3 py-1 text-xs bg-accent/10 text-accent rounded font-medium">{project.category}</span>
+                    <span className="text-sm text-muted-foreground">{project.duration}</span>
                   </div>
-                  <div>
-                    <span className="font-semibold text-accent">Solution:</span>
-                    <p className="text-muted-foreground mt-1 line-clamp-2">{project.solution}</p>
-                  </div>
-                  <div>
-                    <span className="font-semibold text-green-600 dark:text-green-400">Result:</span>
-                    <p className="text-muted-foreground mt-1 line-clamp-2">{project.result}</p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
-                  {project.technologies.slice(0, 3).map((tech, i) => (
-                    <span key={i} className="px-2 py-1 text-xs bg-primary/5 text-primary border border-primary/20 rounded">{tech}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Experience - Box Layout */}
-      <section id="experience" className="py-20 px-6 md:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="section-label">Experience</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Professional History</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {experienceData.map((job, index) => {
-              const colors = [
-                'border-l-blue-500',
-                'border-l-cyan-500',
-                'border-l-teal-500',
-                'border-l-purple-500',
-                'border-l-amber-500',
-                'border-l-emerald-500',
-              ];
-              const borderColor = colors[index % colors.length];
-              
-              return (
-                <div key={job.id} className={`card-executive p-6 border-l-4 ${borderColor} hover:shadow-lg transition-shadow`}>
-                  {/* Header */}
-                  <div className="mb-4">
-                    <span className="inline-block px-2 py-1 text-xs bg-accent/10 text-accent rounded mb-2">{job.period}</span>
-                    <h3 className="text-lg font-bold font-display leading-tight">{job.title}</h3>
-                    <p className="text-accent font-semibold text-sm mt-1">{job.company}</p>
-                    <p className="text-muted-foreground text-xs mt-1">{job.location}</p>
-                  </div>
-                  
-                  {/* Scope */}
-                  <div className="mb-4 p-3 bg-muted/50 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Briefcase className="w-4 h-4 text-accent" />
-                      <span className="text-xs font-semibold text-foreground">Scope</span>
+                  <h3 className="text-lg font-bold mb-2 font-display">{project.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-1"><span className="font-medium text-foreground">Role:</span> {project.role}</p>
+                  <div className="space-y-3 text-sm mt-4">
+                    <div>
+                      <span className="font-semibold text-red-600 dark:text-red-400">Problem:</span>
+                      <p className="text-muted-foreground mt-1 line-clamp-2">{project.problem}</p>
                     </div>
-                    <div className="text-xs text-muted-foreground space-y-1">
-                      <p>Team: {job.scope.teamSize}</p>
-                      <p>Regions: {job.scope.regions}</p>
+                    <div>
+                      <span className="font-semibold text-accent">Solution:</span>
+                      <p className="text-muted-foreground mt-1 line-clamp-2">{project.solution}</p>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-green-600 dark:text-green-400">Result:</span>
+                      <p className="text-muted-foreground mt-1 line-clamp-2">{project.result}</p>
                     </div>
                   </div>
-                  
-                  {/* Key Outcomes */}
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <TrendingUp className="w-4 h-4 text-accent" />
-                      <span className="text-xs font-semibold text-foreground">Key Outcomes</span>
-                    </div>
-                    <ul className="text-xs text-muted-foreground space-y-1">
-                      {job.outcomes.slice(0, 2).map((o, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-accent mt-0.5">•</span>
-                          {o}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-1 pt-3 border-t border-border">
-                    {job.stack.slice(0, 3).map((tech, i) => (
-                      <span key={i} className="px-2 py-0.5 text-xs bg-primary/5 text-primary border border-primary/20 rounded">
-                        {tech}
-                      </span>
+                  <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
+                    {project.technologies.slice(0, 3).map((tech, i) => (
+                      <span key={i} className="px-2 py-1 text-xs bg-primary/5 text-primary border border-primary/20 rounded">{tech}</span>
                     ))}
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
+          
+          <Button variant="outline" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm shadow-lg hidden md:flex" onClick={() => scroll(featuredRef, "right", setFeaturedCanScrollLeft, setFeaturedCanScrollRight)} disabled={!featuredCanScrollRight}>
+            <ChevronRight className="w-5 h-5" />
+          </Button>
+        </div>
+      </section>
+
+      {/* Experience - Horizontal Carousel */}
+      <section id="experience" className="py-20 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 mb-8">
+          <span className="section-label">Experience</span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Professional History</h2>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto">
+          <Button variant="outline" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm shadow-lg hidden md:flex" onClick={() => scroll(experienceRef, "left", setExperienceCanScrollLeft, setExperienceCanScrollRight)} disabled={!experienceCanScrollLeft}>
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+          
+          <div ref={experienceRef} onScroll={() => checkScroll(experienceRef, setExperienceCanScrollLeft, setExperienceCanScrollRight)} className="overflow-x-auto px-6 md:px-16 lg:px-20 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+            <div className="flex gap-6" style={{ width: "max-content" }}>
+              {experienceData.map((job, index) => {
+                const colors = [
+                  'border-l-blue-500',
+                  'border-l-cyan-500',
+                  'border-l-teal-500',
+                  'border-l-purple-500',
+                  'border-l-amber-500',
+                  'border-l-emerald-500',
+                ];
+                const borderColor = colors[index % colors.length];
+                
+                return (
+                  <div key={job.id} className={`w-[340px] flex-shrink-0 card-executive p-6 border-l-4 ${borderColor} hover:shadow-lg transition-shadow`}>
+                    {/* Header */}
+                    <div className="mb-4">
+                      <span className="inline-block px-2 py-1 text-xs bg-accent/10 text-accent rounded mb-2">{job.period}</span>
+                      <h3 className="text-lg font-bold font-display leading-tight">{job.title}</h3>
+                      <p className="text-accent font-semibold text-sm mt-1">{job.company}</p>
+                      <p className="text-muted-foreground text-xs mt-1">{job.location}</p>
+                    </div>
+                    
+                    {/* Scope */}
+                    <div className="mb-4 p-3 bg-muted/50 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Briefcase className="w-4 h-4 text-accent" />
+                        <span className="text-xs font-semibold text-foreground">Scope</span>
+                      </div>
+                      <div className="text-xs text-muted-foreground space-y-1">
+                        <p>Team: {job.scope.teamSize}</p>
+                        <p>Regions: {job.scope.regions}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Key Outcomes */}
+                    <div className="mb-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <TrendingUp className="w-4 h-4 text-accent" />
+                        <span className="text-xs font-semibold text-foreground">Key Outcomes</span>
+                      </div>
+                      <ul className="text-xs text-muted-foreground space-y-1">
+                        {job.outcomes.slice(0, 2).map((o, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-accent mt-0.5">•</span>
+                            {o}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-1 pt-3 border-t border-border">
+                      {job.stack.slice(0, 3).map((tech, i) => (
+                        <span key={i} className="px-2 py-0.5 text-xs bg-primary/5 text-primary border border-primary/20 rounded">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          
+          <Button variant="outline" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm shadow-lg hidden md:flex" onClick={() => scroll(experienceRef, "right", setExperienceCanScrollLeft, setExperienceCanScrollRight)} disabled={!experienceCanScrollRight}>
+            <ChevronRight className="w-5 h-5" />
+          </Button>
         </div>
       </section>
 
