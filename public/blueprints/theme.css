@@ -1,0 +1,517 @@
+/* Blueprint Theme - Corporate Executive Navy & Gold */
+/* Shared styles for all 250 blueprint HTML files */
+
+:root {
+  /* Primary Colors - Navy */
+  --navy-900: hsl(222, 47%, 11%);
+  --navy-800: hsl(222, 47%, 15%);
+  --navy-700: hsl(222, 47%, 20%);
+  --navy-600: hsl(222, 47%, 25%);
+  --navy-500: hsl(222, 47%, 35%);
+  
+  /* Accent Colors - Gold */
+  --gold-500: hsl(45, 80%, 50%);
+  --gold-400: hsl(45, 80%, 60%);
+  --gold-300: hsl(45, 80%, 70%);
+  
+  /* Neutral Colors */
+  --white: hsl(0, 0%, 100%);
+  --gray-100: hsl(220, 14%, 96%);
+  --gray-200: hsl(220, 13%, 91%);
+  --gray-300: hsl(216, 12%, 84%);
+  --gray-400: hsl(218, 11%, 65%);
+  --gray-500: hsl(220, 9%, 46%);
+  
+  /* Semantic Colors */
+  --bg-primary: var(--navy-900);
+  --bg-secondary: var(--navy-800);
+  --bg-tertiary: var(--navy-700);
+  --text-primary: var(--white);
+  --text-secondary: var(--gray-300);
+  --text-muted: var(--gray-400);
+  --accent: var(--gold-500);
+  --accent-hover: var(--gold-400);
+  --border-color: var(--navy-600);
+  
+  /* Typography */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+h2 {
+  font-size: 1.75rem;
+  color: var(--accent);
+  margin-top: var(--spacing-2xl);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+h3 {
+  font-size: 1.35rem;
+  color: var(--gold-300);
+  margin-top: var(--spacing-xl);
+}
+
+h4 {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin-top: var(--spacing-lg);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+/* Links */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* Header Navigation */
+.blueprint-header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--spacing-md) var(--spacing-xl);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blueprint-header .logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.blueprint-header nav {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.blueprint-header nav a {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.blueprint-header nav a:hover {
+  color: var(--accent);
+  background: var(--navy-700);
+  text-decoration: none;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.back-link::before {
+  content: '←';
+}
+
+/* Main Content Container */
+.blueprint-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+}
+
+/* Metadata Box */
+.blueprint-meta {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.blueprint-meta .meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.blueprint-meta .meta-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.blueprint-meta .meta-value {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.toc h2, .toc h3 {
+  font-size: 1rem;
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.toc ul, .toc ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+.toc li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.toc a {
+  color: var(--text-secondary);
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.toc a:hover {
+  background: var(--navy-700);
+  color: var(--accent);
+  text-decoration: none;
+  padding-left: var(--spacing-md);
+}
+
+/* Lists */
+ul, ol {
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-xl);
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: var(--spacing-sm);
+}
+
+li::marker {
+  color: var(--accent);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--spacing-lg) 0;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+thead {
+  background: var(--navy-700);
+}
+
+th {
+  text-align: left;
+  padding: var(--spacing-md);
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 2px solid var(--accent);
+}
+
+td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: var(--navy-700);
+}
+
+/* Code Blocks */
+pre, code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.9rem;
+}
+
+code {
+  background: var(--navy-700);
+  color: var(--gold-300);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+}
+
+pre {
+  background: var(--navy-700);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  overflow-x: auto;
+  margin: var(--spacing-lg) 0;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--accent);
+  background: var(--bg-secondary);
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Callout Boxes */
+.callout, .note, .warning, .tip, .important {
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-lg) 0;
+  border-left: 4px solid;
+}
+
+.note {
+  background: hsla(210, 50%, 40%, 0.2);
+  border-color: hsl(210, 50%, 50%);
+}
+
+.warning {
+  background: hsla(35, 80%, 40%, 0.2);
+  border-color: hsl(35, 80%, 50%);
+}
+
+.tip {
+  background: hsla(145, 50%, 35%, 0.2);
+  border-color: hsl(145, 50%, 45%);
+}
+
+.important {
+  background: hsla(0, 60%, 40%, 0.2);
+  border-color: hsl(0, 60%, 50%);
+}
+
+/* Sections */
+section {
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--border-color);
+}
+
+section:last-of-type {
+  border-bottom: none;
+}
+
+/* Footer */
+.blueprint-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: var(--spacing-xl);
+  text-align: center;
+  margin-top: var(--spacing-3xl);
+}
+
+.blueprint-footer p {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.blueprint-footer .brand {
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+  
+  .blueprint-container {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.35rem;
+  }
+  
+  .blueprint-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+  
+  .blueprint-header nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .blueprint-meta {
+    grid-template-columns: 1fr;
+  }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  pre {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .blueprint-container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .blueprint-header,
+  .blueprint-footer {
+    display: none;
+  }
+  
+  h1, h2, h3, h4 {
+    color: black;
+  }
+  
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+  
+  .blueprint-container {
+    max-width: 100%;
+    padding: 0;
+  }
+}
+
+/* Utility Classes */
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--text-muted); }
+.bg-secondary { background: var(--bg-secondary); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.p-lg { padding: var(--spacing-lg); }
+.rounded { border-radius: var(--radius-md); }
+.border { border: 1px solid var(--border-color); }

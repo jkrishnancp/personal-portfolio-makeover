@@ -176,24 +176,235 @@
     </footer>
 
     <script>
+        // Blueprint file mapping - maps to actual HTML files in /blueprints/
+        const blueprintFiles = {
+            "001": "001-splunk-to-elastic-siem-migration-global.html",
+            "002": "002-qradar-deployment-for-financial-services.html",
+            "003": "003-datadog-security-monitoring-rollout.html",
+            "004": "004-soc-operating-model-build-tiering-plus-sla.html",
+            "005": "005-zero-trust-strategy-and-roadmap.html",
+            "006": "006-mdr-provider-selection-and-transition.html",
+            "007": "007-enterprise-vulnerability-management-prog.html",
+            "008": "008-active-directory-hardening-program.html",
+            "009": "009-firewall-rulebase-cleanup-5-plus-years-of-d.html",
+            "010": "010-endpoint-forensic-triage-playbook.html"
+            // Note: After running update_blueprints.py, copy the file_mapping.json contents here
+        };
+
         const blueprintData = {
-            "SIEM": { icon: "📊", desc: "SIEM deployment, migration, optimization & use-case development", items: ["Splunk to Elastic SIEM Migration", "QRadar Deployment for Financial Services", "Datadog Security Monitoring", "SIEM Cost Optimization & Tiering", "UEBA Pilot", "Pipeline Data Quality Monitoring", "SIEM Use-Case Rationalization"] },
-            "SOC": { icon: "🛡️", desc: "SOC operations, metrics, playbooks & analyst programs", items: ["SOC Operating Model Build", "Post-Incident Review Governance", "SOC-MDR Handoff Process", "SOC Metrics & KPIs Program", "Executive & SOC Dashboards", "ITSM Integration for Cases", "Phishing Triage Automation", "Analyst Training Matrix", "On-Call Rotation Design", "SOC Playbook Library Build", "Case Management Standardization", "Automation ROI Model"] },
-            "Cloud Security": { icon: "☁️", desc: "Cloud security baselines, CSPM, landing zones & DevSecOps", items: ["Landing Zone Controls", "Cloud Asset Inventory Model", "API Security Baseline", "Cloud Logs Centralization", "Cloud Security Baseline & Guardrails", "CSPM Rollout", "DevSecOps Controls"] },
-            "Identity & Access": { icon: "🔐", desc: "IAM, PAM, MFA, SSO & privileged access management", items: ["Active Directory Hardening", "Access Reviews Program", "Service Account Governance", "SSO Consolidation", "AD Tiering Model", "PAM Pilot", "MFA Rollout", "Conditional Access Baseline", "JML Automation", "PAW Rollout", "Identity Threat Detection Pack", "Identity Logs Integration", "Local Admin Reduction"] },
-            "Network Security": { icon: "🌐", desc: "Segmentation, NAC, firewall, IDS/IPS & proxy", items: ["Firewall Rulebase Cleanup", "Network Segmentation Program", "Micro-Segmentation Pilot", "NAC (802.1X) Rollout", "Proxy Modernization", "Wireless Security Refresh", "Outbound Egress Controls", "IDS/IPS Tuning Program", "Netflow Visibility Program"] },
-            "DLP & Data Protection": { icon: "🔒", desc: "Data loss prevention, classification & insider risk", items: ["DLP Incident Handling Process", "M365 Oversharing Reduction", "Data Classification Scheme", "Enterprise DLP Rollout", "Insider Risk Correlation", "Data Egress Controls"] },
-            "Forensics": { icon: "🔍", desc: "Digital forensics, evidence collection & investigation", items: ["Endpoint Forensic Triage Playbook", "Insider Exfil Investigation", "Automated Evidence Collection", "Chain of Custody Standard", "BEC Investigation", "Memory Capture Workflow", "PCAP Forensics Capability", "Legal/HR Investigation Protocol", "Email Phishing Forensics", "Disk Image Acquisition", "Cloud Forensics Workflow", "Forensic Readiness Program"] },
-            "Compliance & Audit": { icon: "📋", desc: "Compliance frameworks, audits & policy governance", items: ["Internal Audit Program Setup", "Compliance Log Retention", "Policy Governance Lifecycle", "Internal Audit Schedule", "External Audit Coordination", "IT Security Standards Library", "Control Library Build", "Control Testing Automation", "Security Questionnaire Response", "Retention & Legal Hold Alignment"] },
-            "Zero Trust": { icon: "🎯", desc: "Zero Trust architecture, ZTNA & strategy", items: ["Zero Trust Strategy & Roadmap", "ZTNA Rollout"] },
-            "Vulnerability Management": { icon: "🐛", desc: "Vulnerability scanning, patching & remediation", items: ["Enterprise Vulnerability Management", "Patch Compliance Governance", "Risk-Based Prioritization", "Remediation Sprint Model", "External Attack Surface Review"] },
-            "Incident Response": { icon: "🚨", desc: "IR playbooks, containment & war room processes", items: ["Major Incident War Room Process", "Post-Incident Review Governance", "Cloud IR Playbooks", "Containment Playbooks", "Cloud IR Automation"] },
-            "MDR/XDR": { icon: "👁️", desc: "Managed detection, XDR & provider management", items: ["MDR Provider Selection & Transition", "XDR Use-Case Pack Build", "MDR KPI Governance"] },
-            "Threat Intelligence": { icon: "🧠", desc: "Threat intel, IOC enrichment & ATT&CK mapping", items: ["IOC Enrichment Workflow", "Threat Intel to Blocklist Automation", "ATT&CK Coverage Mapping"] },
-            "Infrastructure": { icon: "🖥️", desc: "Server hardening, backup, encryption & baselines", items: ["Database Security Hardening", "Server Hardening Standards", "Configuration Drift Detection", "Backup & Restore Testing", "Linux Hardening Standards", "Encryption Standards & Exceptions", "Secure Baseline (CIS) Rollout", "CMDB Accuracy Program"] },
-            "Endpoint": { icon: "💻", desc: "EDR, endpoint encryption & protection", items: ["Endpoint Encryption Enforcement", "Phishing Defense Enhancements", "EDR Migration", "Endpoint Telemetry Coverage", "EDR Containment Automation"] },
-            "Risk Management": { icon: "⚖️", desc: "Risk registers, TPRM & executive reporting", items: ["Legacy System Risk Treatment", "Risk Register & Exec Reporting", "TPRM Program Build"] },
-            "Governance": { icon: "📜", desc: "Steering committees & security governance", items: ["Steering Committee Governance"] }
+            "SIEM": { 
+                icon: "📊", 
+                desc: "SIEM deployment, migration, optimization & use-case development", 
+                items: [
+                    { name: "Splunk to Elastic SIEM Migration", file: "001-splunk-to-elastic-siem-migration-global.html" },
+                    { name: "QRadar Deployment for Financial Services", file: "002-qradar-deployment-for-financial-services.html" },
+                    { name: "Datadog Security Monitoring", file: "003-datadog-security-monitoring-rollout.html" },
+                    { name: "SIEM Cost Optimization & Tiering", file: "017-siem-cost-optimization-and-tiering.html" },
+                    { name: "UEBA Pilot", file: "022-ueba-pilot.html" },
+                    { name: "Pipeline Data Quality Monitoring", file: "080-pipeline-data-quality-monitoring.html" },
+                    { name: "SIEM Use-Case Rationalization", file: "174-siem-use-case-rationalization.html" }
+                ]
+            },
+            "SOC": { 
+                icon: "🛡️", 
+                desc: "SOC operations, metrics, playbooks & analyst programs", 
+                items: [
+                    { name: "SOC Operating Model Build", file: "004-soc-operating-model-build-tiering-plus-sla.html" },
+                    { name: "Post-Incident Review Governance", file: "014-post-incident-review-governance.html" },
+                    { name: "SOC-MDR Handoff Process", file: "018-soc-mdr-handoff-process.html" },
+                    { name: "SOC Metrics & KPIs Program", file: "033-soc-metrics-kpis-program.html" },
+                    { name: "Executive & SOC Dashboards", file: "038-exec-and-soc-dashboards.html" },
+                    { name: "ITSM Integration for Cases", file: "041-itsm-integration-for-cases.html" },
+                    { name: "Phishing Triage Automation", file: "048-phishing-triage-automation.html" },
+                    { name: "Analyst Training Matrix", file: "030-analyst-training-and-skill-matrix.html" },
+                    { name: "On-Call Rotation Design", file: "148-on-call-rotation-design.html" },
+                    { name: "SOC Playbook Library Build", file: "229-soc-playbook-library-build.html" },
+                    { name: "Case Management Standardization", file: "176-case-management-standardization.html" },
+                    { name: "Automation ROI Model", file: "079-automation-roi-model.html" }
+                ]
+            },
+            "Cloud Security": { 
+                icon: "☁️", 
+                desc: "Cloud security baselines, CSPM, landing zones & DevSecOps", 
+                items: [
+                    { name: "Landing Zone Controls", file: "012-landing-zone-controls.html" },
+                    { name: "Cloud Asset Inventory Model", file: "035-cloud-asset-inventory-model.html" },
+                    { name: "API Security Baseline", file: "039-api-security-baseline.html" },
+                    { name: "Cloud Logs Centralization", file: "062-cloud-logs-centralization.html" },
+                    { name: "Cloud Security Baseline & Guardrails", file: "086-cloud-security-baseline-and-guardrails.html" },
+                    { name: "CSPM Rollout", file: "153-cspm-rollout.html" },
+                    { name: "DevSecOps Controls", file: "115-devsecops-controls.html" }
+                ]
+            },
+            "Identity & Access": { 
+                icon: "🔐", 
+                desc: "IAM, PAM, MFA, SSO & privileged access management", 
+                items: [
+                    { name: "Active Directory Hardening", file: "008-active-directory-hardening-program.html" },
+                    { name: "Access Reviews Program", file: "015-access-reviews-program.html" },
+                    { name: "Service Account Governance", file: "026-service-account-governance.html" },
+                    { name: "SSO Consolidation", file: "045-sso-consolidation.html" },
+                    { name: "AD Tiering Model", file: "049-ad-tiering-model.html" },
+                    { name: "PAM Pilot", file: "051-pam-pilot.html" },
+                    { name: "MFA Rollout", file: "055-mfa-rollout.html" },
+                    { name: "Conditional Access Baseline", file: "134-conditional-access-baseline.html" },
+                    { name: "JML Automation", file: "094-jml-automation.html" },
+                    { name: "PAW Rollout", file: "175-paw-rollout.html" },
+                    { name: "Identity Threat Detection Pack", file: "122-identity-threat-detection-pack.html" },
+                    { name: "Identity Logs Integration", file: "227-identity-logs-integration.html" },
+                    { name: "Local Admin Reduction", file: "211-local-admin-reduction.html" }
+                ]
+            },
+            "Network Security": { 
+                icon: "🌐", 
+                desc: "Segmentation, NAC, firewall, IDS/IPS & proxy", 
+                items: [
+                    { name: "Firewall Rulebase Cleanup", file: "009-firewall-rulebase-cleanup-5-plus-years-of-d.html" },
+                    { name: "Network Segmentation Program", file: "021-network-segmentation-program.html" },
+                    { name: "Micro-Segmentation Pilot", file: "027-micro-segmentation-pilot.html" },
+                    { name: "NAC (802.1X) Rollout", file: "028-nac-802.1x-rollout.html" },
+                    { name: "Proxy Modernization", file: "032-proxy-modernization.html" },
+                    { name: "Wireless Security Refresh", file: "043-wireless-security-refresh.html" },
+                    { name: "Outbound Egress Controls", file: "060-outbound-egress-controls.html" },
+                    { name: "IDS/IPS Tuning Program", file: "084-ids-ips-tuning-program.html" },
+                    { name: "Netflow Visibility Program", file: "142-netflow-visibility-program.html" }
+                ]
+            },
+            "DLP & Data Protection": { 
+                icon: "🔒", 
+                desc: "Data loss prevention, classification & insider risk", 
+                items: [
+                    { name: "DLP Incident Handling Process", file: "029-dlp-incident-handling-process.html" },
+                    { name: "M365 Oversharing Reduction", file: "061-m365-oversharing-reduction.html" },
+                    { name: "Data Classification Scheme", file: "066-data-classification-scheme.html" },
+                    { name: "Enterprise DLP Rollout", file: "088-enterprise-dlp-rollout.html" },
+                    { name: "Insider Risk Correlation", file: "099-insider-risk-correlation.html" },
+                    { name: "Data Egress Controls", file: "156-data-egress-controls.html" }
+                ]
+            },
+            "Forensics": { 
+                icon: "🔍", 
+                desc: "Digital forensics, evidence collection & investigation", 
+                items: [
+                    { name: "Endpoint Forensic Triage Playbook", file: "010-endpoint-forensic-triage-playbook.html" },
+                    { name: "Insider Exfil Investigation", file: "058-insider-exfil-investigation-playbook.html" },
+                    { name: "Automated Evidence Collection", file: "075-automated-evidence-collection.html" },
+                    { name: "Chain of Custody Standard", file: "076-chain-of-custody-standard.html" },
+                    { name: "BEC Investigation", file: "089-bec-investigation.html" },
+                    { name: "Memory Capture Workflow", file: "103-memory-capture-workflow.html" },
+                    { name: "PCAP Forensics Capability", file: "104-pcap-forensics-capability.html" },
+                    { name: "Legal/HR Investigation Protocol", file: "108-legal-hr-investigation-protocol.html" },
+                    { name: "Email Phishing Forensics", file: "135-email-phishing-forensics.html" },
+                    { name: "Disk Image Acquisition", file: "149-disk-image-acquisition-process.html" },
+                    { name: "Cloud Forensics Workflow", file: "177-cloud-forensics-workflow.html" },
+                    { name: "Forensic Readiness Program", file: "126-forensic-readiness-program.html" }
+                ]
+            },
+            "Compliance & Audit": { 
+                icon: "📋", 
+                desc: "Compliance frameworks, audits & policy governance", 
+                items: [
+                    { name: "Internal Audit Program Setup", file: "011-internal-audit-program-setup-security-c.html" },
+                    { name: "Compliance Log Retention", file: "013-compliance-log-retention-alignment.html" },
+                    { name: "Policy Governance Lifecycle", file: "019-policy-governance-lifecycle.html" },
+                    { name: "Internal Audit Schedule", file: "034-internal-audit-schedule.html" },
+                    { name: "External Audit Coordination", file: "044-external-audit-coordination.html" },
+                    { name: "IT Security Standards Library", file: "047-it-security-standards-library.html" },
+                    { name: "Control Library Build", file: "059-control-library-build.html" },
+                    { name: "Control Testing Automation", file: "091-control-testing-automation.html" },
+                    { name: "Security Questionnaire Response", file: "125-security-questionnaire-response-factory.html" },
+                    { name: "Retention & Legal Hold Alignment", file: "192-retention-legal-hold-alignment.html" }
+                ]
+            },
+            "Zero Trust": { 
+                icon: "🎯", 
+                desc: "Zero Trust architecture, ZTNA & strategy", 
+                items: [
+                    { name: "Zero Trust Strategy & Roadmap", file: "005-zero-trust-strategy-and-roadmap.html" },
+                    { name: "ZTNA Rollout", file: "037-ztna-rollout.html" }
+                ]
+            },
+            "Vulnerability Management": { 
+                icon: "🐛", 
+                desc: "Vulnerability scanning, patching & remediation", 
+                items: [
+                    { name: "Enterprise Vulnerability Management", file: "007-enterprise-vulnerability-management-prog.html" },
+                    { name: "Patch Compliance Governance", file: "040-patch-compliance-governance.html" },
+                    { name: "Risk-Based Prioritization", file: "068-risk-based-prioritization.html" },
+                    { name: "Remediation Sprint Model", file: "188-remediation-sprint-model.html" },
+                    { name: "External Attack Surface Review", file: "206-external-attack-surface-review.html" }
+                ]
+            },
+            "Incident Response": { 
+                icon: "🚨", 
+                desc: "IR playbooks, containment & war room processes", 
+                items: [
+                    { name: "Major Incident War Room Process", file: "057-major-incident-war-room-process.html" },
+                    { name: "Post-Incident Review Governance", file: "077-post-incident-review-governance.html" },
+                    { name: "Cloud IR Playbooks", file: "098-cloud-ir-playbooks.html" },
+                    { name: "Containment Playbooks", file: "105-containment-playbooks.html" },
+                    { name: "Cloud IR Automation", file: "154-cloud-ir-automation.html" }
+                ]
+            },
+            "MDR/XDR": { 
+                icon: "👁️", 
+                desc: "Managed detection, XDR & provider management", 
+                items: [
+                    { name: "MDR Provider Selection & Transition", file: "006-mdr-provider-selection-and-transition.html" },
+                    { name: "XDR Use-Case Pack Build", file: "016-xdr-use-case-pack-build.html" },
+                    { name: "MDR KPI Governance", file: "081-mdr-kpi-governance.html" }
+                ]
+            },
+            "Threat Intelligence": { 
+                icon: "🧠", 
+                desc: "Threat intel, IOC enrichment & ATT&CK mapping", 
+                items: [
+                    { name: "IOC Enrichment Workflow", file: "020-ioc-enrichment-workflow.html" },
+                    { name: "Threat Intel to Blocklist Automation", file: "092-threat-intel-to-blocklist-automation.html" },
+                    { name: "ATT&CK Coverage Mapping", file: "118-att-and-ck-coverage-mapping.html" }
+                ]
+            },
+            "Infrastructure": { 
+                icon: "🖥️", 
+                desc: "Server hardening, backup, encryption & baselines", 
+                items: [
+                    { name: "Database Security Hardening", file: "023-database-security-hardening.html" },
+                    { name: "Server Hardening Standards", file: "025-server-hardening-standards.html" },
+                    { name: "Configuration Drift Detection", file: "054-configuration-drift-detection.html" },
+                    { name: "Backup & Restore Testing", file: "082-backup-restore-testing.html" },
+                    { name: "Linux Hardening Standards", file: "095-linux-hardening-standards.html" },
+                    { name: "Encryption Standards & Exceptions", file: "196-encryption-standards-and-exceptions.html" },
+                    { name: "Secure Baseline (CIS) Rollout", file: "147-secure-baseline-cis-rollout.html" },
+                    { name: "CMDB Accuracy Program", file: "155-cmdb-accuracy-program.html" }
+                ]
+            },
+            "Endpoint": { 
+                icon: "💻", 
+                desc: "EDR, endpoint encryption & protection", 
+                items: [
+                    { name: "Endpoint Encryption Enforcement", file: "065-endpoint-encryption-enforcement.html" },
+                    { name: "Phishing Defense Enhancements", file: "128-phishing-defense-enhancements.html" },
+                    { name: "EDR Migration", file: "157-edr-migration.html" },
+                    { name: "Endpoint Telemetry Coverage", file: "185-endpoint-telemetry-coverage-expansion.html" },
+                    { name: "EDR Containment Automation", file: "216-edr-containment-automation.html" }
+                ]
+            },
+            "Risk Management": { 
+                icon: "⚖️", 
+                desc: "Risk registers, TPRM & executive reporting", 
+                items: [
+                    { name: "Legacy System Risk Treatment", file: "036-legacy-system-risk-treatment.html" },
+                    { name: "Risk Register & Exec Reporting", file: "064-risk-register-and-exec-reporting.html" },
+                    { name: "TPRM Program Build", file: "112-tprm-program-build.html" }
+                ]
+            },
+            "Governance": { 
+                icon: "📜", 
+                desc: "Steering committees & security governance", 
+                items: [
+                    { name: "Steering Committee Governance", file: "046-steering-committee-governance.html" }
+                ]
+            }
         };
 
         const grid = document.getElementById('categoriesGrid');
@@ -206,7 +417,7 @@
             
             Object.entries(blueprintData).forEach(([category, data]) => {
                 const filteredItems = filter 
-                    ? data.items.filter(item => item.toLowerCase().includes(filterLower) || category.toLowerCase().includes(filterLower))
+                    ? data.items.filter(item => item.name.toLowerCase().includes(filterLower) || category.toLowerCase().includes(filterLower))
                     : data.items;
                 
                 if (filter && filteredItems.length === 0) return;
@@ -230,9 +441,9 @@
                     </div>
                     <div class="blueprints-list">
                         ${filteredItems.map((item, i) => `
-                            <a href="./blueprints/${category.toLowerCase().replace(/[^a-z]/g, '-')}-${i+1}.html" class="blueprint-item">
+                            <a href="./blueprints/${item.file}" class="blueprint-item">
                                 <span class="blueprint-num">#${String(i+1).padStart(2,'0')}</span>
-                                ${item}
+                                ${item.name}
                             </a>
                         `).join('')}
                     </div>
