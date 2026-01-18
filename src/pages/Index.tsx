@@ -95,28 +95,92 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Career Timeline - Colorful Cards */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 gradient-hero text-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+      {/* Career Timeline - Visual Journey */}
+      <section className="py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden relative">
+        {/* Background decorations */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-16">
             <span className="text-accent text-sm font-medium uppercase tracking-widest">Journey</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Career Progression</h2>
+            <p className="text-white/60 mt-4">20+ years of growth in cybersecurity</p>
           </div>
-          <div className="flex flex-wrap items-center gap-4 justify-center">
-            {careerTimeline.map((item, index) => (
-              <div key={index} className="flex items-center gap-4">
-                <div className="text-center p-5 rounded-xl bg-white/10 border border-white/20 backdrop-blur-sm hover:bg-white/15 transition-all hover:scale-105">
-                  <div className="w-8 h-8 rounded-full bg-accent mx-auto mb-3 flex items-center justify-center text-accent-foreground font-bold text-sm">
-                    {index + 1}
+          
+          {/* Desktop Timeline */}
+          <div className="hidden lg:block relative">
+            {/* Central connecting line */}
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-accent to-emerald-500 transform -translate-y-1/2 rounded-full"></div>
+            
+            <div className="flex justify-between items-center relative">
+              {careerTimeline.map((item, index) => {
+                const colors = [
+                  { bg: 'from-blue-500 to-blue-600', glow: 'shadow-blue-500/50' },
+                  { bg: 'from-cyan-500 to-cyan-600', glow: 'shadow-cyan-500/50' },
+                  { bg: 'from-teal-500 to-teal-600', glow: 'shadow-teal-500/50' },
+                  { bg: 'from-amber-500 to-amber-600', glow: 'shadow-amber-500/50' },
+                  { bg: 'from-emerald-500 to-emerald-600', glow: 'shadow-emerald-500/50' },
+                ];
+                const color = colors[index % colors.length];
+                const isTop = index % 2 === 0;
+                
+                return (
+                  <div key={index} className="flex flex-col items-center group relative">
+                    {/* Content card - alternating top/bottom */}
+                    <div className={`absolute ${isTop ? 'bottom-20' : 'top-20'} w-48 transform transition-all duration-300 group-hover:scale-105`}>
+                      <div className={`p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-xl ${color.glow}`}>
+                        <h3 className="font-bold text-white text-sm leading-tight">{item.stage}</h3>
+                        <p className="text-white/70 text-xs mt-2">{item.focus}</p>
+                      </div>
+                      {/* Connector line */}
+                      <div className={`absolute left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gradient-to-b ${isTop ? 'top-full from-white/40 to-transparent' : 'bottom-full from-transparent to-white/40'}`}></div>
+                    </div>
+                    
+                    {/* Center node */}
+                    <div className={`relative z-10 w-14 h-14 rounded-full bg-gradient-to-br ${color.bg} flex items-center justify-center shadow-lg ${color.glow} transform transition-all duration-300 group-hover:scale-110`}>
+                      <span className="text-white font-bold text-lg">{index + 1}</span>
+                    </div>
                   </div>
-                  <span className="font-semibold text-white block">{item.stage}</span>
-                  <p className="text-sm text-white/70 mt-1">{item.focus}</p>
-                </div>
-                {index < careerTimeline.length - 1 && (
-                  <ChevronRight className="w-6 h-6 text-accent hidden md:block" />
-                )}
-              </div>
-            ))}
+                );
+              })}
+            </div>
+          </div>
+          
+          {/* Mobile/Tablet Timeline - Vertical */}
+          <div className="lg:hidden relative">
+            {/* Vertical connecting line */}
+            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-accent to-emerald-500 rounded-full"></div>
+            
+            <div className="space-y-8">
+              {careerTimeline.map((item, index) => {
+                const colors = [
+                  { bg: 'from-blue-500 to-blue-600', border: 'border-blue-500/30' },
+                  { bg: 'from-cyan-500 to-cyan-600', border: 'border-cyan-500/30' },
+                  { bg: 'from-teal-500 to-teal-600', border: 'border-teal-500/30' },
+                  { bg: 'from-amber-500 to-amber-600', border: 'border-amber-500/30' },
+                  { bg: 'from-emerald-500 to-emerald-600', border: 'border-emerald-500/30' },
+                ];
+                const color = colors[index % colors.length];
+                
+                return (
+                  <div key={index} className="flex items-center gap-6 group">
+                    {/* Node */}
+                    <div className={`relative z-10 w-16 h-16 rounded-full bg-gradient-to-br ${color.bg} flex items-center justify-center shadow-lg flex-shrink-0 transform transition-all duration-300 group-hover:scale-110`}>
+                      <span className="text-white font-bold text-xl">{index + 1}</span>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className={`flex-1 p-5 rounded-xl bg-white/10 backdrop-blur-sm border ${color.border} transform transition-all duration-300 group-hover:bg-white/15`}>
+                      <h3 className="font-bold text-white">{item.stage}</h3>
+                      <p className="text-white/70 text-sm mt-1">{item.focus}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
