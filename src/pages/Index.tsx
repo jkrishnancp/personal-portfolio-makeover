@@ -343,6 +343,13 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 mb-8">
           <span className="section-label">Experience</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 font-display">Professional History</h2>
+          <p className="text-muted-foreground mt-2 max-w-2xl">
+            Over 20 years of progressive experience building and leading security programs across enterprise, financial services, and technology sectors. From hands-on technical roles to executive leadership, each position has shaped my approach to security operations and risk management.
+          </p>
+          <p className="text-muted-foreground/70 mt-3 text-sm flex items-center gap-2">
+            <span className="inline-block w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+            Click on any role to explore detailed responsibilities and key achievements
+          </p>
         </div>
         
         <div className="relative max-w-7xl mx-auto">
@@ -412,11 +419,6 @@ const Index = () => {
                           {tech}
                         </span>
                       ))}
-                    </div>
-
-                    {/* Click hint */}
-                    <div className="mt-3 text-xs text-muted-foreground/60 text-center">
-                      Click to view details
                     </div>
                   </div>
                 );
