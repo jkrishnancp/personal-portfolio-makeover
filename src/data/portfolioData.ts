@@ -73,9 +73,9 @@ export const costOptimization = {
 
 export const thoughtLeadership = {
   speaking: [
-    "Speaker at regional ISACA chapter events on SOC modernization",
-    "Panelist at cybersecurity leadership roundtables",
-    "Internal knowledge-sharing sessions on Zero Trust and detection engineering"
+    "Active participant in RSA Conference and regional cybersecurity industry events",
+    "Led internal training sessions on Zero Trust architecture, detection engineering, and incident response",
+    "Mentor and knowledge-sharing facilitator for security operations and compliance teams"
   ],
   contributions: [
     "Detection rule libraries shared with security community",
