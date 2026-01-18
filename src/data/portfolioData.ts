@@ -21,11 +21,12 @@ export const statsData = {
 };
 
 export const careerTimeline = [
-  { stage: "Security Analyst", focus: "Technical foundations" },
-  { stage: "Security Engineer", focus: "Platform ownership" },
-  { stage: "Team Lead", focus: "Operational execution" },
-  { stage: "Manager, Security Operations", focus: "Process + People" },
-  { stage: "Senior Director, Security Operations", focus: "Strategy + Scale" }
+  { stage: "System Administrator", focus: "Technical foundations", years: "2 yrs", period: "2005-2007", cumulative: 2 },
+  { stage: "Assistant Manager - InfoSec", focus: "Security program ownership", years: "5 yrs", period: "2007-2011", cumulative: 7 },
+  { stage: "Senior Security Analyst", focus: "Security expertise", years: "1 yr", period: "2011-2012", cumulative: 8 },
+  { stage: "Team Lead", focus: "Operational execution", years: "1 yr", period: "2012-2013", cumulative: 9 },
+  { stage: "Manager - Security Ops", focus: "Process + People", years: "10 yrs", period: "2013-2023", cumulative: 19 },
+  { stage: "Senior Director", focus: "Strategy + Scale", years: "2+ yrs", period: "2023-Present", cumulative: 21 }
 ];
 
 export const securityPhilosophy = [
