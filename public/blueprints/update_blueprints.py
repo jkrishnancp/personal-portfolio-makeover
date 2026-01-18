@@ -33,7 +33,7 @@ THEME_CSS = "theme.css"
 
 # Header template
 HEADER_TEMPLATE = '''<header class="blueprint-header">
-    <a href="{portfolio_url}" class="logo">JK Portfolio</a>
+    <a href="{portfolio_url}" class="logo">Jay Prakash</a>
     <nav>
         <a href="{portfolio_url}" class="back-link">Back to Portfolio</a>
         <a href="{blueprints_url}">All Blueprints</a>
@@ -43,7 +43,7 @@ HEADER_TEMPLATE = '''<header class="blueprint-header">
 # Footer template
 FOOTER_TEMPLATE = '''<footer class="blueprint-footer">
     <p>Part of the <span class="brand">Security Blueprint Library</span></p>
-    <p>&copy; {year} JK Portfolio. All rights reserved.</p>
+    <p>&copy; {year} Jay Prakash. All rights reserved.</p>
 </footer>'''
 
 # Google Fonts link
