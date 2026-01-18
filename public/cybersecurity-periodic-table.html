@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Interactive Cybersecurity Landscape Periodic Table - Comprehensive reference for threats, vulnerabilities, tools, frameworks, and security roles">
     <title>Interactive Cybersecurity Periodic Table</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         @page {
             size: A3 landscape;
             margin: 10mm;
         }
-        
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -19,9 +20,21 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --navy-dark: hsl(222, 47%, 11%);
+            --navy: hsl(222, 47%, 15%);
+            --navy-light: hsl(222, 47%, 20%);
+            --navy-lighter: hsl(222, 47%, 25%);
+            --gold: hsl(45, 80%, 50%);
+            --gold-light: hsl(40, 90%, 55%);
+            --text-light: hsl(220, 15%, 95%);
+            --text-muted: hsl(220, 10%, 60%);
+            --border: hsl(222, 32%, 22%);
+        }
+        
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #141414;
+            font-family: 'Inter', sans-serif;
+            background: var(--navy-dark);
             padding: 20px;
             min-height: 100vh;
         }
@@ -30,25 +43,29 @@
             max-width: 100%;
             width: 100%;
             margin: 0 auto;
-            background: #1f1f1f;
+            background: var(--navy);
             padding: 2.5vw;
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
         }
         
         h1 {
             text-align: center;
+            font-family: 'Playfair Display', Georgia, serif;
             font-size: clamp(20px, 4vw, 42px);
             margin-bottom: clamp(8px, 1vw, 10px);
-            color: #E50914;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: bold;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .subtitle {
             text-align: center;
-            color: #f0f0f0;
+            color: var(--text-muted);
             margin-bottom: clamp(20px, 3vw, 30px);
             font-size: clamp(11px, 1.5vw, 14px);
         }
@@ -59,9 +76,10 @@
             gap: clamp(10px, 1.5vw, 15px);
             margin-bottom: clamp(25px, 4vw, 40px);
             padding: clamp(15px, 2vw, 20px);
-            background: #2a2a2a;
+            background: var(--navy-light);
             border-radius: 8px;
             max-width: 100%;
+            border: 1px solid var(--border);
         }
         
         .legend-item {
@@ -70,7 +88,7 @@
             gap: clamp(8px, 1.2vw, 12px);
             font-size: clamp(12px, 1.5vw, 16px);
             font-weight: 600;
-            color: #f0f0f0;
+            color: var(--text-light);
         }
         
         .legend-box {
@@ -86,13 +104,14 @@
             flex-shrink: 0;
         }
         
-        .threat { background: #dc3545; }
-        .vulnerability { background: #fd7e14; }
-        .tool { background: #28a745; }
-        .framework { background: #007bff; }
-        .concept { background: #6c757d; }
-        .defensive { background: #6c757d; color: #fff; }
-        .role { background: linear-gradient(135deg, #5b21b6 0%, #8b5cf6 100%); }
+        /* Category colors - Corporate theme with gold accents */
+        .threat { background: linear-gradient(135deg, hsl(0, 70%, 45%) 0%, hsl(0, 70%, 55%) 100%); }
+        .vulnerability { background: linear-gradient(135deg, hsl(30, 80%, 45%) 0%, hsl(30, 80%, 55%) 100%); }
+        .tool { background: linear-gradient(135deg, hsl(160, 60%, 35%) 0%, hsl(160, 60%, 45%) 100%); }
+        .framework { background: linear-gradient(135deg, hsl(210, 70%, 45%) 0%, hsl(210, 70%, 55%) 100%); }
+        .concept { background: linear-gradient(135deg, var(--navy-lighter) 0%, hsl(222, 47%, 35%) 100%); }
+        .defensive { background: linear-gradient(135deg, hsl(220, 25%, 40%) 0%, hsl(220, 25%, 50%) 100%); color: #fff; }
+        .role { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); color: var(--navy-dark); }
         
         .periodic-table {
             display: grid;
@@ -126,7 +145,7 @@
         .element:hover,
         .element:active {
             transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4), 0 0 20px hsla(45, 80%, 50%, 0.3);
             z-index: 10;
         }
         
@@ -173,7 +192,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #1f1f1f;
+            background: var(--navy);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 10px 50px rgba(0,0,0,0.8);
@@ -182,7 +201,7 @@
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid #333;
+            border: 1px solid var(--gold);
         }
         
         .popup.active {
@@ -222,7 +241,7 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 3px solid #2a2a2a;
+            border-bottom: 2px solid var(--border);
         }
         
         .popup-icon {
@@ -243,20 +262,24 @@
         }
         
         .popup-title h2 {
+            font-family: 'Playfair Display', Georgia, serif;
             font-size: 28px;
             margin-bottom: 5px;
-            color: #E50914;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .popup-category {
             font-size: 14px;
-            color: #aaa;
+            color: var(--text-muted);
             font-weight: 500;
         }
         
         .popup-close {
-            background: #2a2a2a;
-            border: none;
+            background: var(--navy-light);
+            border: 1px solid var(--border);
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -265,24 +288,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
-            color: #f0f0f0;
+            transition: all 0.2s;
+            color: var(--text-light);
         }
         
         .popup-close:hover {
-            background: #E50914;
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-color: var(--gold);
         }
         
         .popup-content h3 {
-            color: #E50914;
+            color: var(--gold);
             margin-top: 20px;
             margin-bottom: 10px;
             font-size: 18px;
+            font-family: 'Playfair Display', Georgia, serif;
         }
         
         .popup-content p {
             line-height: 1.7;
-            color: #f0f0f0;
+            color: var(--text-light);
             margin-bottom: 15px;
         }
         
@@ -294,24 +320,24 @@
         .popup-content li {
             margin-bottom: 8px;
             line-height: 1.6;
-            color: #ddd;
+            color: var(--text-muted);
         }
         
         .example-box {
-            background: #2a2a2a;
+            background: var(--navy-light);
             padding: 15px;
             border-radius: 8px;
-            border-left: 4px solid #E50914;
+            border-left: 4px solid var(--gold);
             margin: 15px 0;
         }
         
         .example-box code {
-            background: #1a1a1a;
+            background: var(--navy-dark);
             padding: 2px 6px;
             border-radius: 3px;
             font-family: 'Courier New', monospace;
             font-size: 13px;
-            color: #4CAF50;
+            color: var(--gold-light);
         }
         
         @media print {
@@ -376,13 +402,46 @@
         .container {
             overflow-x: hidden;
         }
+        
+        /* Back button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 50;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--navy-dark);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px hsla(45, 80%, 50%, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px hsla(45, 80%, 50%, 0.4);
+        }
+        
+        .back-button svg {
+            width: 16px;
+            height: 16px;
+        }
     </style>
 </head>
 <body>
 
     <!-- Back to Home Button -->
-    <a href="https://www.jayakrishnancp.com/" class="fixed top-5 left-5 z-50 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 flex items-center gap-2">
-        <span style="font-size: 1.2rem;">←</span> Back to Home
+    <a href="/" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
+        Back to Home
     </a>
     
         
