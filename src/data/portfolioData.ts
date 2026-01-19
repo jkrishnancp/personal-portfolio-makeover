@@ -30,12 +30,54 @@ export const careerTimeline = [
 ];
 
 export const securityPhilosophy = [
-  { number: 1, principle: "Security must be measurable", detail: "If it can't be tracked, it can't be improved." },
-  { number: 2, principle: "Detection quality beats alert volume", detail: "Signal over noise." },
-  { number: 3, principle: "Visibility comes before control", detail: "You protect what you understand." },
-  { number: 4, principle: "Automation is mandatory", detail: "Scale depends on systems, not heroics." },
-  { number: 5, principle: "Risk must be expressed in business language", detail: "Security exists to support decisions." },
-  { number: 6, principle: "Simple systems win", detail: "Reliability beats architectural perfection." }
+  {
+    number: 1,
+    principle: "Measure what matters",
+    detail: "Metrics drive accountability, not just dashboards.",
+    extended: "Effective security programs are built on meaningful metrics that drive real accountability. It's not about tracking everything—it's about identifying the indicators that truly reflect risk posture, operational efficiency, and business impact. Dashboards should inform decisions, not just decorate war rooms. When metrics are tied to outcomes, teams align around what matters most."
+  },
+  {
+    number: 2,
+    principle: "Precision over volume",
+    detail: "A tuned detection is worth a thousand alerts.",
+    extended: "Alert fatigue is one of the biggest threats to SOC effectiveness. A single well-tuned detection that catches real threats is infinitely more valuable than thousands of noisy alerts that bury analysts. Quality detections reduce mean time to respond, prevent burnout, and ensure that when something matters, it gets the attention it deserves."
+  },
+  {
+    number: 3,
+    principle: "You can't secure what you can't see",
+    detail: "Visibility is the foundation of control.",
+    extended: "Asset visibility is the bedrock of any security program. You cannot protect systems you don't know exist, monitor traffic you can't see, or remediate vulnerabilities in shadow IT. Before implementing controls, you must first establish comprehensive visibility across endpoints, identities, networks, and cloud workloads. Telemetry coverage determines detection capability."
+  },
+  {
+    number: 4,
+    principle: "Assume breach, build resilience",
+    detail: "Prevention is ideal. Recovery is essential.",
+    extended: "Mature security leaders know that breaches happen despite best efforts. While prevention remains critical, resilience determines survival. This means investing in detection, response capabilities, backup strategies, and recovery playbooks. Organizations that assume breach are better prepared to contain damage, maintain operations, and recover quickly when incidents occur."
+  },
+  {
+    number: 5,
+    principle: "Automate the repeatable, elevate the analyst",
+    detail: "Systems handle scale. People handle judgment.",
+    extended: "Automation isn't about replacing analysts—it's about freeing them to do what humans do best: make judgment calls, investigate complex threats, and think creatively. Repetitive tasks like IOC enrichment, ticket creation, and routine responses should be automated. This lets security teams scale their impact while keeping experienced analysts focused on the work that requires human intuition."
+  },
+  {
+    number: 6,
+    principle: "Translate risk into business impact",
+    detail: "Speak the language of the boardroom.",
+    extended: "Security leaders must bridge the gap between technical reality and business decision-making. Executives don't need to understand CVE scores—they need to understand potential revenue impact, regulatory exposure, and reputational risk. Translating security findings into business terms earns a seat at the table and ensures security gets the resources and attention it needs."
+  },
+  {
+    number: 7,
+    principle: "Security is a culture, not a department",
+    detail: "Technology enables. People defend.",
+    extended: "The strongest security programs recognize that technology alone cannot protect an organization. Security must be woven into the fabric of company culture—from how developers write code to how employees handle sensitive data. Building security champions, fostering awareness, and creating shared ownership turns every employee into a defender. People are both the greatest vulnerability and the strongest asset."
+  },
+  {
+    number: 8,
+    principle: "Simplicity is a security feature",
+    detail: "Complexity is the enemy of resilience.",
+    extended: "Complex systems are harder to secure, harder to monitor, and harder to recover. Every unnecessary integration, redundant tool, or convoluted process introduces potential failure points and attack surface. Simple architectures are easier to defend, audit, and maintain. When designing security controls, the most elegant solution is often the one with the fewest moving parts."
+  }
 ];
 
 export const impactHighlights = [

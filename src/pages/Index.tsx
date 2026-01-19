@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 
 const Index = () => {
@@ -187,7 +188,7 @@ const Index = () => {
       </section>
 
 
-      {/* Security Philosophy - Colorful Grid */}
+      {/* Security Philosophy - 2 Row Grid with Popups */}
       <section id="philosophy" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-tl from-accent/5 via-transparent to-primary/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
@@ -195,25 +196,51 @@ const Index = () => {
             <span className="inline-block px-3 sm:px-4 py-1 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium uppercase tracking-widest mb-3 sm:mb-4">Philosophy</span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display">Security Philosophy</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {securityPhilosophy.map((item) => {
               const colors = [
-                'from-blue-500/20 to-blue-600/10 border-blue-500/30',
-                'from-amber-500/20 to-amber-600/10 border-amber-500/30',
-                'from-emerald-500/20 to-emerald-600/10 border-emerald-500/30',
-                'from-purple-500/20 to-purple-600/10 border-purple-500/30',
-                'from-rose-500/20 to-rose-600/10 border-rose-500/30',
-                'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30',
+                'from-blue-500/20 to-blue-600/10 border-blue-500/30 hover:border-blue-500/50',
+                'from-amber-500/20 to-amber-600/10 border-amber-500/30 hover:border-amber-500/50',
+                'from-emerald-500/20 to-emerald-600/10 border-emerald-500/30 hover:border-emerald-500/50',
+                'from-purple-500/20 to-purple-600/10 border-purple-500/30 hover:border-purple-500/50',
+                'from-rose-500/20 to-rose-600/10 border-rose-500/30 hover:border-rose-500/50',
+                'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30 hover:border-cyan-500/50',
+                'from-indigo-500/20 to-indigo-600/10 border-indigo-500/30 hover:border-indigo-500/50',
+                'from-teal-500/20 to-teal-600/10 border-teal-500/30 hover:border-teal-500/50',
               ];
               const colorClass = colors[(item.number - 1) % colors.length];
               return (
-                <div key={item.number} className={`p-4 sm:p-6 rounded-xl bg-gradient-to-br ${colorClass} border backdrop-blur-sm hover:scale-105 transition-transform`}>
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-accent flex items-center justify-center mb-3 sm:mb-4">
-                    <span className="text-lg sm:text-xl font-bold text-accent-foreground">{item.number}</span>
-                  </div>
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground">{item.principle}</h3>
-                  <p className="text-muted-foreground mt-2 text-sm sm:text-base">{item.detail}</p>
-                </div>
+                <Dialog key={item.number}>
+                  <DialogTrigger asChild>
+                    <div className={`p-3 sm:p-4 rounded-xl bg-gradient-to-br ${colorClass} border backdrop-blur-sm hover:scale-105 transition-all cursor-pointer group`}>
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent flex items-center justify-center mb-2 sm:mb-3">
+                        <span className="text-sm sm:text-base font-bold text-accent-foreground">{item.number}</span>
+                      </div>
+                      <h3 className="text-sm sm:text-base font-semibold text-foreground leading-tight">{item.principle}</h3>
+                      <p className="text-muted-foreground mt-1.5 text-xs sm:text-sm line-clamp-2">{item.detail}</p>
+                      <div className="mt-2 flex items-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span>Learn more</span>
+                        <ChevronRight className="w-3 h-3 ml-1" />
+                      </div>
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-lg">
+                    <DialogHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                          <span className="text-lg font-bold text-accent-foreground">{item.number}</span>
+                        </div>
+                        <DialogTitle className="text-xl">{item.principle}</DialogTitle>
+                      </div>
+                      <DialogDescription className="text-base font-medium text-foreground/80">
+                        {item.detail}
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="mt-4 text-muted-foreground leading-relaxed">
+                      {item.extended}
+                    </div>
+                  </DialogContent>
+                </Dialog>
               );
             })}
           </div>
