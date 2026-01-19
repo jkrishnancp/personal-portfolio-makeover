@@ -86,7 +86,7 @@ const Index = () => {
 
             {/* HUD Metric Panels */}
             <div className="w-full lg:w-auto">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 sm:gap-4">
                 <HudMetricPanel
                   value="20+"
                   numericValue={20}
