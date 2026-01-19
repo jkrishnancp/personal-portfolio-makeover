@@ -3,6 +3,7 @@ import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, Graduation
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { CircularProgress } from "@/components/CircularProgress";
+import { HudMetricPanel } from "@/components/HudMetricPanel";
 import { useRef, useState } from "react";
 import executiveSummaryBg from "@/assets/executive-summary-bg.jpg";
 import {
@@ -83,25 +84,33 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Stats Card */}
+            {/* HUD Metric Panels */}
             <div className="w-full lg:w-auto">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 p-4 sm:p-6 lg:p-8 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">{statsData.yearsExperience}</div>
-                  <div className="text-xs sm:text-sm text-white/70 mt-1">Years</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">{statsData.projectsDelivered}</div>
-                  <div className="text-xs sm:text-sm text-white/70 mt-1">Projects</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">{statsData.teamSize}</div>
-                  <div className="text-xs sm:text-sm text-white/70 mt-1">Team Size</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">{statsData.countries}</div>
-                  <div className="text-xs sm:text-sm text-white/70 mt-1">Countries</div>
-                </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                <HudMetricPanel
+                  value="20+"
+                  numericValue={20}
+                  label="Years Experience"
+                  delay={0}
+                />
+                <HudMetricPanel
+                  value="250+"
+                  numericValue={250}
+                  label="Projects"
+                  delay={100}
+                />
+                <HudMetricPanel
+                  value="400+"
+                  numericValue={400}
+                  label="Team Size"
+                  delay={200}
+                />
+                <HudMetricPanel
+                  value="20+"
+                  numericValue={20}
+                  label="Countries"
+                  delay={300}
+                />
               </div>
             </div>
           </div>
