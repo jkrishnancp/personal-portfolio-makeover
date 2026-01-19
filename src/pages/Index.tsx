@@ -2,6 +2,7 @@ import { profileData, summaryData, statsData, securityPhilosophy, impactHighligh
 import { Mail, Linkedin, ChevronRight, Shield, Zap, Award, Briefcase, GraduationCap, Target, TrendingUp, CheckCircle2, ChevronLeft, Users, DollarSign, Mic, Sparkles, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
+import { CircularProgress } from "@/components/CircularProgress";
 import { useRef, useState } from "react";
 import executiveSummaryBg from "@/assets/executive-summary-bg.jpg";
 import {
@@ -162,25 +163,38 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Right Content - Stats Cards */}
+            {/* Right Content - Circular Progress Rings */}
             <div className="lg:col-span-2">
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center transform hover:scale-105 transition-transform">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">{statsData.yearsExperience}</div>
-                  <div className="text-white/70 text-xs sm:text-sm">Years Experience</div>
-                </div>
-                <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center transform hover:scale-105 transition-transform">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">{statsData.projectsDelivered}</div>
-                  <div className="text-white/70 text-xs sm:text-sm">Projects</div>
-                </div>
-                <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center transform hover:scale-105 transition-transform">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">{statsData.countries}</div>
-                  <div className="text-white/70 text-xs sm:text-sm">Countries</div>
-                </div>
-                <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center transform hover:scale-105 transition-transform">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">{statsData.teamSize}</div>
-                  <div className="text-white/70 text-xs sm:text-sm">Team Size</div>
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
+                <CircularProgress
+                  value={95}
+                  label="Alert Noise Reduced"
+                  displayValue="95%"
+                  isPercentage={true}
+                  delay={0}
+                />
+                <CircularProgress
+                  value={70}
+                  label="Faster Response Time"
+                  displayValue="70%"
+                  isPercentage={true}
+                  delay={150}
+                />
+                <CircularProgress
+                  value={100}
+                  label="Audit Success Rate"
+                  displayValue="100%"
+                  isPercentage={true}
+                  delay={300}
+                />
+                <CircularProgress
+                  value={15}
+                  maxValue={20}
+                  label="Compliance Frameworks"
+                  displayValue="15+"
+                  isPercentage={false}
+                  delay={450}
+                />
               </div>
             </div>
           </div>
