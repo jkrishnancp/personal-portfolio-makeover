@@ -85,15 +85,16 @@ export const thoughtLeadership = {
 };
 
 export const openToRoles = {
-  headline: "Open to CISO, VP Security, or Director-level opportunities",
+  headline: "Open to VP Security, Deputy CISO, or Director-level opportunities",
   interests: [
-    "CISO / VP of Security – building and leading enterprise security programs",
-    "Security Operations leadership – scaling SOC, MDR, and detection capabilities",
-    "Strategic advisory – board-level security consulting and fractional CISO engagements",
-    "Consulting – security program assessments, GRC strategy, and transformation initiatives"
+    "VP of Security Operations – leading enterprise SOC, MDR/XDR programs, and incident response capabilities for large-scale organizations",
+    "Deputy CISO / Associate CISO – partnering with CISOs to execute security strategy, manage operational programs, and drive security transformation initiatives",
+    "VP of Cybersecurity – overseeing threat detection, vulnerability management, and security operations while supporting enterprise security program delivery",
+    "Director of Security Architecture & Engineering – designing and implementing Zero Trust, cloud security, and AI-driven security solutions at enterprise scale"
   ],
   preferences: [
-    "Remote-first or hybrid roles",
+    "Open to relocation for the right opportunity",
+    "Hybrid or full-time on-site roles welcome",
     "Organizations committed to security as a business enabler",
     "Opportunities to build, not just maintain"
   ]

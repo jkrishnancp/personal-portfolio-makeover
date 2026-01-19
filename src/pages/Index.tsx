@@ -54,7 +54,7 @@ const Index = () => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-tight">
                 {profileData.name}
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-white/80 max-w-2xl mx-auto lg:mx-0">{profileData.tagline}</p>
+              <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-2xl mx-auto lg:mx-0 font-medium italic tracking-wide">{profileData.tagline}</p>
               
               <div className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start pt-2 sm:pt-4">
                 <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 text-sm sm:text-base sm:h-10" asChild>
