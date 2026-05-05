@@ -1,13 +1,37 @@
 /**
- * Cloudflare Worker entry point
- * Handles /api/blueprint-access for blueprint lead capture via Resend.
- * Everything else is served from static assets.
+ * Cloudflare Worker — portfolio + blueprint gate
+ *
+ * /blueprints/*.html  → check cookie; redirect to gate if not authenticated
+ * /api/blueprint-access POST → send Resend email, set cookie
+ * everything else → static assets
  */
+
+const COOKIE_NAME = 'jcp_blueprint_access';
+const COOKIE_DAYS = 30;
+
+function hasCookie(request) {
+  const cookie = request.headers.get('Cookie') || '';
+  return cookie.split(';').some(c => c.trim().startsWith(COOKIE_NAME + '='));
+}
+
+function gateRedirect(requestUrl) {
+  const url = new URL(requestUrl);
+  const dest = encodeURIComponent(url.pathname + url.search);
+  return Response.redirect(`${url.origin}/blueprint-gate.html?redirect=${dest}`, 302);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Blueprint lead capture endpoint
+    // ── Server-side blueprint protection ──────────────────────────────────
+    if (url.pathname.startsWith('/blueprints/') && url.pathname.endsWith('.html')) {
+      if (!hasCookie(request)) {
+        return gateRedirect(request.url);
+      }
+    }
+
+    // ── Blueprint lead capture ─────────────────────────────────────────────
     if (url.pathname === '/api/blueprint-access' && request.method === 'POST') {
       try {
         const data      = await request.formData();
@@ -56,7 +80,14 @@ export default {
           return Response.json({ ok: false, error: 'Email send failed' }, { status: 500 });
         }
 
-        return Response.json({ ok: true });
+        // Set the cookie server-side too for extra security
+        const maxAge = COOKIE_DAYS * 24 * 60 * 60;
+        return new Response(JSON.stringify({ ok: true }), {
+          headers: {
+            'Content-Type': 'application/json',
+            'Set-Cookie': `${COOKIE_NAME}=1; Path=/; Max-Age=${maxAge}; SameSite=Lax; Secure`,
+          },
+        });
 
       } catch (err) {
         console.error('Worker error:', err);
@@ -64,7 +95,7 @@ export default {
       }
     }
 
-    // All other requests → static assets
+    // ── Everything else → static assets ──────────────────────────────────
     return env.ASSETS.fetch(request);
   },
 };
