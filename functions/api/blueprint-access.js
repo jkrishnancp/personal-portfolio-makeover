@@ -8,17 +8,16 @@
  */
 export async function onRequestPost({ request, env }) {
   try {
-    const data     = await request.formData();
-    const name     = (data.get('name')      || '').trim();
-    const email    = (data.get('email')     || '').trim();
+    const data      = await request.formData();
+    const name      = (data.get('name')      || '').trim();
+    const email     = (data.get('email')     || '').trim();
     const blueprint = (data.get('blueprint') || '').trim();
-    const page     = (data.get('page')      || '').trim();
+    const page      = (data.get('page')      || '').trim();
 
     if (!name || !email) {
       return Response.json({ ok: false, error: 'Missing fields' }, { status: 400 });
     }
 
-    // Send notification email via Resend
     const res = await fetch('https://api.resend.com/emails', {
       method:  'POST',
       headers: {
@@ -40,7 +39,9 @@ export async function onRequestPost({ request, env }) {
               <tr><td style="padding:8px 0;color:#78716c;font-size:13px;">Blueprint</td>
                   <td style="padding:8px 0;font-size:13px;">${blueprint}</td></tr>
               <tr><td style="padding:8px 0;color:#78716c;font-size:13px;">Page</td>
-                  <td style="padding:8px 0;font-size:13px;"><a href="${page}">${page}</a></td></tr>
+                  <td style="padding:8px 0;font-size:13px;">
+                    <a href="${page}" style="color:#c2410c;">${page}</a>
+                  </td></tr>
             </table>
           </div>
         `,
