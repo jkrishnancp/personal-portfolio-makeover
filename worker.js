@@ -54,31 +54,40 @@ async function getKey(secret) {
   );
 }
 
+function uint8ToBase64(bytes) {
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary);
+}
+
 async function signToken(email, otp, timestamp, secret) {
-  const data = `${email}|${otp}|${timestamp}`;
-  const key  = await getKey(secret);
-  const sig  = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(data));
-  const sigB64 = btoa(String.fromCharCode(...new Uint8Array(sig)));
-  return btoa(data) + '.' + sigB64;
+  const data    = `${email}|${otp}|${timestamp}`;
+  const key     = await getKey(secret);
+  const sigBuf  = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(data));
+  const sigB64  = uint8ToBase64(new Uint8Array(sigBuf));
+  return btoa(unescape(encodeURIComponent(data))) + '.' + sigB64;
 }
 
 async function verifyToken(token, inputOtp, inputEmail, secret) {
   try {
-    const [dataB64, sigB64] = token.split('.');
-    const data = atob(dataB64);
-    const [email, otp, ts] = data.split('|');
+    const dotIdx = token.lastIndexOf('.');
+    const dataB64 = token.slice(0, dotIdx);
+    const sigB64  = token.slice(dotIdx + 1);
+    const data    = decodeURIComponent(escape(atob(dataB64)));
+    const parts   = data.split('|');
+    const email   = parts[0], otp = parts[1], ts = parts[2];
 
     if (email !== inputEmail) return { ok: false, reason: 'email_mismatch' };
     if (otp   !== inputOtp)   return { ok: false, reason: 'wrong_otp' };
     if (Date.now() - parseInt(ts) > OTP_TTL_MS) return { ok: false, reason: 'expired' };
 
     const key      = await getKey(secret);
-    const sigBytes = Uint8Array.from(atob(sigB64), c => c.charCodeAt(0));
+    const sigBytes = new Uint8Array(Array.from(atob(sigB64), c => c.charCodeAt(0)));
     const valid    = await crypto.subtle.verify('HMAC', key, sigBytes, new TextEncoder().encode(data));
 
     return valid ? { ok: true } : { ok: false, reason: 'invalid_sig' };
-  } catch {
-    return { ok: false, reason: 'bad_token' };
+  } catch (e) {
+    return { ok: false, reason: 'bad_token: ' + e.message };
   }
 }
 
