@@ -163,12 +163,13 @@
             document.getElementById('otp').focus();
             startTimer(900);
           } else {
-            msg.style.color = '#c2410c'; msg.textContent = 'Something went wrong — please try again.';
+            msg.style.color = '#c2410c';
+            msg.textContent = j.detail || j.error || 'Something went wrong — please try again.';
             btn.disabled = false; btn.textContent = 'Send verification code →';
           }
         })
-        .catch(function() {
-          msg.style.color = '#c2410c'; msg.textContent = 'Something went wrong — please try again.';
+        .catch(function(err) {
+          msg.style.color = '#c2410c'; msg.textContent = 'Network error: ' + err.message;
           btn.disabled = false; btn.textContent = 'Send verification code →';
         });
     });
