@@ -1,565 +1,359 @@
-/* Blueprint Theme - Corporate Executive Navy & Gold */
-/* Shared styles for all 250 blueprint HTML files */
+/* Blueprint Theme — Burnt Signal (matches jayakrishnancp.com portfolio) */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
 
 :root {
-  /* Primary Colors - Navy */
-  --navy-900: hsl(222, 47%, 11%);
-  --navy-800: hsl(222, 47%, 15%);
-  --navy-700: hsl(222, 47%, 20%);
-  --navy-600: hsl(222, 47%, 25%);
-  --navy-500: hsl(222, 47%, 35%);
-  
-  /* Accent Colors - Gold */
-  --gold-500: hsl(45, 80%, 50%);
-  --gold-400: hsl(45, 80%, 60%);
-  --gold-300: hsl(45, 80%, 70%);
-  
-  /* Neutral Colors */
-  --white: hsl(0, 0%, 100%);
-  --gray-100: hsl(220, 14%, 96%);
-  --gray-200: hsl(220, 13%, 91%);
-  --gray-300: hsl(216, 12%, 84%);
-  --gray-400: hsl(218, 11%, 65%);
-  --gray-500: hsl(220, 9%, 46%);
-  
-  /* Semantic Colors */
-  --bg-primary: var(--navy-900);
-  --bg-secondary: var(--navy-800);
-  --bg-tertiary: var(--navy-700);
-  --text-primary: var(--white);
-  --text-secondary: var(--gray-300);
-  --text-muted: var(--gray-400);
-  --accent: var(--gold-500);
-  --accent-hover: var(--gold-400);
-  --border-color: var(--navy-600);
-  
-  /* Typography */
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
-  
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
-  
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 300ms ease;
+  --bg:       #fafaf8;
+  --card:     #ffffff;
+  --card-alt: #f5f2ee;
+  --fg:       #1c1917;
+  --primary:  #c2410c;
+  --accent:   #0f766e;
+  --muted:    #78716c;
+  --border:   #e7e2dc;
+  --sans:     'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --display:  'Cormorant Garamond', Georgia, serif;
+  --mono:     'DM Mono', ui-monospace, monospace;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
 }
 
-/* Reset & Base */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
-  font-family: var(--font-body);
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--fg);
   line-height: 1.7;
   min-height: 100vh;
 }
 
-/* Typography */
+/* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  line-height: 1.3;
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-md);
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--fg);
+  margin-bottom: 0.75rem;
 }
 
 h1 {
-  font-size: 2.5rem;
-  color: var(--accent);
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: var(--spacing-md);
-  margin-bottom: var(--spacing-xl);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: 1.75rem;
-  color: var(--accent);
-  margin-top: var(--spacing-2xl);
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid var(--border-color);
+  font-size: 1.6rem;
+  color: var(--fg);
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
 h3 {
-  font-size: 1.35rem;
-  color: var(--gold-300);
-  margin-top: var(--spacing-xl);
+  font-size: 1.25rem;
+  color: var(--primary);
+  margin-top: 1.75rem;
 }
 
 h4 {
-  font-size: 1.15rem;
-  color: var(--text-primary);
-  margin-top: var(--spacing-lg);
+  font-size: 1.1rem;
+  color: var(--fg);
+  margin-top: 1.25rem;
 }
 
-p {
-  margin-bottom: var(--spacing-md);
-  color: var(--text-secondary);
-}
+p { margin-bottom: 0.9rem; color: var(--muted); }
 
-/* Links */
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
+a { color: var(--primary); text-decoration: none; transition: color .15s; }
+a:hover { color: #a83209; text-decoration: underline; }
 
-a:hover {
-  color: var(--accent-hover);
-  text-decoration: underline;
-}
-
-/* Header Navigation */
+/* ── Header ── */
 .blueprint-header {
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
-  padding: var(--spacing-md) var(--spacing-xl);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background: var(--primary);
+  padding: 14px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .blueprint-header .logo {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  color: var(--accent);
-  font-weight: 600;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
 }
 
 .blueprint-header nav {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: 4px;
 }
 
 .blueprint-header nav a {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
+  color: rgba(255,255,255,.65);
+  font-family: var(--mono);
+  font-size: .78rem;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all .15s;
+  text-decoration: none;
 }
 
 .blueprint-header nav a:hover {
-  color: var(--accent);
-  background: var(--navy-700);
-  text-decoration: none;
+  color: white;
+  background: rgba(255,255,255,.12);
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  color: var(--accent);
-  font-weight: 500;
+  gap: 6px;
+  color: rgba(255,255,255,.8);
+  font-family: var(--mono);
+  font-size: .8rem;
+  text-decoration: none;
 }
 
-.back-link::before {
-  content: '←';
-}
+.back-link:hover { color: white; text-decoration: none; }
+.back-link::before { content: '←'; }
 
-/* Main Content Container */
+/* ── Container ── */
 .blueprint-container {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: var(--spacing-2xl) var(--spacing-xl);
+  padding: 2.5rem 1.5rem;
 }
 
-/* Metadata Box - Card Style */
+/* ── Metadata ── */
 .metadata {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-2xl);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.25rem;
 }
 
-.metadata .meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
+.metadata .meta-item { display: flex; flex-direction: column; gap: 4px; }
 
 .metadata .meta-label {
-  font-size: 0.7rem;
+  font-family: var(--mono);
+  font-size: .68rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: hsl(200, 80%, 55%);
-  font-weight: 600;
+  letter-spacing: .14em;
+  color: var(--accent);
+  font-weight: 500;
 }
 
 .metadata .meta-value {
-  font-weight: 500;
-  color: var(--text-primary);
-  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--fg);
+  font-size: .9rem;
 }
 
-/* Tags in metadata */
-.metadata .tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-xs);
-}
+.metadata .tags { display: flex; flex-wrap: wrap; gap: 4px; }
 
 .metadata .tag {
-  background: var(--navy-700);
-  color: var(--text-secondary);
-  padding: 0.25em 0.6em;
-  border-radius: var(--radius-sm);
-  font-size: 0.8rem;
-  font-weight: 500;
+  background: rgba(194,65,12,.08);
+  color: var(--primary);
+  border: 1px solid rgba(194,65,12,.2);
+  padding: .2em .6em;
+  border-radius: 100px;
+  font-size: .75rem;
+  font-family: var(--mono);
 }
 
-/* Legacy blueprint-meta support */
+/* Legacy support */
 .blueprint-meta {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--accent);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
   border-radius: var(--radius-md);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-2xl);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
 }
 
-.blueprint-meta .meta-item {
-  display: flex;
-  flex-direction: column;
-}
+.blueprint-meta .meta-item { display: flex; flex-direction: column; }
+.blueprint-meta .meta-label { font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 3px; }
+.blueprint-meta .meta-value { font-weight: 600; color: var(--fg); }
 
-.blueprint-meta .meta-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-  margin-bottom: var(--spacing-xs);
-}
-
-.blueprint-meta .meta-value {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-/* Table of Contents */
+/* ── TOC ── */
 .toc {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-2xl);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
 }
 
 .toc h2, .toc h3 {
-  font-size: 1rem;
-  color: var(--accent);
-  margin-top: 0;
-  margin-bottom: var(--spacing-md);
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.toc ul, .toc ol {
-  list-style: none;
-  padding-left: 0;
-}
-
-.toc li {
-  margin-bottom: var(--spacing-sm);
-}
-
-.toc a {
-  color: var(--text-secondary);
-  display: block;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
-}
-
-.toc a:hover {
-  background: var(--navy-700);
-  color: var(--accent);
-  text-decoration: none;
-  padding-left: var(--spacing-md);
-}
-
-/* Lists */
-ul, ol {
-  margin-bottom: var(--spacing-md);
-  padding-left: var(--spacing-xl);
-  color: var(--text-secondary);
-}
-
-li {
-  margin-bottom: var(--spacing-sm);
-}
-
-li::marker {
-  color: var(--accent);
-}
-
-/* Tables */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: var(--spacing-lg) 0;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
-
-thead {
-  background: var(--navy-700);
-}
-
-th {
-  text-align: left;
-  padding: var(--spacing-md);
-  font-weight: 600;
-  color: var(--accent);
-  font-size: 0.85rem;
+  font-family: var(--mono);
+  font-size: .75rem;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  border-bottom: 2px solid var(--accent);
-}
-
-td {
-  padding: var(--spacing-md);
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-secondary);
-}
-
-tr:last-child td {
-  border-bottom: none;
-}
-
-tr:hover td {
-  background: var(--navy-700);
-}
-
-/* Code Blocks */
-pre, code {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.9rem;
-}
-
-code {
-  background: var(--navy-700);
-  color: var(--gold-300);
-  padding: 0.15em 0.4em;
-  border-radius: var(--radius-sm);
-}
-
-pre {
-  background: var(--navy-700);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-lg);
-  overflow-x: auto;
-  margin: var(--spacing-lg) 0;
-}
-
-pre code {
-  background: transparent;
+  letter-spacing: .16em;
+  color: var(--muted);
+  margin: 0 0 .75rem;
+  border: none;
   padding: 0;
 }
 
-/* Blockquotes */
+.toc ul, .toc ol { list-style: none; padding: 0; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: var(--muted); display: block; padding: 5px 10px; border-radius: 8px; transition: all .15s; font-size: .9rem; }
+.toc a:hover { background: rgba(194,65,12,.06); color: var(--primary); text-decoration: none; padding-left: 14px; }
+
+/* ── Lists ── */
+ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--muted); }
+li { margin-bottom: 6px; }
+li::marker { color: var(--primary); }
+
+/* ── Tables ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+thead { background: rgba(194,65,12,.06); }
+
+th {
+  text-align: left;
+  padding: .85rem 1rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--primary);
+  font-weight: 500;
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: .8rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(194,65,12,.03); }
+
+/* ── Code ── */
+pre, code { font-family: var(--mono); font-size: .88rem; }
+
+code {
+  background: rgba(194,65,12,.08);
+  color: var(--primary);
+  padding: .15em .45em;
+  border-radius: 5px;
+}
+
+pre {
+  background: #1c1917;
+  color: #f5f2ee;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+pre code { background: transparent; color: #f5f2ee; padding: 0; }
+
+/* ── Blockquotes ── */
 blockquote {
-  border-left: 4px solid var(--accent);
-  background: var(--bg-secondary);
-  margin: var(--spacing-lg) 0;
-  padding: var(--spacing-lg);
+  border-left: 4px solid var(--primary);
+  background: rgba(194,65,12,.04);
+  margin: 1.25rem 0;
+  padding: 1rem 1.25rem;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   font-style: italic;
-  color: var(--text-secondary);
+  color: var(--muted);
 }
 
-blockquote p:last-child {
-  margin-bottom: 0;
-}
+blockquote p:last-child { margin-bottom: 0; }
 
-/* Callout Boxes */
+/* ── Callouts ── */
 .callout, .note, .warning, .tip, .important {
-  padding: var(--spacing-lg);
+  padding: 1rem 1.25rem;
   border-radius: var(--radius-md);
-  margin: var(--spacing-lg) 0;
+  margin: 1.25rem 0;
   border-left: 4px solid;
 }
 
-.note {
-  background: hsla(210, 50%, 40%, 0.2);
-  border-color: hsl(210, 50%, 50%);
-}
+.note     { background: rgba(15,118,110,.06);  border-color: var(--accent); }
+.tip      { background: rgba(15,118,110,.06);  border-color: var(--accent); }
+.warning  { background: rgba(194,65,12,.06);   border-color: var(--primary); }
+.important{ background: rgba(194,65,12,.06);   border-color: var(--primary); }
 
-.warning {
-  background: hsla(35, 80%, 40%, 0.2);
-  border-color: hsl(35, 80%, 50%);
-}
+/* ── Sections ── */
+section { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
 
-.tip {
-  background: hsla(145, 50%, 35%, 0.2);
-  border-color: hsl(145, 50%, 45%);
-}
-
-.important {
-  background: hsla(0, 60%, 40%, 0.2);
-  border-color: hsl(0, 60%, 50%);
-}
-
-/* Sections */
-section {
-  margin-bottom: var(--spacing-2xl);
-  padding-bottom: var(--spacing-xl);
-  border-bottom: 1px solid var(--border-color);
-}
-
-section:last-of-type {
-  border-bottom: none;
-}
-
-/* Footer */
+/* ── Footer ── */
 .blueprint-footer {
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  padding: var(--spacing-xl);
+  background: var(--primary);
+  padding: 2rem;
   text-align: center;
-  margin-top: var(--spacing-3xl);
+  margin-top: 3rem;
 }
 
-.blueprint-footer p {
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  margin-bottom: var(--spacing-sm);
-}
+.blueprint-footer p { color: rgba(255,255,255,.6); font-size: .8rem; margin-bottom: 6px; }
+.blueprint-footer .brand { color: white; font-family: var(--display); font-weight: 700; }
+.blueprint-footer a { color: rgba(255,255,255,.8); }
+.blueprint-footer a:hover { color: white; }
 
-.blueprint-footer .brand {
-  color: var(--accent);
-  font-family: var(--font-heading);
-  font-weight: 600;
-}
-
-/* Responsive Design */
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  html {
-    font-size: 15px;
-  }
-  
-  .blueprint-container {
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
-  
-  h1 {
-    font-size: 1.75rem;
-  }
-  
-  h2 {
-    font-size: 1.35rem;
-  }
-  
-  .blueprint-header {
-    flex-direction: column;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-  }
-  
-  .blueprint-header nav {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .blueprint-meta {
-    grid-template-columns: 1fr;
-  }
-  
-  table {
-    display: block;
-    overflow-x: auto;
-  }
-  
-  pre {
-    padding: var(--spacing-md);
-  }
+  .blueprint-header { padding: 12px 20px; }
+  .blueprint-header nav { display: none; }
+  .blueprint-container { padding: 1.5rem 1rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  .metadata { grid-template-columns: 1fr 1fr; }
+  table { display: block; overflow-x: auto; }
 }
 
 @media (max-width: 480px) {
-  html {
-    font-size: 14px;
-  }
-  
-  .blueprint-container {
-    padding: var(--spacing-md) var(--spacing-sm);
-  }
-  
-  h1 {
-    font-size: 1.5rem;
-  }
+  .blueprint-container { padding: 1rem .75rem; }
+  h1 { font-size: 1.4rem; }
+  .metadata { grid-template-columns: 1fr; }
 }
 
-/* Print Styles */
+/* ── Print ── */
 @media print {
-  body {
-    background: white;
-    color: black;
-  }
-  
-  .blueprint-header,
-  .blueprint-footer {
-    display: none;
-  }
-  
-  h1, h2, h3, h4 {
-    color: black;
-  }
-  
-  a {
-    color: black;
-    text-decoration: underline;
-  }
-  
-  .blueprint-container {
-    max-width: 100%;
-    padding: 0;
-  }
+  body { background: white; color: black; }
+  .blueprint-header, .blueprint-footer { display: none; }
+  h1, h2, h3, h4 { color: black; }
+  h1 { border-color: black; }
+  a { color: black; text-decoration: underline; }
+  .blueprint-container { max-width: 100%; padding: 0; }
+  code { background: #f0f0f0; color: black; }
+  pre { background: #f0f0f0; color: black; border: 1px solid #ccc; }
 }
 
-/* Utility Classes */
-.text-accent { color: var(--accent); }
-.text-muted { color: var(--text-muted); }
-.bg-secondary { background: var(--bg-secondary); }
-.mt-lg { margin-top: var(--spacing-lg); }
-.mb-lg { margin-bottom: var(--spacing-lg); }
-.p-lg { padding: var(--spacing-lg); }
-.rounded { border-radius: var(--radius-md); }
-.border { border: 1px solid var(--border-color); }
+/* ── Utilities ── */
+.text-accent  { color: var(--primary); }
+.text-muted   { color: var(--muted); }
+.bg-secondary { background: var(--card); }
+.mt-lg        { margin-top: 1.5rem; }
+.mb-lg        { margin-bottom: 1.5rem; }
+.p-lg         { padding: 1.5rem; }
+.rounded      { border-radius: var(--radius-md); }
+.border       { border: 1px solid var(--border); }
