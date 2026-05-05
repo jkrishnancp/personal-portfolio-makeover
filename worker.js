@@ -125,17 +125,43 @@ export default {
             method:  'POST',
             headers: { 'Authorization': `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              from:    'Jay Prakash <noreply@jayakrishnancp.com>',
+              from:    'Jay Prakash · Security Blueprints <noreply@jayakrishnancp.com>',
               to:      [email],
-              subject: `Your blueprint access code: ${otp}`,
+              subject: `Your access code for Security Blueprints — ${otp}`,
               html: `
-                <div style="font-family:sans-serif;max-width:420px;margin:0 auto;padding:32px 24px;">
-                  <h2 style="font-family:Georgia,serif;color:#c2410c;margin:0 0 8px;">Your access code</h2>
-                  <p style="color:#78716c;font-size:14px;margin:0 0 24px;">Hi ${name}, use this code to access the security blueprint. It expires in 15 minutes.</p>
-                  <div style="background:#fafaf8;border:2px solid #c2410c;border-radius:12px;padding:20px;text-align:center;margin:0 0 24px;">
-                    <span style="font-family:monospace;font-size:36px;font-weight:700;color:#c2410c;letter-spacing:8px;">${otp}</span>
+                <div style="font-family:sans-serif;max-width:480px;margin:0 auto;background:#fafaf8;border-radius:16px;overflow:hidden;">
+                  <!-- Header -->
+                  <div style="background:#c2410c;padding:28px 32px;">
+                    <p style="margin:0;font-family:Georgia,serif;font-size:20px;font-weight:700;color:white;">Jay Prakash</p>
+                    <p style="margin:4px 0 0;font-size:11px;color:rgba(255,255,255,0.65);letter-spacing:0.12em;text-transform:uppercase;font-family:monospace;">Security Blueprints · jayakrishnancp.com</p>
                   </div>
-                  <p style="color:#a8a29e;font-size:12px;">If you didn't request this, ignore this email.</p>
+                  <!-- Body -->
+                  <div style="padding:32px;">
+                    <p style="color:#1c1917;font-size:15px;margin:0 0 6px;font-weight:600;">Hi ${name},</p>
+                    <p style="color:#78716c;font-size:14px;margin:0 0 24px;line-height:1.6;">
+                      You requested access to the <strong style="color:#1c1917;">Security Blueprints</strong> library — 256 execution-grade security implementation blueprints covering detection engineering, Zero Trust, cloud security, GRC, and more.
+                    </p>
+                    <p style="color:#78716c;font-size:13px;margin:0 0 12px;">Your one-time access code:</p>
+                    <div style="background:white;border:2px solid #c2410c;border-radius:12px;padding:24px;text-align:center;margin:0 0 24px;">
+                      <span style="font-family:monospace;font-size:40px;font-weight:700;color:#c2410c;letter-spacing:10px;">${otp}</span>
+                      <p style="margin:10px 0 0;font-size:12px;color:#a8a29e;font-family:monospace;">Expires in 15 minutes</p>
+                    </div>
+                    <p style="color:#78716c;font-size:13px;line-height:1.6;margin:0 0 24px;">
+                      Enter this code on the blueprint access page to unlock 30 days of access to all blueprints.
+                    </p>
+                    <hr style="border:none;border-top:1px solid #e7e2dc;margin:0 0 20px;" />
+                    <p style="color:#a8a29e;font-size:11px;margin:0;line-height:1.6;">
+                      If you didn't request this, you can safely ignore this email.<br/>
+                      This code was requested for <strong>${email}</strong>.
+                    </p>
+                  </div>
+                  <!-- Footer -->
+                  <div style="background:#f5f2ee;padding:16px 32px;text-align:center;">
+                    <p style="margin:0;font-size:11px;color:#a8a29e;">
+                      <a href="https://jayakrishnancp.com" style="color:#c2410c;text-decoration:none;">jayakrishnancp.com</a>
+                      &nbsp;·&nbsp; Senior Director, Security Operations
+                    </p>
+                  </div>
                 </div>
               `,
             }),
