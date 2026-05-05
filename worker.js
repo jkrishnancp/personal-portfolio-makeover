@@ -25,7 +25,8 @@ export default {
     const url = new URL(request.url);
 
     // ── Server-side blueprint protection ──────────────────────────────────
-    if (url.pathname.startsWith('/blueprints/') && url.pathname.endsWith('.html')) {
+    // Match /blueprints/NNN-name (with or without .html — Cloudflare strips .html)
+    if (/^\/blueprints\/\d{3}-/.test(url.pathname)) {
       if (!hasCookie(request)) {
         return gateRedirect(request.url);
       }
