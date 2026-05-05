@@ -555,7 +555,7 @@ export function PortfolioBento() {
               { label: "Cyber Periodic Table",  href: "/cybersecurity-periodic-table.html",      Icon: BookOpen  },
             ].map(({ label, href, Icon }) => (
               <a key={label} href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all"
               >
@@ -758,6 +758,8 @@ export function PortfolioBento() {
           <div className="mt-5 text-center">
             <a
               href="/security-blueprints.html"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-semibold hover:bg-primary/90 transition-colors"
             >
               Browse all 256 blueprints
