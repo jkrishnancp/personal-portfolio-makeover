@@ -171,6 +171,15 @@
 
   <script>
     var COOKIE_DAYS = 30;
+    var FREE_DOMAINS = new Set(['gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','yahoo.fr',
+      'hotmail.com','hotmail.co.uk','hotmail.fr','outlook.com','outlook.co.uk','live.com',
+      'msn.com','aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me',
+      'tutanota.com','yandex.com','yandex.ru','mail.com','gmx.com','gmx.net','inbox.com',
+      'fastmail.com','hey.com','duck.com','pm.me','rocketmail.com','qq.com','163.com','126.com']);
+    function isPublicDomain(email) {
+      var domain = (email.split('@')[1] || '').toLowerCase().trim();
+      return FREE_DOMAINS.has(domain);
+    }
 
     function getRedirect() {
       var params = new URLSearchParams(window.location.search);
@@ -211,6 +220,13 @@
       fetch('/api/blueprint-access', { method: 'POST', body: data })
         .then(function(res) { return res.json(); })
         .then(function(json) {
+          if (!json.ok && json.error === 'work_email') {
+            btn.disabled = false;
+            btn.textContent = 'Continue to Blueprint →';
+            msg.style.color = '#c2410c';
+            msg.textContent = 'Please use your work or corporate email address.';
+            return;
+          }
           if (json.ok) {
             setCookie('jcp_blueprint_access', '1', COOKIE_DAYS);
             msg.style.color  = '#15803d';

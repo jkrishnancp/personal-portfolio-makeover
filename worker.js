@@ -9,6 +9,25 @@
 const COOKIE_NAME = 'jcp_blueprint_access';
 const COOKIE_DAYS = 30;
 
+const FREE_DOMAINS = new Set([
+  'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','yahoo.fr','yahoo.de',
+  'yahoo.es','yahoo.it','yahoo.com.au','yahoo.ca','yahoo.in','yahoo.co.in',
+  'hotmail.com','hotmail.co.uk','hotmail.fr','hotmail.de','hotmail.es','hotmail.it',
+  'outlook.com','outlook.co.uk','outlook.fr','outlook.de','live.com','live.co.uk',
+  'msn.com','aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me',
+  'tutanota.com','tutamail.com','tuta.io','zohomail.com','yandex.com','yandex.ru',
+  'mail.com','gmx.com','gmx.net','gmx.de','inbox.com','fastmail.com','fastmail.fm',
+  'hey.com','duck.com','pm.me','mailfence.com','startmail.com','disroot.org',
+  'rocketmail.com','att.net','verizon.net','comcast.net','sbcglobal.net','cox.net',
+  'charter.net','earthlink.net','juno.com','rediffmail.com','sina.com','qq.com',
+  '163.com','126.com','naver.com','daum.net','hanmail.net',
+]);
+
+function isPublicDomain(email) {
+  const domain = (email.split('@')[1] || '').toLowerCase().trim();
+  return FREE_DOMAINS.has(domain);
+}
+
 function hasCookie(request) {
   const cookie = request.headers.get('Cookie') || '';
   return cookie.split(';').some(c => c.trim().startsWith(COOKIE_NAME + '='));
@@ -43,6 +62,10 @@ export default {
 
         if (!name || !email) {
           return Response.json({ ok: false, error: 'Missing fields' }, { status: 400 });
+        }
+
+        if (isPublicDomain(email)) {
+          return Response.json({ ok: false, error: 'work_email' }, { status: 400 });
         }
 
         // Fire email — don't block access if it fails
