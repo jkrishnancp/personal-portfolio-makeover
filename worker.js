@@ -96,12 +96,15 @@ export default {
     // ── Step 1: Send OTP ─────────────────────────────────────────────────
     if (url.pathname === '/api/blueprint-send' && request.method === 'POST') {
       try {
+        if (!env.OTP_SECRET)    return Response.json({ ok: false, error: 'config_error', detail: 'OTP_SECRET not set in Cloudflare env vars' }, { status: 500 });
+        if (!env.RESEND_API_KEY) return Response.json({ ok: false, error: 'config_error', detail: 'RESEND_API_KEY not set in Cloudflare env vars' }, { status: 500 });
+
         const data  = await request.formData();
         const name  = (data.get('name')  || '').trim();
         const email = (data.get('email') || '').trim();
 
-        if (!name || !email)      return Response.json({ ok: false, error: 'missing_fields' }, { status: 400 });
-        if (isPublicDomain(email)) return Response.json({ ok: false, error: 'work_email' },    { status: 400 });
+        if (!name || !email)       return Response.json({ ok: false, error: 'missing_fields' }, { status: 400 });
+        if (isPublicDomain(email)) return Response.json({ ok: false, error: 'work_email' },     { status: 400 });
 
         const otp       = String(Math.floor(100000 + Math.random() * 900000));
         const timestamp = Date.now().toString();
