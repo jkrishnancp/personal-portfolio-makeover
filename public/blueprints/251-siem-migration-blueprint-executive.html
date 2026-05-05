@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIEM Migration Blueprint (8-Week Executive) | Security Blueprints</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+    <header class="blueprint-header">
+        <a href="../index.html" class="logo">Jay Prakash</a>
+        <nav>
+            <a href="../index.html" class="back-link">Back to Portfolio</a>
+            <a href="../security-blueprints.html">All Blueprints</a>
+        </nav>
+    </header>
+    
+    <div class="blueprint-container container">
+        <div class="metadata">
+            <div class="meta-item">
+                <span class="meta-label">Category</span>
+                <span class="meta-value">SIEM Migration</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Role</span>
+                <span class="meta-value">Project Manager / Security Architect</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Duration</span>
+                <span class="meta-value">8 weeks</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Framework</span>
+                <div class="tags">
+                    <span class="tag">NIST</span>
+                    <span class="tag">Risk Management</span>
+                    <span class="tag">Enterprise Scale</span>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <div class="toc">
+                <h3>📋 Contents</h3>
+                <ol>
+                    <li><a href="#overview">Executive Summary</a></li>
+                    <li><a href="#background">Background & Business Case</a></li>
+                    <li><a href="#challenge">Challenge & Objectives</a></li>
+                    <li><a href="#approach">Strategic Approach</a></li>
+                    <li><a href="#implementation">Implementation Timeline (8 Weeks)</a></li>
+                    <li><a href="#nist">NIST Framework Alignment</a></li>
+                    <li><a href="#metrics">Key Metrics & Success Criteria</a></li>
+                    <li><a href="#risks">Risk Management & Mitigation</a></li>
+                    <li><a href="#gates">Decision Gates & Governance</a></li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2 id="overview">Executive Summary</h2>
+                <p><strong>Project:</strong> Enterprise SIEM Platform Migration (Strategic Initiative)</p>
+                <p><strong>Objective:</strong> Migrate from legacy SIEM to new platform while maintaining security operations continuity and ensuring zero critical detection misses.</p>
+                <p><strong>Expected Impact:</strong> Operational parity within 2 weeks post-cutover; improved detection coverage; enhanced scalability; reduced operational overhead.</p>
+                
+                <div class="highlight-box">
+                    <strong>Project Scope:</strong>
+                    <ul>
+                        <li>Category: SIEM Modernization</li>
+                        <li>Duration: 8 weeks (2 months)</li>
+                        <li>Primary Role: Program Lead / Security Architect</li>
+                        <li>Stakeholders: CISO, SOC Leadership, Infrastructure, Security Engineering</li>
+                        <li>Key Constraint: Zero critical incident misses during cutover</li>
+                    </ul>
+                </div>
+
+                <h3>Why This Project Matters</h3>
+                <p>SIEM migration represents a critical strategic initiative that addresses core security operations gaps and delivers measurable business value. By implementing this blueprint, organizations achieve:</p>
+                <ul>
+                    <li>Improved detection effectiveness and reduced false positive rates</li>
+                    <li>Scalability to handle growing data volumes and security demands</li>
+                    <li>Better integration with modern cloud and containerized environments</li>
+                    <li>Reduced operational complexity and total cost of ownership</li>
+                    <li>Enhanced compliance posture through modern threat detection</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 id="background">Background & Business Case</h2>
+                <p>The decision to undertake SIEM migration stems from several key strategic drivers:</p>
+                
+                <h3>Business Drivers</h3>
+                <ul>
+                    <li><strong>Vendor Consolidation:</strong> Move to platform that better aligns with enterprise security strategy</li>
+                    <li><strong>Performance & Scalability:</strong> Current SIEM struggles with data volume growth and query performance</li>
+                    <li><strong>Cloud Readiness:</strong> Need for native cloud-first architecture and AI/ML capabilities</li>
+                    <li><strong>Cost Optimization:</strong> Reduce per-GB ingestion costs through more efficient indexing</li>
+                    <li><strong>Operational Efficiency:</strong> Reduce manual processes and improve incident response speed</li>
+                </ul>
+
+                <h3>Current State Assessment</h3>
+                <p>Before this initiative, organizations typically face:</p>
+                <ul>
+                    <li>Slow query performance (5-15 minute searches)</li>
+                    <li>High licensing costs per GB ingested</li>
+                    <li>Complex rule management and maintenance overhead</li>
+                    <li>Limited cloud-native integrations and AI/ML capabilities</li>
+                    <li>Alert fatigue from poorly tuned detection rules</li>
+                    <li>Difficulty scaling to meet growing data demands</li>
+                </ul>
+
+                <h3>Target State Vision</h3>
+                <ul>
+                    <li>Sub-5-second query performance for 90% of searches</li>
+                    <li>40-60% reduction in per-GB costs</li>
+                    <li>Automated detection tuning with AI/ML</li>
+                    <li>Native cloud platform support (AWS, Azure, GCP)</li>
+                    <li>90%+ rule accuracy with <10% false positive rate</li>
+                    <li>Linear scaling to handle 100%+ data growth</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 id="challenge">Challenge & Objectives</h2>
+                <p>SIEM migration introduces significant technical and organizational challenges that must be managed carefully:</p>
+                
+                <h3>Core Challenges</h3>
+                <ul>
+                    <li><strong>Cutover Risk:</strong> 4-hour window where old SIEM is offline; critical incident risk</li>
+                    <li><strong>Rule Migration:</strong> Converting 100+ detection rules to new platform syntax and logic</li>
+                    <li><strong>Data Continuity:</strong> Ensuring historical data remains accessible and searchable</li>
+                    <li><strong>Team Adoption:</strong> SOC team learning new interface, workflows, and search syntax</li>
+                    <li><strong>Integration Complexity:</strong> Re-establishing connections to 30+ data sources</li>
+                    <li><strong>Compliance & Audit:</strong> Maintaining audit trail during transition period</li>
+                </ul>
+
+                <h3>SMART Objectives</h3>
+                <ul>
+                    <li><strong>Specific:</strong> Migrate 100% of data sources, convert 100% of detection rules, achieve parity within 2 weeks</li>
+                    <li><strong>Measurable:</strong> Track alert volume, MTTR, false positive rate, data ingestion completeness</li>
+                    <li><strong>Achievable:</strong> 8-week timeline with dedicated team of 5-6 resources</li>
+                    <li><strong>Relevant:</strong> Align with enterprise cloud-first and modernization initiatives</li>
+                    <li><strong>Time-bound:</strong> Complete cutover by end of Week 7, operational by Week 8</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 id="approach">Strategic Approach</h2>
+                <p>The implementation follows a phased, risk-managed approach designed to minimize operational disruption:</p>
+                
+                <h3>Core Principles</h3>
+                <ul>
+                    <li><strong>Parallel Running:</strong> Run both systems simultaneously for 7 days before cutover</li>
+                    <li><strong>Phased Validation:</strong> Complete assessment → build/test → parallel run → cutover → stabilization</li>
+                    <li><strong>Decision Gates:</strong> 4 formal approval checkpoints (Weeks 2, 5, 6, 7) before proceeding</li>
+                    <li><strong>Risk-First Mindset:</strong> Identify and mitigate top risks before execution</li>
+                    <li><strong>24/7 Monitoring:</strong> Dedicated on-call team during 48-hour critical window post-cutover</li>
+                </ul>
+
+                <h3>Success Factors</h3>
+                <ul>
+                    <li>CISO sponsorship and executive commitment to timeline</li>
+                    <li>Cross-functional team with vendor partner support</li>
+                    <li>Clear communication to all stakeholders before/after cutover</li>
+                    <li>Comprehensive SOC team training 2 weeks pre-cutover</li>
+                    <li>Detailed runbooks and troubleshooting procedures</li>
+                    <li>Strict rollback plan tested and ready</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 id="implementation">Implementation Timeline (8 Weeks)</h2>
+                
+                <h3>Week 1-2: Planning & Assessment</h3>
+                <p><strong>Goal:</strong> Complete current state analysis and get stakeholder alignment</p>
+                <ul>
+                    <li>Audit existing SIEM: platform, version, data volume, rule count</li>
+                    <li>Inventory all data sources (30+ typical enterprise)</li>
+                    <li>Document current detection rules and dashboards</li>
+                    <li>Define success metrics and rollback triggers</li>
+                    <li>Complete risk assessment with mitigation strategies</li>
+                    <li><strong>Deliverable:</strong> Current state architecture diagram + risk register</li>
+                    <li><strong>Gate 1 Review:</strong> Stakeholder sign-off on approach and timeline</li>
+                </ul>
+
+                <h3>Week 3-5: Build & Test Phase</h3>
+                <p><strong>Goal:</strong> Provision new SIEM and validate all components</p>
+                <ul>
+                    <li>New SIEM infrastructure provisioned (on-premise or cloud)</li>
+                    <li>All 30+ data sources connected and ingesting</li>
+                    <li>100+ detection rules converted to new platform syntax</li>
+                    <li>Executive + tactical dashboards recreated</li>
+                    <li>User access and RBAC configured</li>
+                    <li>User acceptance testing (UAT) with SOC team</li>
+                    <li><strong>Deliverable:</strong> UAT sign-off, test results, performance baseline</li>
+                    <li><strong>Gate 2 Review:</strong> SOC Lead + Architect approval to proceed to parallel run</li>
+                </ul>
+
+                <h3>Week 6: Parallel Running</h3>
+                <p><strong>Goal:</strong> Validate new SIEM against legacy system for 7 days</p>
+                <ul>
+                    <li>Configure both SIEM systems to receive logs simultaneously</li>
+                    <li>Compare event counts and alert volume between systems (must be <5% variance)</li>
+                    <li>SOC team works with new SIEM in read-only mode</li>
+                    <li>Validate critical detection rules are firing correctly</li>
+                    <li>Performance benchmarking (query speed, alert latency)</li>
+                    <li>Incident simulation to test detection accuracy</li>
+                    <li><strong>Deliverable:</strong> Parallel run validation report</li>
+                    <li><strong>Gate 3 Review:</strong> CISO approval to proceed to cutover</li>
+                </ul>
+
+                <h3>Week 7: Cutover & Stabilization</h3>
+                <p><strong>Goal:</strong> Execute cutover with zero critical incident misses</p>
+                <ul>
+                    <li><strong>Cutover Window (off-hours, 4-hour block):</strong>
+                        <ul>
+                            <li>Disable legacy SIEM ingest at T+0</li>
+                            <li>Enable alerting on new SIEM at T+30 min</li>
+                            <li>Verify alert delivery to ticketing system</li>
+                            <li>Declare new SIEM operational at T+2 hours</li>
+                        </ul>
+                    </li>
+                    <li><strong>Post-Cutover (48-hour critical window):</strong>
+                        <ul>
+                            <li>24/7 on-call engineer monitoring both systems</li>
+                            <li>Alert volume tracking and baseline comparison</li>
+                            <li>Performance monitoring (CPU, memory, query latency)</li>
+                            <li>Incident tracking (any missed or delayed alerts)</li>
+                        </ul>
+                    </li>
+                    <li>Legacy SIEM maintained in read-only mode for 72 hours (historical access)</li>
+                    <li><strong>Deliverable:</strong> Cutover execution report, post-cutover metrics</li>
+                    <li><strong>Gate 4 Review:</strong> Declare cutover successful</li>
+                </ul>
+
+                <h3>Week 8: Stabilization & Closure</h3>
+                <p><strong>Goal:</strong> Fine-tune and achieve operational readiness</p>
+                <ul>
+                    <li>Rule tuning based on 7+ days of production data</li>
+                    <li>False positive reduction (goal: <10% above baseline)</li>
+                    <li>Operational runbooks finalized</li>
+                    <li>SOC team competency validation</li>
+                    <li>Legacy SIEM decommissioning (archive data if needed)</li>
+                    <li>Project closeout meeting and lessons learned</li>
+                    <li><strong>Deliverable:</strong> Lessons learned report, operational handoff</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 id="nist">NIST Framework Alignment</h2>
+                <p>This blueprint aligns with NIST Cybersecurity Framework (CSF) and SP 800-53 controls to ensure secure migration:</p>
+
+                <h3>NIST CSF Functions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Function</th>
+                            <th>Implementation</th>
+                            <th>Controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Identify</strong></td>
+                            <td>Complete asset inventory of all data sources and SIEM components</td>
+                            <td>Asset Management, Business Environment</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protect</strong></td>
+                            <td>MFA on admin accounts, TLS 1.2+ encryption, network segmentation, RBAC</td>
+                            <td>AC-2, AC-3, SC-7, SC-13</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Detect</strong></td>
+                            <td>Baseline detection rules, establish alerting thresholds, monitor performance</td>
+                            <td>DE-1, DE-2, DE-4</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Respond</strong></td>
+                            <td>Incident response procedures for SIEM outages, escalation paths, rollback plan</td>
+                            <td>RS-1, RS-2, RS-3</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recover</strong></td>
+                            <td>Data backup strategy, RTO/RPO targets, failover testing, 72-hour data access</td>
+                            <td>RC-1, RC-2, RC-3</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Key SP 800-53 Controls Implemented</h3>
+                <div class="code-section">
+                    <pre><code>AC-2: Account Management → MFA on all admin SIEM accounts
+AC-3: Access Control → RBAC implemented, least privilege
+AU-2: Audit Events → Log all SIEM administrative actions
+AU-12: Audit Generation → Ensure unbroken logging during migration
+SC-7: Boundary Protection → SIEM isolated on secured network segment
+SC-13: Cryptographic Protection → TLS 1.2+ for all connections
+SI-4: System Monitoring → Real-time infrastructure health monitoring</code></pre>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 id="metrics">Key Metrics & Success Criteria</h2>
+                
+                <h3>Success Metrics</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Baseline (Legacy)</th>
+                            <th>Target (New SIEM)</th>
+                            <th>Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data Ingestion Volume</td>
+                            <td>_____ GB/day</td>
+                            <td>_____ GB/day (+20-30%)</td>
+                            <td>Day 1 post-cutover</td>
+                        </tr>
+                        <tr>
+                            <td>Query Latency (90th %ile)</td>
+                            <td>10-15 seconds</td>
+                            <td>&lt;5 seconds</td>
+                            <td>Week 1 post-cutover</td>
+                        </tr>
+                        <tr>
+                            <td>Alert Volume/Day</td>
+                            <td>_____ alerts/day</td>
+                            <td>&lt;10% variance</td>
+                            <td>Week 1 post-cutover</td>
+                        </tr>
+                        <tr>
+                            <td>False Positive Rate</td>
+                            <td>_____ %</td>
+                            <td>Baseline + 10% (Week 1), &lt;Baseline by Week 4</td>
+                            <td>Weeks 1-4</td>
+                        </tr>
+                        <tr>
+                            <td>MTTR (Mean Time to Respond)</td>
+                            <td>_____ minutes</td>
+                            <td>-20% improvement</td>
+                            <td>Week 2+</td>
+                        </tr>
+                        <tr>
+                            <td>System Availability</td>
+                            <td>_____ %</td>
+                            <td>≥99.5% SLA</td>
+                            <td>Ongoing</td>
+                        </tr>
+                        <tr>
+                            <td>Team Proficiency</td>
+                            <td>0%</td>
+                            <td>100% trained</td>
+                            <td>Week 7</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Cutover Success Criteria (Immediate, First 4 Hours)</h3>
+                <ul>
+                    <li>✓ Zero critical alerts missed in first 4 hours</li>
+                    <li>✓ All data sources transmitting within 30 minutes of cutover</li>
+                    <li>✓ Alert routing functional to ticketing system</li>
+                    <li>✓ Dashboard performance <5 seconds (90th percentile)</li>
+                    <li>✓ No false positive spike >10% above baseline</li>
+                    <li>✓ Infrastructure CPU/memory utilization <70%</li>
+                </ul>
+
+                <h3>30-Day Post-Migration Acceptance Criteria</h3>
+                <ul>
+                    <li>Rule tuning complete (<10% FP increase vs baseline)</li>
+                    <li>SOC analyst feedback score >4/5 (user satisfaction)</li>
+                    <li>Detection accuracy validated through incident simulation</li>
+                    <li>Operational runbooks finalized and tested</li>
+                    <li>Cost baseline established (per-GB, total annual)</li>
+                    <li>Project documentation complete</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 id="risks">Risk Management & Mitigation</h2>
+                
+                <h3>Top Risks & Mitigation Strategies</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk</th>
+                            <th>Probability</th>
+                            <th>Impact</th>
+                            <th>Mitigation Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cutover exceeds 4-hour window</strong></td>
+                            <td>Medium</td>
+                            <td>Critical: Missed incident detections</td>
+                            <td>Plan off-peak cutover; test rollback 3x; have rollback team ready</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rules don't convert correctly</strong></td>
+                            <td>Medium</td>
+                            <td>High: False negatives, missed detections</td>
+                            <td>Detailed comparison testing; rule-by-rule validation; parallel run comparison</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Performance degrades</strong></td>
+                            <td>Low</td>
+                            <td>High: Delayed alerts, slow queries</td>
+                            <td>Load test with 2x expected peak; infrastructure sizing; query optimization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Staff not trained on new SIEM</strong></td>
+                            <td>Low</td>
+                            <td>High: Operational errors, slow response</td>
+                            <td>Hands-on training 2 weeks pre-cutover; documentation; 30-day support</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data loss during migration</strong></td>
+                            <td>Low</td>
+                            <td>Critical: Forensics gaps, audit issues</td>
+                            <td>Full backup of legacy SIEM; 72-hour dual read-access; archive strategy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Missing data sources</strong></td>
+                            <td>Medium</td>
+                            <td>High: Blind spots in visibility</td>
+                            <td>Complete inventory pre-cutover; health checks every hour during parallel run</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Rollback Criteria & Process</h3>
+                <p><strong>Rollback triggered if any of these occur:</strong></p>
+                <ul>
+                    <li>Critical detections missing for >30 minutes</li>
+                    <li>Data ingest failure across >3 data sources</li>
+                    <li>SIEM unavailability for >1 hour</li>
+                    <li>Alert latency exceeds 2x baseline (normal <5 sec, threshold >10 sec)</li>
+                    <li>False positive rate >20% above baseline</li>
+                </ul>
+
+                <p><strong>Rollback Execution (30-minute procedure):</strong></p>
+                <ul>
+                    <li>1. Notify CISO of rollback decision</li>
+                    <li>2. Re-enable legacy SIEM alert routing (15 min)</li>
+                    <li>3. Verify alerts returning to original queue (5 min)</li>
+                    <li>4. Keep new SIEM in standby for 24 hours (for root cause analysis)</li>
+                    <li>5. Root cause analysis and corrective action plan</li>
+                </ul>
+
+                <h3>Risk Monitoring & Escalation</h3>
+                <ul>
+                    <li>Weekly risk assessment (Weeks 1-4) → Bi-weekly after cutover</li>
+                    <li>Real-time monitoring dashboard during cutover window</li>
+                    <li>Escalation path: On-call Engineer → SOC Lead → CISO (if critical)</li>
+                    <li>Daily stand-up for 2 weeks post-cutover</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 id="gates">Decision Gates & Governance</h2>
+                <p>Four formal approval checkpoints ensure quality and readiness at each phase:</p>
+
+                <h3>Gate 1: Readiness Review (End Week 2)</h3>
+                <p><strong>Approval Required:</strong> CISO + Project Manager</p>
+                <ul>
+                    <li>✓ Current state assessment complete</li>
+                    <li>✓ Risk assessment approved</li>
+                    <li>✓ Budget & resource allocation confirmed</li>
+                    <li>✓ Stakeholder alignment obtained</li>
+                    <li><strong>Decision:</strong> Proceed to build phase? GO / NO-GO</li>
+                </ul>
+
+                <h3>Gate 2: UAT Sign-Off (End Week 5)</h3>
+                <p><strong>Approval Required:</strong> SOC Lead + Security Architect</p>
+                <ul>
+                    <li>✓ All rules converted and tested</li>
+                    <li>✓ Dashboards recreated and validated</li>
+                    <li>✓ User access configured and tested</li>
+                    <li>✓ Infrastructure performance stable</li>
+                    <li><strong>Decision:</strong> Ready for parallel running? GO / NO-GO</li>
+                </ul>
+
+                <h3>Gate 3: Parallel Run Validation (End Week 6)</h3>
+                <p><strong>Approval Required:</strong> CISO + Project Manager</p>
+                <ul>
+                    <li>✓ No missing critical detections identified</li>
+                    <li>✓ Data volume parity confirmed (<5% variance)</li>
+                    <li>✓ False positive rate within tolerance</li>
+                    <li>✓ Infrastructure stable under dual load</li>
+                    <li><strong>Decision:</strong> Proceed to cutover? GO / NO-GO</li>
+                </ul>
+
+                <h3>Gate 4: Cutover Approval (Day 56)</h3>
+                <p><strong>Approval Required:</strong> CISO + Infrastructure Lead</p>
+                <ul>
+                    <li>✓ Rollback plan tested and verified</li>
+                    <li>✓ Team on-call confirmed and briefed</li>
+                    <li>✓ All stakeholders notified (24-hour notice)</li>
+                    <li>✓ Change control approved</li>
+                    <li><strong>Decision:</strong> Cutover GO or NO-GO?</li>
+                </ul>
+
+                <h3>Governance Structure</h3>
+                <ul>
+                    <li><strong>Daily Standup:</strong> 15 min (project team, Weeks 1-7)</li>
+                    <li><strong>Weekly Steering:</strong> 30 min (CISO + leadership, Weeks 1-8)</li>
+                    <li><strong>Bi-weekly Stakeholder:</strong> 45 min (broader team, Weeks 1-8)</li>
+                    <li><strong>Gate Reviews:</strong> 60 min (approval checkpoints, Weeks 2, 5, 6, 7)</li>
+                    <li><strong>Post-Cutover Monitoring:</strong> 24/7 on-call (Weeks 7-8)</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Conclusion</h2>
+                <p>This SIEM migration blueprint represents a proven, risk-managed approach to enterprise platform transformation. By following the 8-week phased timeline, implementing the 4 decision gates, and aligning with NIST best practices, organizations can achieve a successful migration with minimal operational disruption.</p>
+                
+                <div class="success-box">
+                    Success requires disciplined execution, clear stakeholder communication, and unwavering commitment to the rollback criteria. The benefits—improved detection, scalability, and operational efficiency—make this investment essential for modern security operations.
+                </div>
+
+                <h3>Next Steps</h3>
+                <ul>
+                    <li>Customize this blueprint with your organization's specific SIEM and data sources</li>
+                    <li>Engage vendor partner for infrastructure sizing and platform configuration</li>
+                    <li>Assemble project team and secure CISO sponsorship</li>
+                    <li>Schedule kickoff meeting and begin Week 1 assessment activities</li>
+                </ul>
+            </div>
+
+        </main>
+
+    </div>
+    
+    <footer class="blueprint-footer">
+        <p>Part of the <span class="brand">Security Blueprint Library</span></p>
+        <p>&copy; 2026 Jay Prakash. All rights reserved.</p>
+    </footer>
+    <script src="/js/content-protection.js"></script>
+</body>
+</html>

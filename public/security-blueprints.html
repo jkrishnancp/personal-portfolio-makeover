@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Transformation Blueprints | Jay Prakash</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --background: hsl(220, 25%, 97%);
+            --foreground: hsl(222, 47%, 15%);
+            --card: hsl(0, 0%, 100%);
+            --card-foreground: hsl(222, 47%, 15%);
+            --primary: hsl(222, 47%, 20%);
+            --primary-foreground: hsl(0, 0%, 100%);
+            --accent: hsl(45, 80%, 50%);
+            --accent-foreground: hsl(222, 47%, 15%);
+            --muted: hsl(220, 15%, 92%);
+            --muted-foreground: hsl(220, 10%, 45%);
+            --border: hsl(220, 15%, 88%);
+            --font-sans: 'Inter', sans-serif;
+            --font-display: 'Playfair Display', serif;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: hsl(222, 47%, 11%);
+                --foreground: hsl(220, 15%, 95%);
+                --card: hsl(222, 47%, 14%);
+                --card-foreground: hsl(220, 15%, 95%);
+                --primary: hsl(45, 80%, 50%);
+                --primary-foreground: hsl(222, 47%, 15%);
+                --muted: hsl(222, 32%, 18%);
+                --muted-foreground: hsl(220, 10%, 60%);
+                --border: hsl(222, 32%, 22%);
+            }
+        }
+        body { font-family: var(--font-sans); background: var(--background); color: var(--foreground); min-height: 100vh; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* Header - Fixed */
+        .header { background: linear-gradient(180deg, hsl(222, 47%, 15%) 0%, hsl(222, 47%, 20%) 100%); padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid hsl(222, 47%, 25%); }
+        .header .logo { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: white; }
+        .header nav { display: flex; gap: 8px; }
+        .header nav a { color: rgba(255,255,255,0.7); padding: 8px 16px; font-size: 0.875rem; font-weight: 500; border-radius: 6px; transition: all 0.2s; }
+        .header nav a:hover { color: white; background: rgba(255,255,255,0.1); }
+        .header nav a.active { color: var(--accent); }
+
+        /* Hero */
+        .hero { background: linear-gradient(180deg, hsl(222, 47%, 15%) 0%, hsl(222, 47%, 20%) 100%); padding: 60px 40px 50px; text-align: center; color: white; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+        .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 12px; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { color: rgba(255,255,255,0.7); font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+        /* Stats */
+        .stats-bar { display: flex; justify-content: center; gap: 50px; padding: 30px 40px; background: var(--card); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-num { font-size: 2rem; font-weight: 700; color: var(--accent); }
+        .stat-label { color: var(--muted-foreground); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+        /* Main Container */
+        .container { padding: 40px; max-width: 1200px; margin: 0 auto; }
+
+        /* Intro */
+        .intro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .intro-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+        .intro-card h2 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .intro-card h2::before { content: ''; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+        .intro-card p { color: var(--muted-foreground); font-size: 0.9rem; margin-bottom: 8px; }
+
+        /* Category Cards */
+        .section-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        
+        .category-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.3s; }
+        .category-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .category-card.expanded { border-color: var(--accent); }
+        
+        .category-header { display: flex; justify-content: space-between; align-items: center; }
+        .category-name { font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 10px; }
+        .category-icon { width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, hsl(222, 47%, 20%) 0%, hsl(222, 47%, 30%) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; }
+        .category-count { background: var(--accent); color: var(--accent-foreground); padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+        .category-desc { color: var(--muted-foreground); font-size: 0.85rem; margin-top: 10px; }
+        
+        .category-toggle { color: var(--muted-foreground); font-size: 0.8rem; display: flex; align-items: center; gap: 4px; margin-top: 12px; }
+        .category-toggle svg { transition: transform 0.3s; }
+        .category-card.expanded .category-toggle svg { transform: rotate(180deg); }
+        
+        /* Blueprints List (inside category) */
+        .blueprints-list { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); max-height: 400px; overflow-y: auto; }
+        .category-card.expanded .blueprints-list { display: block; }
+        
+        .blueprint-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; margin: 4px 0; background: var(--muted); border-radius: 8px; transition: all 0.2s; font-size: 0.875rem; }
+        .blueprint-item:hover { background: var(--accent); color: var(--accent-foreground); }
+        .blueprint-num { font-weight: 600; font-size: 0.75rem; opacity: 0.7; min-width: 32px; }
+
+        /* Search */
+        .search-container { margin-bottom: 30px; position: relative; }
+        .search-input { width: 100%; padding: 14px 20px 14px 48px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; font-size: 0.9rem; font-family: inherit; color: var(--foreground); }
+        .search-input:focus { outline: none; border-color: var(--accent); }
+        .search-input::placeholder { color: var(--muted-foreground); }
+        .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted-foreground); }
+        .search-results-count { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--muted-foreground); font-size: 0.8rem; }
+
+        /* Footer */
+        .footer { background: linear-gradient(180deg, hsl(222, 47%, 15%) 0%, hsl(222, 47%, 20%) 100%); padding: 40px; text-align: center; margin-top: 60px; }
+        .footer a { display: inline-flex; align-items: center; gap: 8px; color: white; font-weight: 500; padding: 12px 24px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; transition: all 0.2s; }
+        .footer a:hover { background: rgba(255,255,255,0.2); }
+        .footer p { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 16px; }
+
+        @media (max-width: 768px) {
+            .header { padding: 12px 20px; }
+            .header nav { display: none; }
+            .hero { padding: 40px 20px 30px; }
+            .stats-bar { gap: 30px; padding: 20px; }
+            .stat-num { font-size: 1.5rem; }
+            .container { padding: 20px; }
+            .intro-grid { grid-template-columns: 1fr; }
+            .categories-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">Jay Prakash</a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/#summary">Summary</a>
+            <a href="/#experience">Experience</a>
+            <a href="/#portfolio">Portfolio</a>
+            <a href="/security-blueprints.html" class="active">Blueprints</a>
+            <a href="/cybersecurity-periodic-table.html">Periodic Table</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-badge">📋 250 Professional Implementations</div>
+        <h1>Security Transformation <span>Blueprints</span></h1>
+        <p>Execution-grade security implementations with real commands, configurations, and operational handoffs.</p>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stat"><div class="stat-num" id="totalCount">250</div><div class="stat-label">Total Blueprints</div></div>
+        <div class="stat"><div class="stat-num">17</div><div class="stat-label">Categories</div></div>
+        <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Years Experience</div></div>
+    </div>
+
+    <div class="container">
+        <div class="intro-grid">
+            <div class="intro-card">
+                <h2>What Is This?</h2>
+                <p>250 security transformation blueprints built from 20+ years of hands-on experience. Each is a complete, execution-ready document with architecture designs, commands, and runbooks.</p>
+            </div>
+            <div class="intro-card">
+                <h2>What's Inside</h2>
+                <p>Executive summaries, gap analysis templates, phased roadmaps, CLI commands, success metrics, risk registers, and stakeholder communication plans.</p>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search 250 blueprints by name, category, or technology...">
+            <span class="search-results-count" id="resultsCount"></span>
+        </div>
+
+        <h2 class="section-title">Browse by Category</h2>
+        
+        <div class="categories-grid" id="categoriesGrid">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <footer class="footer">
+        <a href="/">← Back to Portfolio</a>
+        <p>Click any category to explore blueprints. Each blueprint includes full technical documentation.</p>
+    </footer>
+
+    <script>
+        // Complete blueprint data with all 250 blueprints organized by category
+        const blueprintData = {
+            "SIEM": { 
+                icon: "📊", 
+                desc: "SIEM deployment, migration, optimization & use-case development", 
+                items: [
+                    { name: "Splunk to Elastic SIEM Migration (Global)", file: "001-splunk_-to-_elastic_siem_migration_global.html" },
+                    { name: "QRadar Deployment for Financial Services", file: "002-qradar_deployment_for_financial_services.html" },
+                    { name: "Datadog Security Monitoring Rollout", file: "003-datadog_security_monitoring_rollout.html" },
+                    { name: "SIEM Cost Optimization & Tiering", file: "017-siem_cost_optimization_-and-_tiering.html" },
+                    { name: "UEBA Pilot", file: "022-ueba_pilot.html" },
+                    { name: "UEBA Pilot (Extended)", file: "050-ueba_pilot.html" },
+                    { name: "Pipeline Data Quality Monitoring", file: "080-pipeline_data_quality_monitoring.html" },
+                    { name: "SIEM Use-Case Rationalization", file: "174-siem_use-case_rationalization.html" },
+                    { name: "SIEM Use-Case Rationalization (v2)", file: "181-siem_use-case_rationalization.html" },
+                    { name: "SIEM Use-Case Rationalization (v3)", file: "193-siem_use-case_rationalization.html" },
+                    { name: "SIEM Migration Baseline", file: "251-siem-migration-blueprint-executive.html" },
+                    { name: "SIEM Cost Optimization & Tiering (v2)", file: "173-siem_cost_optimization_-and-_tiering.html" }
+                ]
+            },
+            "SOC": { 
+                icon: "🛡️", 
+                desc: "SOC operations, metrics, playbooks & analyst programs", 
+                items: [
+                    { name: "SOC Operating Model Build (Tiering + SLA)", file: "004-soc_operating_model_build_tiering_-plus-_sla.html" },
+                    { name: "Post-Incident Review Governance", file: "014-post-incident_review_governance.html" },
+                    { name: "SOC-MDR Handoff Process", file: "018-soc-mdr_handoff_process.html" },
+                    { name: "SOC Metrics & KPIs Program", file: "033-soc_metrics_kpis_program.html" },
+                    { name: "Executive & SOC Dashboards", file: "038-exec_-and-_soc_dashboards.html" },
+                    { name: "ITSM Integration for Cases", file: "041-itsm_integration_for_cases.html" },
+                    { name: "Phishing Triage Automation", file: "048-phishing_triage_automation.html" },
+                    { name: "Analyst Training & Skill Matrix", file: "030-analyst_training_-and-_skill_matrix.html" },
+                    { name: "Playbook Governance & Safety Rails", file: "053-playbook_governance_-and-_safety_rails.html" },
+                    { name: "On-Call Rotation Design", file: "148-on-call_rotation_design.html" },
+                    { name: "SOC Playbook Library Build", file: "229-soc_playbook_library_build.html" },
+                    { name: "Case Management Standardization", file: "176-case_management_standardization.html" },
+                    { name: "Automation ROI Model", file: "079-automation_roi_model.html" },
+                    { name: "SOC-MDR Handoff Process (v2)", file: "072-soc-mdr_handoff_process.html" },
+                    { name: "SOC-MDR Handoff Process (v3)", file: "136-soc-mdr_handoff_process.html" },
+                    { name: "SOC-MDR Handoff Process (v4)", file: "172-soc-mdr_handoff_process.html" },
+                    { name: "SOC-MDR Handoff Process (v5)", file: "178-soc-mdr_handoff_process.html" },
+                    { name: "SOC-MDR Handoff Process (v6)", file: "245-soc-mdr_handoff_process.html" },
+                    { name: "Post-Incident Review Governance (v2)", file: "077-post-incident_review_governance.html" },
+                    { name: "SOC Metrics & KPIs Program (v2)", file: "087-soc_metrics_kpis_program.html" },
+                    { name: "SOC Metrics & KPIs Program (v3)", file: "162-soc_metrics_kpis_program.html" },
+                    { name: "Executive & SOC Dashboards (v2)", file: "067-exec_-and-_soc_dashboards.html" },
+                    { name: "Executive & SOC Dashboards (v3)", file: "235-exec_-and-_soc_dashboards.html" },
+                    { name: "ITSM Integration for Cases (v2)", file: "139-itsm_integration_for_cases.html" },
+                    { name: "ITSM Integration for Cases (v3)", file: "209-itsm_integration_for_cases.html" },
+                    { name: "ITSM Integration for Cases (v4)", file: "225-itsm_integration_for_cases.html" },
+                    { name: "Phishing Triage Automation (v2)", file: "123-phishing_triage_automation.html" },
+                    { name: "Phishing Triage Automation (v3)", file: "166-phishing_triage_automation.html" },
+                    { name: "Phishing Triage Automation (v4)", file: "247-phishing_triage_automation.html" },
+                    { name: "Analyst Training & Skill Matrix (v2)", file: "116-analyst_training_-and-_skill_matrix.html" },
+                    { name: "Automation ROI Model (v2)", file: "111-automation_roi_model.html" },
+                    { name: "Automation ROI Model (v3)", file: "138-automation_roi_model.html" },
+                    { name: "Automation ROI Model (v4)", file: "152-automation_roi_model.html" },
+                    { name: "On-Call Rotation Design (v2)", file: "248-on-call_rotation_design.html" }
+                ]
+            },
+            "Cloud Security": { 
+                icon: "☁️", 
+                desc: "Cloud security baselines, CSPM, landing zones & DevSecOps", 
+                items: [
+                    { name: "Landing Zone Controls", file: "012-landing_zone_controls.html" },
+                    { name: "Cloud Asset Inventory Model", file: "035-cloud_asset_inventory_model.html" },
+                    { name: "API Security Baseline", file: "039-api_security_baseline.html" },
+                    { name: "Cloud Logs Centralization", file: "062-cloud_logs_centralization.html" },
+                    { name: "Cloud Security Baseline & Guardrails", file: "086-cloud_security_baseline_-and-_guardrails.html" },
+                    { name: "CSPM Rollout", file: "153-cspm_rollout.html" },
+                    { name: "DevSecOps Controls", file: "115-devsecops_controls.html" },
+                    { name: "Cloud Asset Inventory Model (v2)", file: "070-cloud_asset_inventory_model.html" },
+                    { name: "Cloud Asset Inventory Model (v3)", file: "090-cloud_asset_inventory_model.html" },
+                    { name: "API Security Baseline (v2)", file: "113-api_security_baseline.html" },
+                    { name: "Cloud Logs Centralization (v2)", file: "207-cloud_logs_centralization.html" },
+                    { name: "Cloud Logs Centralization (v3)", file: "222-cloud_logs_centralization.html" },
+                    { name: "Cloud Security Baseline & Guardrails (v2)", file: "096-cloud_security_baseline_-and-_guardrails.html" },
+                    { name: "Cloud Security Baseline & Guardrails (v3)", file: "114-cloud_security_baseline_-and-_guardrails.html" },
+                    { name: "Cloud Security Baseline & Guardrails (v4)", file: "144-cloud_security_baseline_-and-_guardrails.html" },
+                    { name: "CSPM Rollout (v2)", file: "199-cspm_rollout.html" },
+                    { name: "CSPM Rollout (v3)", file: "214-cspm_rollout.html" },
+                    { name: "DevSecOps Controls (v2)", file: "184-devsecops_controls.html" },
+                    { name: "DevSecOps Controls (v3)", file: "200-devsecops_controls.html" }
+                ]
+            },
+            "Identity & Access": { 
+                icon: "🔐", 
+                desc: "IAM, PAM, MFA, SSO & privileged access management", 
+                items: [
+                    { name: "Active Directory Hardening Program", file: "008-active_directory_hardening_program.html" },
+                    { name: "Access Reviews Program", file: "015-access_reviews_program.html" },
+                    { name: "Service Account Governance", file: "026-service_account_governance.html" },
+                    { name: "SSO Consolidation", file: "045-sso_consolidation.html" },
+                    { name: "AD Tiering Model", file: "049-ad_tiering_model.html" },
+                    { name: "PAM Pilot", file: "051-pam_pilot.html" },
+                    { name: "MFA Rollout", file: "055-mfa_rollout.html" },
+                    { name: "Conditional Access Baseline", file: "134-conditional_access_baseline.html" },
+                    { name: "JML Automation", file: "094-jml_automation.html" },
+                    { name: "PAW Rollout", file: "175-paw_rollout.html" },
+                    { name: "Identity Threat Detection Pack", file: "122-identity_threat_detection_pack.html" },
+                    { name: "Identity Logs Integration", file: "227-identity_logs_integration.html" },
+                    { name: "Local Admin Reduction", file: "211-local_admin_reduction.html" },
+                    { name: "Access Reviews Program (v2)", file: "170-access_reviews_program.html" },
+                    { name: "Access Reviews Program (v3)", file: "239-access_reviews_program.html" },
+                    { name: "Service Account Governance (v2)", file: "109-service_account_governance.html" },
+                    { name: "AD Tiering Model (v2)", file: "131-ad_tiering_model.html" },
+                    { name: "PAM Pilot (v2)", file: "083-pam_pilot.html" },
+                    { name: "PAM Pilot (v3)", file: "249-pam_pilot.html" },
+                    { name: "MFA Rollout (v2)", file: "107-mfa_rollout.html" },
+                    { name: "Conditional Access Baseline (v2)", file: "183-conditional_access_baseline.html" },
+                    { name: "JML Automation (v2)", file: "250-jml_automation.html" },
+                    { name: "Identity Threat Detection Pack (v2)", file: "208-identity_threat_detection_pack.html" },
+                    { name: "Identity Threat Detection Pack (v3)", file: "220-identity_threat_detection_pack.html" }
+                ]
+            },
+            "Network Security": { 
+                icon: "🌐", 
+                desc: "Segmentation, NAC, firewall, IDS/IPS & proxy", 
+                items: [
+                    { name: "Firewall Rulebase Cleanup (5+ Years)", file: "009-firewall_rulebase_cleanup_5-plus-_years_of_d.html" },
+                    { name: "Network Segmentation Program", file: "021-network_segmentation_program.html" },
+                    { name: "Micro-Segmentation Pilot", file: "027-micro-segmentation_pilot.html" },
+                    { name: "NAC (802.1X) Rollout", file: "028-nac_802.1x_rollout.html" },
+                    { name: "Proxy Modernization", file: "032-proxy_modernization.html" },
+                    { name: "Wireless Security Refresh", file: "043-wireless_security_refresh.html" },
+                    { name: "Outbound Egress Controls", file: "060-outbound_egress_controls.html" },
+                    { name: "IDS/IPS Tuning Program", file: "084-ids_ips_tuning_program.html" },
+                    { name: "Netflow Visibility Program", file: "142-netflow_visibility_program.html" },
+                    { name: "NAC (802.1X) Rollout (v2)", file: "031-nac_802.1x_rollout.html" },
+                    { name: "NAC (802.1X) Rollout (v3)", file: "159-nac_802.1x_rollout.html" },
+                    { name: "Wireless Security Refresh (v2)", file: "198-wireless_security_refresh.html" },
+                    { name: "Wireless Security Refresh (v3)", file: "240-wireless_security_refresh.html" },
+                    { name: "Outbound Egress Controls (v2)", file: "110-outbound_egress_controls.html" },
+                    { name: "IDS/IPS Tuning Program (v2)", file: "194-ids_ips_tuning_program.html" },
+                    { name: "IDS/IPS Tuning Program (v3)", file: "243-ids_ips_tuning_program.html" },
+                    { name: "Netflow Visibility Program (v2)", file: "213-netflow_visibility_program.html" },
+                    { name: "Micro-Segmentation Pilot (v2)", file: "233-micro-segmentation_pilot.html" },
+                    { name: "Network Segmentation Program (v2)", file: "242-network_segmentation_program.html" }
+                ]
+            },
+            "DLP & Data Protection": { 
+                icon: "🔒", 
+                desc: "Data loss prevention, classification & insider risk", 
+                items: [
+                    { name: "DLP Incident Handling Process", file: "029-dlp_incident_handling_process.html" },
+                    { name: "M365 Oversharing Reduction", file: "061-m365_oversharing_reduction.html" },
+                    { name: "Data Classification Scheme", file: "066-data_classification_scheme.html" },
+                    { name: "Enterprise DLP Rollout", file: "088-enterprise_dlp_rollout.html" },
+                    { name: "Insider Risk Correlation", file: "099-insider_risk_correlation.html" },
+                    { name: "Data Egress Controls", file: "156-data_egress_controls.html" },
+                    { name: "DLP Incident Handling Process (v2)", file: "106-dlp_incident_handling_process.html" },
+                    { name: "M365 Oversharing Reduction (v2)", file: "124-m365_oversharing_reduction.html" },
+                    { name: "M365 Oversharing Reduction (v3)", file: "167-m365_oversharing_reduction.html" },
+                    { name: "M365 Oversharing Reduction (v4)", file: "195-m365_oversharing_reduction.html" },
+                    { name: "Data Classification Scheme (v2)", file: "093-data_classification_scheme.html" },
+                    { name: "Data Classification Scheme (v3)", file: "100-data_classification_scheme.html" },
+                    { name: "Data Classification Scheme (v4)", file: "201-data_classification_scheme.html" },
+                    { name: "Enterprise DLP Rollout (v2)", file: "121-enterprise_dlp_rollout.html" },
+                    { name: "Enterprise DLP Rollout (v3)", file: "141-enterprise_dlp_rollout.html" },
+                    { name: "Enterprise DLP Rollout (v4)", file: "143-enterprise_dlp_rollout.html" },
+                    { name: "Insider Risk Correlation (v2)", file: "145-insider_risk_correlation.html" },
+                    { name: "Insider Risk Correlation (v3)", file: "218-insider_risk_correlation.html" }
+                ]
+            },
+            "Forensics": { 
+                icon: "🔍", 
+                desc: "Digital forensics, evidence collection & investigation", 
+                items: [
+                    { name: "Endpoint Forensic Triage Playbook", file: "010-endpoint_forensic_triage_playbook.html" },
+                    { name: "Insider Exfil Investigation Playbook", file: "058-insider_exfil_investigation_playbook.html" },
+                    { name: "Automated Evidence Collection", file: "075-automated_evidence_collection.html" },
+                    { name: "Chain of Custody Standard", file: "076-chain_of_custody_standard.html" },
+                    { name: "BEC Investigation", file: "089-bec_investigation.html" },
+                    { name: "Memory Capture Workflow", file: "103-memory_capture_workflow.html" },
+                    { name: "PCAP Forensics Capability", file: "104-pcap_forensics_capability.html" },
+                    { name: "Legal/HR Investigation Protocol", file: "108-legal_hr_investigation_protocol.html" },
+                    { name: "Email Phishing Forensics", file: "135-email_phishing_forensics.html" },
+                    { name: "Disk Image Acquisition Process", file: "149-disk_image_acquisition_process.html" },
+                    { name: "Cloud Forensics Workflow", file: "177-cloud_forensics_workflow.html" },
+                    { name: "Forensic Readiness Program", file: "126-forensic_readiness_program.html" },
+                    { name: "Automated Evidence Collection (v2)", file: "140-automated_evidence_collection.html" },
+                    { name: "Automated Evidence Collection (v3)", file: "238-automated_evidence_collection.html" },
+                    { name: "Chain of Custody Standard (v2)", file: "129-chain_of_custody_standard.html" },
+                    { name: "BEC Investigation (v2)", file: "234-bec_investigation.html" },
+                    { name: "PCAP Forensics Capability (v2)", file: "215-pcap_forensics_capability.html" },
+                    { name: "Legal/HR Investigation Protocol (v2)", file: "210-legal_hr_investigation_protocol.html" },
+                    { name: "Email Phishing Forensics (v2)", file: "146-email_phishing_forensics.html" },
+                    { name: "Email Phishing Forensics (v3)", file: "151-email_phishing_forensics.html" },
+                    { name: "Email Phishing Forensics (v4)", file: "203-email_phishing_forensics.html" },
+                    { name: "Email Phishing Forensics (v5)", file: "223-email_phishing_forensics.html" },
+                    { name: "Disk Image Acquisition Process (v2)", file: "168-disk_image_acquisition_process.html" },
+                    { name: "Disk Image Acquisition Process (v3)", file: "171-disk_image_acquisition_process.html" },
+                    { name: "Disk Image Acquisition Process (v4)", file: "231-disk_image_acquisition_process.html" },
+                    { name: "Cloud Forensics Workflow (v2)", file: "228-cloud_forensics_workflow.html" },
+                    { name: "Insider Exfil Investigation Playbook (v2)", file: "205-insider_exfil_investigation_playbook.html" }
+                ]
+            },
+            "Compliance & Audit": { 
+                icon: "📋", 
+                desc: "Compliance frameworks, audits & policy governance", 
+                items: [
+                    { name: "Internal Audit Program Setup (Security Controls)", file: "011-internal_audit_program_setup_security_c.html" },
+                    { name: "Compliance Log Retention Alignment", file: "013-compliance_log_retention_alignment.html" },
+                    { name: "Policy Governance Lifecycle", file: "019-policy_governance_lifecycle.html" },
+                    { name: "Internal Audit Schedule", file: "034-internal_audit_schedule.html" },
+                    { name: "External Audit Coordination", file: "044-external_audit_coordination.html" },
+                    { name: "IT Security Standards Library", file: "047-it_security_standards_library.html" },
+                    { name: "Control Library Build", file: "059-control_library_build.html" },
+                    { name: "Control Testing Automation", file: "091-control_testing_automation.html" },
+                    { name: "Security Questionnaire Response Factory", file: "125-security_questionnaire_response_factory_.html" },
+                    { name: "Retention & Legal Hold Alignment", file: "192-retention_legal_hold_alignment.html" },
+                    { name: "Compliance Log Retention Alignment (v2)", file: "071-compliance_log_retention_alignment.html" },
+                    { name: "Compliance Log Retention Alignment (v3)", file: "085-compliance_log_retention_alignment.html" },
+                    { name: "Compliance Log Retention Alignment (v4)", file: "137-compliance_log_retention_alignment.html" },
+                    { name: "Compliance Log Retention Alignment (v5)", file: "165-compliance_log_retention_alignment.html" },
+                    { name: "Policy Governance Lifecycle (v2)", file: "180-policy_governance_lifecycle.html" },
+                    { name: "Policy Governance Lifecycle (v3)", file: "191-policy_governance_lifecycle.html" },
+                    { name: "Policy Governance Lifecycle (v4)", file: "230-policy_governance_lifecycle.html" },
+                    { name: "Internal Audit Schedule (v2)", file: "042-internal_audit_schedule.html" },
+                    { name: "Internal Audit Schedule (v3)", file: "127-internal_audit_schedule.html" },
+                    { name: "Internal Audit Schedule (v4)", file: "189-internal_audit_schedule.html" },
+                    { name: "IT Security Standards Library (v2)", file: "102-it_security_standards_library.html" },
+                    { name: "IT Security Standards Library (v3)", file: "160-it_security_standards_library.html" },
+                    { name: "IT Security Standards Library (v4)", file: "226-it_security_standards_library.html" },
+                    { name: "Control Library Build (v2)", file: "073-control_library_build.html" },
+                    { name: "Control Library Build (v3)", file: "097-control_library_build.html" },
+                    { name: "Control Testing Automation (v2)", file: "187-control_testing_automation.html" },
+                    { name: "Security Questionnaire Response Factory (v2)", file: "221-security_questionnaire_response_factory_.html" },
+                    { name: "Security Questionnaire Response Factory (v3)", file: "237-security_questionnaire_response_factory_.html" }
+                ]
+            },
+            "Zero Trust": { 
+                icon: "🎯", 
+                desc: "Zero Trust architecture, ZTNA & strategy", 
+                items: [
+                    { name: "Zero Trust Strategy & Roadmap", file: "005-zero_trust_strategy_-and-_roadmap.html" },
+                    { name: "ZTNA Rollout", file: "037-ztna_rollout.html" },
+                    { name: "ZTNA Rollout (v2)", file: "101-ztna_rollout.html" },
+                    { name: "ZTNA Rollout (v3)", file: "241-ztna_rollout.html" }
+                ]
+            },
+            "Vulnerability Management": { 
+                icon: "🐛", 
+                desc: "Vulnerability scanning, patching & remediation", 
+                items: [
+                    { name: "Enterprise Vulnerability Management Program", file: "007-enterprise_vulnerability_management_prog.html" },
+                    { name: "Patch Compliance Governance", file: "040-patch_compliance_governance.html" },
+                    { name: "Risk-Based Prioritization", file: "068-risk-based_prioritization.html" },
+                    { name: "Remediation Sprint Model", file: "188-remediation_sprint_model.html" },
+                    { name: "External Attack Surface Review", file: "206-external_attack_surface_review.html" },
+                    { name: "Patch Compliance Governance (v2)", file: "052-patch_compliance_governance.html" },
+                    { name: "Risk-Based Prioritization (v2)", file: "078-risk-based_prioritization.html" }
+                ]
+            },
+            "Incident Response": { 
+                icon: "🚨", 
+                desc: "IR playbooks, containment & war room processes", 
+                items: [
+                    { name: "Major Incident War Room Process", file: "057-major_incident_war_room_process.html" },
+                    { name: "Cloud IR Playbooks", file: "098-cloud_ir_playbooks.html" },
+                    { name: "Containment Playbooks", file: "105-containment_playbooks.html" },
+                    { name: "Cloud IR Automation", file: "154-cloud_ir_automation.html" },
+                    { name: "Major Incident War Room Process (v2)", file: "150-major_incident_war_room_process.html" },
+                    { name: "Major Incident War Room Process (v3)", file: "244-major_incident_war_room_process.html" },
+                    { name: "Cloud IR Playbooks (v2)", file: "117-cloud_ir_playbooks.html" },
+                    { name: "Cloud IR Playbooks (v3)", file: "161-cloud_ir_playbooks.html" },
+                    { name: "Cloud IR Playbooks (v4)", file: "163-cloud_ir_playbooks.html" },
+                    { name: "Cloud IR Playbooks (v5)", file: "217-cloud_ir_playbooks.html" },
+                    { name: "Cloud IR Playbooks (v6)", file: "219-cloud_ir_playbooks.html" },
+                    { name: "Containment Playbooks (v2)", file: "232-containment_playbooks.html" }
+                ]
+            },
+            "MDR/XDR": { 
+                icon: "👁️", 
+                desc: "Managed detection, XDR & provider management", 
+                items: [
+                    { name: "MDR Provider Selection & Transition", file: "006-mdr_provider_selection_-and-_transition.html" },
+                    { name: "XDR Use-Case Pack Build", file: "016-xdr_use-case_pack_build.html" },
+                    { name: "MDR KPI Governance", file: "081-mdr_kpi_governance.html" },
+                    { name: "XDR Use-Case Pack Build (v2)", file: "119-xdr_use-case_pack_build.html" },
+                    { name: "MDR KPI Governance (v2)", file: "169-mdr_kpi_governance.html" }
+                ]
+            },
+            "Threat Intelligence": { 
+                icon: "🧠", 
+                desc: "Threat intel, IOC enrichment & ATT&CK mapping", 
+                items: [
+                    { name: "IOC Enrichment Workflow", file: "020-ioc_enrichment_workflow.html" },
+                    { name: "IOC Enrichment Workflow (v2)", file: "024-ioc_enrichment_workflow.html" },
+                    { name: "Threat Intel to Blocklist Automation", file: "092-threat_intel_to_blocklist_automation.html" },
+                    { name: "ATT&CK Coverage Mapping", file: "118-att-and-ck_coverage_mapping.html" },
+                    { name: "ATT&CK Coverage Mapping (v2)", file: "130-att-and-ck_coverage_mapping.html" },
+                    { name: "ATT&CK Coverage Mapping (v3)", file: "132-att-and-ck_coverage_mapping.html" },
+                    { name: "ATT&CK Coverage Mapping (v4)", file: "164-att-and-ck_coverage_mapping.html" },
+                    { name: "ATT&CK Coverage Mapping (v5)", file: "212-att-and-ck_coverage_mapping.html" }
+                ]
+            },
+            "Infrastructure": { 
+                icon: "🖥️", 
+                desc: "Server hardening, backup, encryption & baselines", 
+                items: [
+                    { name: "Database Security Hardening", file: "023-database_security_hardening.html" },
+                    { name: "Server Hardening Standards", file: "025-server_hardening_standards.html" },
+                    { name: "Configuration Drift Detection", file: "054-configuration_drift_detection.html" },
+                    { name: "Backup & Restore Testing", file: "082-backup_restore_testing.html" },
+                    { name: "Linux Hardening Standards", file: "095-linux_hardening_standards.html" },
+                    { name: "Encryption Standards & Exceptions", file: "196-encryption_standards_-and-_exceptions.html" },
+                    { name: "Secure Baseline (CIS) Rollout", file: "147-secure_baseline_cis_rollout.html" },
+                    { name: "CMDB Accuracy Program", file: "155-cmdb_accuracy_program.html" },
+                    { name: "Server Hardening Standards (v2)", file: "063-server_hardening_standards.html" },
+                    { name: "Backup & Restore Testing (v2)", file: "182-backup_restore_testing.html" },
+                    { name: "Encryption Standards & Exceptions (v2)", file: "224-encryption_standards_-and-_exceptions.html" },
+                    { name: "Secure Baseline (CIS) Rollout (v2)", file: "197-secure_baseline_cis_rollout.html" }
+                ]
+            },
+            "Endpoint": { 
+                icon: "💻", 
+                desc: "EDR, endpoint encryption & protection", 
+                items: [
+                    { name: "Endpoint Encryption Enforcement", file: "065-endpoint_encryption_enforcement.html" },
+                    { name: "Phishing Defense Enhancements", file: "128-phishing_defense_enhancements.html" },
+                    { name: "EDR Migration", file: "157-edr_migration.html" },
+                    { name: "Endpoint Telemetry Coverage Expansion", file: "185-endpoint_telemetry_coverage_expansion.html" },
+                    { name: "EDR Containment Automation", file: "216-edr_containment_automation.html" },
+                    { name: "Endpoint Encryption Enforcement (v2)", file: "069-endpoint_encryption_enforcement.html" },
+                    { name: "Endpoint Encryption Enforcement (v3)", file: "074-endpoint_encryption_enforcement.html" },
+                    { name: "Endpoint Encryption Enforcement (v4)", file: "202-endpoint_encryption_enforcement.html" },
+                    { name: "Phishing Defense Enhancements (v2)", file: "204-phishing_defense_enhancements.html" },
+                    { name: "Phishing Defense Enhancements (v3)", file: "246-phishing_defense_enhancements.html" },
+                    { name: "EDR Migration (v2)", file: "158-edr_migration.html" },
+                    { name: "Endpoint Telemetry Coverage Expansion (v2)", file: "190-endpoint_telemetry_coverage_expansion.html" },
+                    { name: "Endpoint Telemetry Coverage Expansion (v3)", file: "236-endpoint_telemetry_coverage_expansion.html" }
+                ]
+            },
+            "Risk Management": { 
+                icon: "⚖️", 
+                desc: "Risk registers, TPRM & executive reporting", 
+                items: [
+                    { name: "Legacy System Risk Treatment", file: "036-legacy_system_risk_treatment.html" },
+                    { name: "Risk Register & Exec Reporting", file: "064-risk_register_-and-_exec_reporting.html" },
+                    { name: "TPRM Program Build", file: "112-tprm_program_build.html" },
+                    { name: "Legacy System Risk Treatment (v2)", file: "186-legacy_system_risk_treatment.html" },
+                    { name: "Risk Register & Exec Reporting (v2)", file: "120-risk_register_-and-_exec_reporting.html" },
+                    { name: "TPRM Program Build (v2)", file: "133-tprm_program_build.html" }
+                ]
+            },
+            "Governance": { 
+                icon: "📜", 
+                desc: "Steering committees & security governance", 
+                items: [
+                    { name: "Steering Committee Governance", file: "046-steering_committee_governance.html" },
+                    { name: "Steering Committee Governance (v2)", file: "056-steering_committee_governance.html" },
+                    { name: "Steering Committee Governance (v3)", file: "179-steering_committee_governance.html" }
+                ]
+            }
+        };
+
+        const grid = document.getElementById('categoriesGrid');
+        const searchInput = document.getElementById('searchInput');
+        const resultsCount = document.getElementById('resultsCount');
+        let expandedCard = null;
+
+        function countTotalBlueprints() {
+            return Object.values(blueprintData).reduce((sum, cat) => sum + cat.items.length, 0);
+        }
+
+        function renderCategories(filter = '') {
+            grid.innerHTML = '';
+            const filterLower = filter.toLowerCase();
+            let totalMatches = 0;
+            
+            Object.entries(blueprintData).forEach(([category, data]) => {
+                const filteredItems = filter 
+                    ? data.items.filter(item => 
+                        item.name.toLowerCase().includes(filterLower) || 
+                        category.toLowerCase().includes(filterLower) ||
+                        item.file.toLowerCase().includes(filterLower)
+                    )
+                    : data.items;
+                
+                totalMatches += filteredItems.length;
+                
+                if (filter && filteredItems.length === 0) return;
+                
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.innerHTML = `
+                    <div class="category-header">
+                        <div class="category-name">
+                            <span class="category-icon">${data.icon}</span>
+                            ${category}
+                        </div>
+                        <span class="category-count">${filteredItems.length}</span>
+                    </div>
+                    <div class="category-desc">${data.desc}</div>
+                    <div class="category-toggle">
+                        <span>View blueprints</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                    <div class="blueprints-list">
+                        ${filteredItems.map((item, i) => `
+                            <a href="./blueprints/${item.file}" class="blueprint-item">
+                                <span class="blueprint-num">#${item.file.split('-')[0]}</span>
+                                ${item.name}
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+                
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.blueprint-item')) return;
+                    if (expandedCard && expandedCard !== card) {
+                        expandedCard.classList.remove('expanded');
+                    }
+                    card.classList.toggle('expanded');
+                    expandedCard = card.classList.contains('expanded') ? card : null;
+                });
+                
+                grid.appendChild(card);
+            });
+            
+            // Update results count
+            if (filter) {
+                resultsCount.textContent = `${totalMatches} results`;
+            } else {
+                resultsCount.textContent = '';
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            renderCategories(e.target.value);
+        });
+
+        // Initialize
+        renderCategories();
+        document.getElementById('totalCount').textContent = countTotalBlueprints();
+    </script>
+    <script src="/js/content-protection.js"></script>
+</body>
+</html>

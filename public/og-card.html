@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>OG Card — Jay Prakash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #fafaf8;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .card {
+      width: 1200px;
+      height: 630px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* Left orange panel */
+    .left {
+      width: 580px;
+      height: 100%;
+      background: #c2410c;
+      padding: 56px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Dot texture */
+    .left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .role-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      position: relative;
+      z-index: 1;
+    }
+
+    .name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 58px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.05;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+      margin-top: 12px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      position: relative;
+      z-index: 1;
+      margin-top: 20px;
+    }
+
+    .skill-tag {
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.04em;
+    }
+
+    .domain {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Right panel */
+    .right {
+      flex: 1;
+      height: 100%;
+      background: #fafaf8;
+      padding: 52px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-box {
+      background: white;
+      border: 1px solid #e7e2dc;
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: #c2410c;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #78716c;
+    }
+
+    .metrics-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .metric {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .metric-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c2410c;
+      flex-shrink: 0;
+    }
+
+    .metric-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: #1c1917;
+      font-weight: 500;
+    }
+
+    .metric-text span {
+      color: #c2410c;
+      font-weight: 600;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .domain-url {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #78716c;
+      letter-spacing: 0.06em;
+    }
+
+    .available-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: rgba(194, 65, 12, 0.08);
+      border: 1px solid rgba(194, 65, 12, 0.2);
+      border-radius: 100px;
+    }
+
+    .green-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .available-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #c2410c;
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Left: Identity -->
+    <div class="left">
+      <div class="role-label">Senior Director · Security Operations</div>
+
+      <div>
+        <div class="name">Jayakrishnan<br>C Prakash</div>
+        <div class="tagline">
+          I build SOC programs from scratch and scale them.<br>
+          20 years · 3 countries · 2 acquisitions.
+        </div>
+        <div class="skills">
+          <span class="skill-tag">Detection Engineering</span>
+          <span class="skill-tag">XDR / SIEM</span>
+          <span class="skill-tag">Zero Trust</span>
+          <span class="skill-tag">Cloud Security</span>
+          <span class="skill-tag">GRC</span>
+          <span class="skill-tag">MITRE ATT&CK</span>
+        </div>
+      </div>
+
+      <div class="domain">jayakrishnancp.com</div>
+    </div>
+
+    <!-- Right: Stats + Metrics -->
+    <div class="right">
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-value">20+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">250+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">400+</div>
+          <div class="stat-label">Team Size</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">256</div>
+          <div class="stat-label">Blueprints</div>
+        </div>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric">
+          <div class="metric-dot"></div>
+          <div class="metric-text">MTTD reduced <span>24h → 4h</span> · MTTR <span>8h → 3h</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-dot"></div>
+          <div class="metric-text"><span>85%+</span> MITRE ATT&CK coverage · 7,000-asset environment</div>
+        </div>
+        <div class="metric">
+          <div class="metric-dot"></div>
+          <div class="metric-text">AI security governance across <span>20+ active tools</span></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="domain-url">jayakrishnancp.com</div>
+        <div class="available-badge">
+          <div class="green-dot"></div>
+          <div class="available-text">Open to VP / CISO roles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

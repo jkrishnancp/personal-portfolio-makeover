@@ -1,0 +1,178 @@
+import { useState, useEffect } from "react";
+import { Menu, X, ExternalLink, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import profileAvatar from "@/assets/profile-avatar.jpg";
+
+const navItems = [
+  { label: "Summary", href: "#summary" },
+  { label: "Philosophy", href: "#philosophy" },
+  { label: "Impact", href: "#impact" },
+  { label: "Experience", href: "#experience" },
+  { label: "Skills", href: "#skills" },
+  { label: "Blueprints", href: "#portfolio" },
+];
+
+const dropdownLinks = [
+  { label: "Blog", href: "https://blog.jayakrishnancp.com" },
+  { label: "n8n Projects", href: "https://n8n.jayakrishnancp.com" },
+  { label: "Security Blueprints", href: "/security-blueprints.html" },
+  { label: "Cyber Periodic Table", href: "/cybersecurity-periodic-table.html" },
+];
+
+export function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/95 backdrop-blur-md shadow-md border-b border-border"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <a href="#" className="font-display font-bold text-lg text-foreground">
+            <span className={isScrolled ? "text-foreground" : "text-white"}>Jay</span>
+            <span className="text-accent">Prakash</span>
+          </a>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => scrollToSection(item.href)}
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent/10 hover:text-accent ${
+                  isScrolled ? "text-foreground" : "text-white/90"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            
+            {/* Dark mode toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Toggle dark mode"
+              onClick={toggleTheme}
+              className={`ml-1 rounded-full ${isScrolled ? "text-foreground" : "text-white/90"} hover:bg-accent/10 hover:text-accent`}
+            >
+              {resolvedTheme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </Button>
+
+            {/* Avatar Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-9 w-9 rounded-full ml-2 p-0">
+                  <Avatar className="h-9 w-9 border-2 border-accent">
+                    <AvatarImage src={profileAvatar} alt="Jay Prakash" />
+                    <AvatarFallback className="bg-accent text-accent-foreground">JP</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
+                {dropdownLinks.map((item) => (
+                  <DropdownMenuItem key={item.label} asChild>
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith("http") ? "_blank" : undefined}
+                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      {item.label}
+                      {item.href.startsWith("http") && <ExternalLink className="w-3 h-3 ml-auto" />}
+                    </a>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </nav>
+
+          {/* Mobile: dark mode toggle + menu button */}
+          <div className="lg:hidden flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Toggle dark mode"
+              onClick={toggleTheme}
+              className={isScrolled ? "text-foreground" : "text-white"}
+            >
+              {resolvedTheme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className={isScrolled ? "text-foreground" : "text-white"}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </Button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden py-4 border-t border-border bg-background">
+            <nav className="flex flex-col gap-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection(item.href)}
+                  className="px-4 py-3 text-left text-foreground hover:bg-accent/10 hover:text-accent rounded-md transition-colors"
+                >
+                  {item.label}
+                </button>
+              ))}
+              <div className="my-2 border-t border-border" />
+              {dropdownLinks.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="px-4 py-3 text-foreground hover:bg-accent/10 hover:text-accent rounded-md transition-colors flex items-center gap-2"
+                >
+                  {item.label}
+                  {item.href.startsWith("http") && <ExternalLink className="w-3 h-3" />}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
