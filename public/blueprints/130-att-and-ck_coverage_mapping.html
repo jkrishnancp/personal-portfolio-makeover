@@ -26,7 +26,7 @@
     </div>
     <script>
       (function(){
-        var t=localStorage.getItem('bp_theme')||'light';
+        var t=localStorage.getItem('bp_theme')||'dark';
         if(t==='dark'){document.documentElement.style.setProperty('--bg','#1c1917');document.documentElement.style.setProperty('--card','#292524');document.documentElement.style.setProperty('--fg','#f5f2ee');document.documentElement.style.setProperty('--muted','#a8a29e');document.documentElement.style.setProperty('--border','#3c3330');document.body&&(document.body.style.background='#1c1917',document.body.style.color='#f5f2ee');}
         window.bpToggle=function(){
           var d=localStorage.getItem('bp_theme')==='dark';
