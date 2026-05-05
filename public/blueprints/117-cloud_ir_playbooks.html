@@ -19,7 +19,24 @@
     <script src="/js/blueprint-gate.js"></script>
 </head>
 <body>
-    <a href="/" style="position:fixed;top:16px;left:16px;z-index:200;display:inline-flex;align-items:center;gap:6px;background:white;color:#c2410c;border:1px solid #e7e2dc;border-radius:100px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 2px 12px rgba(0,0,0,0.08);" onmouseover="this.style.boxShadow='0 4px 20px rgba(194,65,12,0.2)'" onmouseout="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">← Home</a>
+    <div id="bp-controls" style="position:fixed;top:16px;left:16px;z-index:200;display:flex;gap:6px;align-items:center;">
+      <a href="/" style="display:inline-flex;align-items:center;gap:5px;background:var(--card,white);color:var(--primary,#c2410c);border:1px solid var(--border,#e7e2dc);border-radius:100px;padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.08);">← Home</a>
+      <a href="/security-blueprints.html" style="display:inline-flex;align-items:center;gap:5px;background:var(--card,white);color:var(--primary,#c2410c);border:1px solid var(--border,#e7e2dc);border-radius:100px;padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.08);">Blueprints</a>
+      <button onclick="bpToggle()" id="bp-theme-btn" style="background:var(--card,white);color:var(--primary,#c2410c);border:1px solid var(--border,#e7e2dc);border-radius:100px;padding:7px 12px;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.08);line-height:1;">🌙</button>
+    </div>
+    <script>
+      (function(){
+        var t=localStorage.getItem('bp_theme')||'light';
+        if(t==='dark'){document.documentElement.style.setProperty('--bg','#1c1917');document.documentElement.style.setProperty('--card','#292524');document.documentElement.style.setProperty('--fg','#f5f2ee');document.documentElement.style.setProperty('--muted','#a8a29e');document.documentElement.style.setProperty('--border','#3c3330');document.body&&(document.body.style.background='#1c1917',document.body.style.color='#f5f2ee');}
+        window.bpToggle=function(){
+          var d=localStorage.getItem('bp_theme')==='dark';
+          var btn=document.getElementById('bp-theme-btn');
+          if(d){localStorage.setItem('bp_theme','light');document.documentElement.style.setProperty('--bg','#fafaf8');document.documentElement.style.setProperty('--card','#ffffff');document.documentElement.style.setProperty('--fg','#1c1917');document.documentElement.style.setProperty('--muted','#78716c');document.documentElement.style.setProperty('--border','#e7e2dc');document.body.style.background='#fafaf8';document.body.style.color='#1c1917';if(btn)btn.textContent='🌙';}
+          else{localStorage.setItem('bp_theme','dark');document.documentElement.style.setProperty('--bg','#1c1917');document.documentElement.style.setProperty('--card','#292524');document.documentElement.style.setProperty('--fg','#f5f2ee');document.documentElement.style.setProperty('--muted','#a8a29e');document.documentElement.style.setProperty('--border','#3c3330');document.body.style.background='#1c1917';document.body.style.color='#f5f2ee';if(btn)btn.textContent='☀️';}
+        };
+        window.addEventListener('DOMContentLoaded',function(){var btn=document.getElementById('bp-theme-btn');if(btn)btn.textContent=localStorage.getItem('bp_theme')==='dark'?'☀️':'🌙';if(localStorage.getItem('bp_theme')==='dark'){document.body.style.background='#1c1917';document.body.style.color='#f5f2ee';}});
+      })();
+    </script>
 
     
     <div class="blueprint-container container">
