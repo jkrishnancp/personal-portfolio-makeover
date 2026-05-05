@@ -55,7 +55,7 @@ export default {
             },
             body: JSON.stringify({
               from:    'Blueprint Gate <onboarding@resend.dev>',
-              to:      ['jay@jayakrishnancp.com'],
+              to:      ['huntingjacq@gmail.com'],
               reply_to: email,
               subject: `Blueprint access: ${name} <${email}>`,
               html: `
