@@ -1,12 +1,5 @@
 {
   "name": "personal-portfolio-makeover",
   "compatibility_date": "2026-01-18",
-  "main": "worker.js",
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS"
-  },
-  "vars": {
-    "ENVIRONMENT": "production"
-  }
+  "main": "worker.js"
 }
