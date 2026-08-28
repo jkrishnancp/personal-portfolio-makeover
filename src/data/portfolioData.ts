@@ -356,7 +356,7 @@ export const experienceData: Experience[] = [
   },
   {
     id: 2,
-    title: "Senior Manager, Security Operations",
+    title: "Senior Director, Security Operations",
     company: "UltraViolet Cyber (METMOX)",
     location: "Hyderabad, India",
     period: "Mar 2013 – Sep 2019",
