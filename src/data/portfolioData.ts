@@ -339,19 +339,23 @@ export const experienceData: Experience[] = [
       "Full program ownership: detection, IR, vulnerability management, cloud security, GRC, TPRM",
       "XDR modernisation and detection strategy across endpoint, identity, cloud, and network",
       "Zero Trust architecture across identity, network, and cloud",
-      "AI security governance framework covering 20+ active tools"
+      "AI security governance framework covering 20+ active tools",
+      "CI/CD pipeline security — SAST (SonarQube), DAST (Burp Suite), and dependency/secrets scanning wired into build and deploy",
+      "GitHub Advanced Security across repositories — branch protection, secret scanning, code scanning",
+      "AI coding-assistant governance — GitHub Copilot usage policy and security scanning for AI-generated code"
     ],
     outcomes: [
-      "Reduced MTTD from 24h to under 4h and MTTR from 8h to under 3h",
+      "Reduced MTTD from 24h to under 4h and cut MTTR from 4+ hours to under 90 minutes",
       "Achieved 85%+ MITRE ATT&CK coverage — 150+ detections mapped, 200+ rules authored, alert noise cut 40%",
       "Managed $1.5M annual tooling budget — consolidated 6 overlapping platforms without increasing cost",
-      "Reduced vulnerability remediation backlog by 40% within six months",
+      "Reduced vulnerability remediation backlog by 70% within six months",
       "Reduced cloud-related incidents by 42% in the first year (AWS & GCP)",
+      "Built container security end to end — image/registry scanning, CI/CD admission controls, and runtime protection across AWS and GCP Kubernetes workloads",
       "Led M&A security due diligence across 4–6 acquisitions",
       "Ran TPRM program with 500+ vendor assessments per year",
       "Ingested 800M–1B+ events/day across 30+ telemetry sources"
     ],
-    stack: ["CrowdStrike Falcon", "Wiz", "Zscaler ZIA/ZPA", "Microsoft Sentinel", "Splunk", "Secureworks Taegis", "Cortex XSOAR", "Tenable", "AWS", "GCP"],
+    stack: ["CrowdStrike Falcon", "Wiz", "Zscaler ZIA/ZPA", "Microsoft Sentinel", "Splunk", "Secureworks Taegis", "Cortex XSOAR", "Tenable", "AWS", "GCP", "GitHub Advanced Security", "SonarQube", "Burp Suite"],
     description: `Dedicated security operations leader at a Global Consumer & Enterprise Networking Company, reporting directly to the CIO and Head of Security. Full program authority across a 7,000-asset hybrid environment including AWS infrastructure — covering detection, incident response, vulnerability management, cloud security, GRC, and third-party risk.`
   },
   {
@@ -541,7 +545,7 @@ export const skillsData = {
     { category: "Vulnerability Management", skills: ["Tenable", "Qualys", "Rapid7"] },
     { category: "Network Security", skills: ["Cisco Firepower", "Fortinet", "Check Point", "Proofpoint", "Microsoft Defender for Office 365"] },
     { category: "Threat Intelligence", skills: ["Recorded Future", "Anomali", "ThreatConnect"] },
-    { category: "Application Security", skills: ["Veracode"] }
+    { category: "Application Security", skills: ["Veracode", "SonarQube", "Burp Suite", "GitHub Advanced Security", "Container Security", "Secrets Management"] }
   ]
 };
 
