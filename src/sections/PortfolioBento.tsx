@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { profileData, securityPhilosophy, impactHighlights, experienceData, skillsData, projectCategories, industriesServed, activeBuilding, executiveReporting } from "@/data/portfolioData";
 import { blueprintsData, type BlueprintEntry } from "@/data/blueprintsData";
-import { Mail, Linkedin, Github, BookOpen, ArrowDownRight, Sun, Moon } from "lucide-react";
+import { Mail, Linkedin, Github, BookOpen, ArrowUpRight, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import profileAvatar from "@/assets/profile-avatar.jpg";
 import profilePhoto from "@/assets/profile-photo.png";
 
 function useCountUp(target: number, delay = 0) {
@@ -43,47 +41,58 @@ function useCountUp(target: number, delay = 0) {
   return { count, ref };
 }
 
-function AnimatedStatTile({ area, target, suffix, label, delay, onClick }: {
-  area: string; target: number; suffix: string; label: string; delay: number; onClick?: () => void;
+function StatFigure({ target, suffix, label, delay, onClick }: {
+  target: number; suffix: string; label: string; delay: number; onClick?: () => void;
 }) {
   const { count, ref } = useCountUp(target, delay);
   const Tag = onClick ? "button" : "div";
   return (
     <Tag
       ref={ref as React.RefObject<HTMLDivElement & HTMLButtonElement>}
-      style={{ gridArea: area, animationDelay: `${delay}ms` }}
       onClick={onClick}
-      className={`bento-block stat-glow bg-card border border-border rounded-2xl p-4 lg:p-5 flex flex-col justify-center gap-2 relative transition-all duration-300 text-left w-full ${onClick ? "hover:border-primary/50 hover:scale-[1.02] cursor-pointer group" : "cursor-default"}`}
+      className={`group text-left ${onClick ? "cursor-pointer" : "cursor-default"}`}
     >
-      <span className="text-4xl lg:text-5xl font-display font-bold text-primary tabular-nums">
-        {count}{suffix}
+      <span className="block text-5xl lg:text-6xl font-display font-medium text-foreground tabular-nums leading-none">
+        {count}<span className="text-primary">{suffix}</span>
       </span>
-      <span className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">{label}</span>
-      {onClick && (
-        <span className="absolute bottom-3 right-3 text-[10px] text-primary font-mono opacity-0 group-hover:opacity-100 transition-opacity">View →</span>
-      )}
+      <span className={`mt-2 block text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground ${onClick ? "group-hover:text-primary transition-colors" : ""}`}>
+        {label}
+      </span>
     </Tag>
   );
 }
 
-const topSkills = [
-  "Detection Engineering", "XDR / MDR", "Zero Trust",
-  "Cloud Security", "GRC & Compliance", "SOAR Automation",
-  "M&A Security", "MITRE ATT&CK",
-];
+function SectionHeader({ index, title, action }: { index: string; title: string; action?: React.ReactNode }) {
+  return (
+    <div className="flex items-end justify-between gap-4 border-b border-border pb-4 mb-10">
+      <div className="flex items-baseline gap-4">
+        <span className="text-[11px] font-mono text-primary tracking-[0.2em]">{index}</span>
+        <h2 className="text-2xl lg:text-3xl font-display font-medium text-foreground">{title}</h2>
+      </div>
+      {action}
+    </div>
+  );
+}
 
 const socialLinks = [
-  { label: "LinkedIn", href: profileData.linkedin,              Icon: Linkedin },
-  { label: "GitHub",   href: "https://github.com/jkrishnancp", Icon: Github   },
-  { label: "Email",    href: `mailto:${profileData.email}`,    Icon: Mail     },
-  { label: "Blog",     href: "https://blog.jayakrishnancp.com",     Icon: BookOpen },
+  { label: "LinkedIn", href: profileData.linkedin,               Icon: Linkedin },
+  { label: "GitHub",   href: "https://github.com/jkrishnancp",   Icon: Github   },
+  { label: "Email",    href: `mailto:${profileData.email}`,      Icon: Mail     },
+  { label: "Blog",     href: "https://blog.jayakrishnancp.com",  Icon: BookOpen },
+];
+
+const moreLinks = [
+  { label: "Blog",                 href: "https://blog.jayakrishnancp.com" },
+  { label: "n8n Projects",         href: "https://n8n.jayakrishnancp.com" },
+  { label: "Security Blueprints",  href: "/security-blueprints.html" },
+  { label: "Cyber Periodic Table", href: "/cybersecurity-periodic-table.html" },
 ];
 
 const keyOutcomes = [
-  { metric: "MTTD",     from: "24h",  to: "4h",   note: "Detection speed"      },
-  { metric: "MTTR",     from: "8h",   to: "3h",   note: "Response time"        },
-  { metric: "Vuln",     from: "100%", to: "−40%", note: "Backlog reduction"     },
-  { metric: "Cloud IR", from: "",     to: "−42%", note: "Incidents first year"  },
+  { metric: "MTTD",     to: "4h",   note: "Detection speed, from 24h"        },
+  { metric: "MTTR",     to: "3h",   note: "Response time, from 8h"           },
+  { metric: "Vuln",     to: "−40%", note: "Backlog reduction"                },
+  { metric: "Cloud IR", to: "−42%", note: "Incidents in first year"          },
 ];
 
 export function PortfolioBento() {
@@ -98,385 +107,419 @@ export function PortfolioBento() {
   const [showAbout,       setShowAbout]       = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
-  const featured: BlueprintEntry = blueprintsData[0];
+  const featured: BlueprintEntry = blueprintsData[4];
 
   return (
-    <section className="px-3 sm:px-4 md:px-8 lg:px-12 py-3 lg:py-5 relative">
+    <div className="min-h-screen bg-background text-foreground">
+      {/* ── Top navigation ── */}
+      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-md">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+          <div className="min-w-0">
+            <p className="text-sm font-display font-semibold text-foreground truncate">Jayakrishnan C Prakash</p>
+            <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground truncate">Senior Director · Security Operations</p>
+          </div>
+          <nav className="flex items-center gap-1 sm:gap-2">
+            {[
+              { label: "Work",       target: () => setShowBlueprints(true) },
+              { label: "Experience", target: () => setShowExperience(true) },
+            ].map(({ label, target }) => (
+              <button
+                key={label}
+                onClick={target}
+                className="hidden sm:inline-flex px-3 py-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {label}
+              </button>
+            ))}
+            <a
+              href={`mailto:${profileData.email}`}
+              className="hidden sm:inline-flex px-3 py-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Contact
+            </a>
+            <button
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+              aria-label="Toggle theme"
+              className="ml-1 w-9 h-9 rounded-full border border-border flex items-center justify-center text-foreground hover:border-primary/60 hover:text-primary transition-colors"
+            >
+              {resolvedTheme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+          </nav>
+        </div>
+      </header>
 
-      {/* Dark / Light mode toggle — fixed top-right */}
-      <button
-        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-        aria-label="Toggle dark mode"
-        className="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-110 hover:shadow-xl hover:shadow-primary/40 transition-all duration-200"
-        style={{ animation: "float 3s ease-in-out infinite" }}
-      >
-        {resolvedTheme === "dark"
-          ? <Sun className="w-4 h-4" />
-          : <Moon className="w-4 h-4" />
-        }
-      </button>
+      <main className="max-w-5xl mx-auto px-5 sm:px-8">
 
-      {/* Background decorative orbs */}
-      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-[-15%] left-[-8%] w-[520px] h-[520px] rounded-full opacity-60"
-          style={{ background: "radial-gradient(circle, hsl(16 87% 40% / 0.10) 0%, transparent 70%)", filter: "blur(60px)" }} />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[420px] h-[420px] rounded-full opacity-50"
-          style={{ background: "radial-gradient(circle, hsl(175 78% 26% / 0.08) 0%, transparent 70%)", filter: "blur(60px)" }} />
-        <div className="absolute top-[55%] left-[45%] w-[350px] h-[350px] rounded-full opacity-40"
-          style={{ background: "radial-gradient(circle, hsl(16 87% 40% / 0.06) 0%, transparent 70%)", filter: "blur(80px)" }} />
-      </div>
-
-      <div className="portfolio-bento-grid max-w-7xl mx-auto">
-
-        {/* ── IDENTITY — orange block, photo fades in from the right corner ── */}
-        <div
-          style={{ gridArea: "id", animationDelay: "0ms" }}
-          className="bento-block bg-primary rounded-2xl text-white relative overflow-hidden"
-        >
-          {/* Photo pinned to right, masked to fade into the orange */}
-          <img
-            src={profilePhoto}
-            alt="Jayakrishnan C Prakash — Senior Director, Security Operations"
-            loading="eager"
-            className="absolute top-0 right-0 h-full w-[52%] object-cover object-top pointer-events-none select-none"
-            style={{
-              maskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 30%, black 60%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 30%, black 60%)",
-            }}
-          />
-
-          {/* Animated dot texture */}
-          <div className="dots-animated absolute inset-0 pointer-events-none opacity-[0.06]"
-            style={{ backgroundImage: "radial-gradient(circle, white 1.5px, transparent 1.5px)", backgroundSize: "28px 28px" }}
-          />
-          {/* Shimmer sweep */}
-          <div className="shimmer-sweep" />
-
-          {/* Content — left side */}
-          <div className="relative z-10 p-5 sm:p-6 lg:p-8 flex flex-col justify-between h-full">
-            <span className="text-[10px] font-mono text-white/55 uppercase tracking-[0.16em]">
-              Senior Director · Security Operations
-            </span>
-            <div>
-              <h1 className="text-3xl sm:text-4xl xl:text-5xl font-display font-bold leading-tight">
-                Jayakrishnan<br />C Prakash
-              </h1>
-              <p className="text-white/65 text-[11px] font-mono mt-2 leading-relaxed">
-                I build SOC programs from scratch and scale them.<br />20 years · 3 countries · 2 acquisitions.
-              </p>
-              <div className="flex flex-wrap gap-1.5 mt-3 mb-4">
-                {["Detection Engineering","Security Operations","XDR / SIEM","Incident Response","Zero Trust"].map((s) => (
-                  <span key={s} className="px-2 py-0.5 text-[10px] bg-white/10 text-white/80 border border-white/20 rounded-full font-mono">{s}</span>
-                ))}
-              </div>
-              <Button size="sm" className="bg-white text-primary hover:bg-white/90 font-semibold rounded-full h-8 px-4 text-xs" asChild>
-                <a href={`mailto:${profileData.email}`}>
-                  <Mail className="w-3.5 h-3.5 mr-1.5" />Get in touch
-                </a>
-              </Button>
+        {/* ── HERO ── */}
+        <section className="reveal grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-14 items-center pt-16 lg:pt-24 pb-16">
+          <div>
+            <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-primary mb-6">
+              Available for Director &amp; Head of Security roles
+            </p>
+            <h1 className="font-display font-medium leading-[1.02] text-5xl sm:text-6xl lg:text-7xl text-foreground text-balance">
+              I build security operations that <span className="italic text-primary">actually catch things.</span>
+            </h1>
+            <p className="mt-8 text-lg text-muted-foreground leading-relaxed max-w-xl">
+              I&apos;m Jayakrishnan — I stand up SOC programs from scratch and scale them into structured,
+              repeatable systems. Twenty years, three countries, two acquisitions.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <a
+                href={`mailto:${profileData.email}`}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+              >
+                <Mail className="w-4 h-4" /> Get in touch
+              </a>
+              <button
+                onClick={() => setShowAbout(true)}
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full border border-border text-sm font-medium text-foreground hover:border-primary/60 hover:text-primary transition-colors"
+              >
+                Read my story <ArrowUpRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
-        </div>
 
-        {/* ── STATS — count-up animation ── */}
-        <AnimatedStatTile area="st1" target={20}  suffix="+" label="Years Experience"    delay={80}  onClick={() => setShowExperience(true)} />
-        <AnimatedStatTile area="st2" target={250} suffix="+" label="Projects Delivered" delay={120} onClick={() => setShowBlueprints(true)} />
-        <AnimatedStatTile area="st3" target={400} suffix="+" label="Team Size"          delay={160} />
-        <AnimatedStatTile area="st4" target={industriesServed.length} suffix="+" label="Sectors"  delay={200} onClick={() => setShowSectors(true)} />
+          <div className="relative">
+            <div className="relative aspect-[4/5] w-full max-w-sm mx-auto lg:mx-0 overflow-hidden rounded-2xl border border-border bg-muted">
+              <img
+                src={profilePhoto}
+                alt="Jayakrishnan C Prakash — Senior Director, Security Operations"
+                loading="eager"
+                className="absolute inset-0 h-full w-full object-cover object-top"
+              />
+            </div>
+            <div className="absolute -bottom-4 -left-4 hidden sm:block bg-background border border-border rounded-xl px-4 py-3 shadow-sm">
+              <p className="text-2xl font-display font-semibold text-foreground leading-none">85%<span className="text-primary">+</span></p>
+              <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground mt-1">MITRE ATT&amp;CK coverage</p>
+            </div>
+          </div>
+        </section>
 
-        {/* ── ABOUT — clickable → full story popup ── */}
-        <button
-          style={{ gridArea: "ab", animationDelay: "100ms" }}
-          onClick={() => setShowAbout(true)}
-          aria-label="Read full about"
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 flex flex-col justify-between text-left group hover:border-primary/40 hover:scale-[1.01] transition-all"
-        >
-          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">About</span>
-          <p className="font-display italic text-foreground/85 leading-relaxed text-sm lg:text-[15px] mt-2">
-            I built a SOC from scratch at a 450-branch bank. I co-founded a security consultancy in Abu Dhabi that got acquired. I grew a SecOps team from 5 to 145 at a company that also got acquired.
-          </p>
-          <span className="text-[10px] text-primary font-mono mt-3 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
-            Read more →
-          </span>
-        </button>
+        {/* ── STATS ── */}
+        <section className="reveal grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 py-14 border-y border-border">
+          <StatFigure target={20}  suffix="+" label="Years experience"    delay={80}  onClick={() => setShowExperience(true)} />
+          <StatFigure target={256} suffix=""  label="Blueprints shipped"  delay={120} onClick={() => setShowBlueprints(true)} />
+          <StatFigure target={145} suffix=""  label="Largest team scaled" delay={160} />
+          <StatFigure target={industriesServed.length} suffix="+" label="Sectors served" delay={200} onClick={() => setShowSectors(true)} />
+        </section>
 
-        {/* ── CONNECT ── */}
-        <div
-          style={{ gridArea: "sc", animationDelay: "115ms" }}
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 flex flex-col gap-3"
-        >
-          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Connect</span>
-          <div className="grid grid-cols-2 gap-2">
-            {socialLinks.map(({ label, href, Icon }) => (
-              <a key={label} href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-primary/5 border border-primary/10 hover:bg-primary/10 hover:border-primary/30 transition-all group"
+        {/* ── ABOUT ── */}
+        <section className="reveal py-20">
+          <SectionHeader
+            index="01"
+            title="About"
+            action={
+              <button onClick={() => setShowAbout(true)} className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+                Full story <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            }
+          />
+          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-10">
+            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
+              From zero to enterprise scale
+            </p>
+            <div className="space-y-6">
+              <p className="text-2xl lg:text-3xl font-display leading-snug text-foreground text-balance">
+                I built a SOC from scratch at a 450-branch bank. I co-founded a security consultancy in Abu Dhabi
+                that got acquired. I grew a SecOps team from 5 to 145 at a company that also got acquired.
+              </p>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Today I lead security operations for a 7,000-asset hybrid enterprise — full ownership across SOC
+                program management, detection &amp; response, incident response, vulnerability management, cloud
+                security, GRC, and third-party risk. Reporting to the CIO and Head of Security, I turned an ad hoc
+                operation into a structured, measurable system processing 800M–1B+ events daily.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── EXPERIENCE (editorial rows) ── */}
+        <section className="reveal py-20">
+          <SectionHeader
+            index="02"
+            title="Experience"
+            action={
+              <button onClick={() => setShowExperience(true)} className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+                All roles <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            }
+          />
+          <ul className="divide-y divide-border">
+            {experienceData.slice(0, 5).map((job) => (
+              <li key={job.id}>
+                <button
+                  onClick={() => setShowExperience(true)}
+                  className="group w-full text-left grid grid-cols-1 sm:grid-cols-[130px_1fr_auto] gap-1 sm:gap-6 items-baseline py-6"
+                >
+                  <span className="text-xs font-mono text-muted-foreground pt-1">{job.period}</span>
+                  <span>
+                    <span className="block text-lg lg:text-xl font-display font-medium text-foreground group-hover:text-primary transition-colors">
+                      {job.title}
+                    </span>
+                    <span className="block text-sm text-muted-foreground mt-0.5">{job.company}</span>
+                  </span>
+                  <span className="text-xs font-mono text-muted-foreground sm:text-right pt-1 inline-flex items-center gap-1 sm:justify-end">
+                    {job.location}
+                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* ── SELECTED WORK ── */}
+        <section className="reveal py-20">
+          <SectionHeader
+            index="03"
+            title="Selected work"
+            action={
+              <button onClick={() => setShowBlueprints(true)} className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+                256 blueprints <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            }
+          />
+
+          {/* Featured project */}
+          <a
+            href={`/blueprints/${featured.file}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block rounded-2xl border border-border p-6 lg:p-8 hover:border-primary/50 transition-colors mb-6"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span className="px-2.5 py-0.5 text-[10px] bg-primary/10 text-primary rounded-full font-mono">{featured.category}</span>
+              <span className="text-[10px] font-mono text-muted-foreground">{featured.duration}</span>
+              <span className="text-[10px] font-mono text-muted-foreground ml-auto">Featured</span>
+            </div>
+            <h3 className="text-2xl lg:text-3xl font-display font-medium text-foreground group-hover:text-primary transition-colors max-w-2xl">
+              {featured.title}
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-6 mt-6">
+              <div>
+                <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground mb-1">Objective</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{featured.problem}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-primary mb-1">Impact</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{featured.result}</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-1.5 mt-6">
+              {featured.technologies.slice(0, 5).map((t, i) => (
+                <span key={i} className="px-2 py-0.5 text-[10px] bg-muted text-muted-foreground rounded font-mono">{t}</span>
+              ))}
+            </div>
+          </a>
+
+          {/* Domain grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {projectCategories.slice(0, 6).map((cat) => (
+              <button
+                key={cat.category}
+                onClick={() => setShowBlueprints(true)}
+                className="group text-left rounded-xl border border-border p-5 hover:border-primary/50 transition-colors"
               >
-                <Icon className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                <span className="text-[11px] font-mono text-foreground group-hover:text-primary transition-colors truncate">{label}</span>
+                <div className="flex items-baseline justify-between mb-1">
+                  <span className="text-sm font-display font-semibold text-foreground group-hover:text-primary transition-colors">{cat.category}</span>
+                  <span className="text-2xl font-display font-medium text-primary">{cat.count}+</span>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{cat.description}</p>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        {/* ── OUTCOMES ── */}
+        <section className="reveal py-20">
+          <SectionHeader
+            index="04"
+            title="Key outcomes"
+            action={
+              <button onClick={() => setShowImpact(true)} className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+                All outcomes <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            }
+          />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {keyOutcomes.map((o) => (
+              <div key={o.metric} className="border-l border-primary/40 pl-4">
+                <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground">{o.metric}</p>
+                <p className="text-4xl lg:text-5xl font-display font-medium text-foreground mt-2 leading-none">{o.to}</p>
+                <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{o.note}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── SKILLS + PHILOSOPHY ── */}
+        <section className="reveal py-20 grid lg:grid-cols-2 gap-16">
+          <div>
+            <SectionHeader
+              index="05"
+              title="Capabilities"
+              action={
+                <button onClick={() => setShowSkills(true)} className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+                  All skills <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              }
+            />
+            <div className="flex flex-wrap gap-2">
+              {skillsData.coreCompetencies.slice(0, 10).map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setShowSkills(true)}
+                  className="px-3 py-1.5 text-sm rounded-full border border-border text-foreground hover:border-primary/60 hover:text-primary transition-colors"
+                >
+                  {s}
+                </button>
+              ))}
+              <button
+                onClick={() => setShowSkills(true)}
+                className="px-3 py-1.5 text-sm rounded-full bg-primary/10 text-primary font-mono"
+              >
+                +{skillsData.coreCompetencies.length - 10} more
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <SectionHeader
+              index="06"
+              title="Philosophy"
+              action={
+                <button onClick={() => setShowPhilosophy(true)} className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+                  8 principles <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              }
+            />
+            <blockquote className="text-2xl lg:text-3xl font-display italic leading-snug text-foreground text-balance">
+              &ldquo;Precision over volume — a tuned detection is worth a thousand alerts.&rdquo;
+            </blockquote>
+            <button onClick={() => setShowPhilosophy(true)} className="mt-6 text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+              Read all principles <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </section>
+
+        {/* ── INNOVATION + BOARD ── */}
+        <section className="reveal py-20 grid lg:grid-cols-2 gap-16">
+          <div>
+            <SectionHeader
+              index="07"
+              title="Building now"
+              action={
+                <button onClick={() => setShowInnovation(true)} className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+                  {activeBuilding.length} initiatives <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              }
+            />
+            <ul className="space-y-4">
+              {activeBuilding.slice(0, 4).map((item) => (
+                <li key={item.name}>
+                  <button onClick={() => setShowInnovation(true)} className="group w-full text-left flex items-start gap-3">
+                    <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                      item.status === "Production" ? "bg-primary" : item.status === "Expanding" ? "bg-accent" : "bg-muted-foreground"
+                    }`} />
+                    <span>
+                      <span className="block text-base font-display font-medium text-foreground group-hover:text-primary transition-colors">{item.name}</span>
+                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-muted-foreground">{item.status}</span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <SectionHeader
+              index="08"
+              title="Board influence"
+              action={
+                <button onClick={() => setShowBoardComms(true)} className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1">
+                  Details <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              }
+            />
+            <div className="flex flex-wrap gap-2">
+              {executiveReporting.audiences.map((a) => (
+                <span key={a} className="px-3 py-1.5 text-sm rounded-full border border-border text-foreground">{a}</span>
+              ))}
+            </div>
+            <p className="mt-6 text-sm text-muted-foreground leading-relaxed">
+              I make security understandable to the business — translating detection coverage, risk, and M&amp;A
+              posture into decisions leadership can act on.
+            </p>
+          </div>
+        </section>
+
+        {/* ── OPEN TO OPPORTUNITIES / CONTACT ── */}
+        <section className="reveal py-20">
+          <div className="rounded-2xl border border-border p-8 lg:p-12">
+            <div className="flex items-center gap-2 mb-6">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted-foreground">Open to opportunities · Immediately available</span>
+            </div>
+            <h2 className="text-3xl lg:text-5xl font-display font-medium text-foreground max-w-2xl text-balance">
+              If your SOC makes more noise than signal, that&apos;s my favourite conversation.
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-8 mt-10">
+              <div>
+                <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground mb-2">Target roles</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Director, Information Security", "Director, Security Operations", "Head of Security"].map((r) => (
+                    <span key={r} className="px-2.5 py-1 text-xs rounded-full bg-primary/10 text-primary font-medium">{r}</span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground mb-2">Locations</p>
+                <p className="text-sm text-foreground leading-relaxed">
+                  On-site: Washington DC · SF Bay Area · Chicago · Michigan<br />
+                  Remote: San Jose, CA · Hybrid nationwide
+                </p>
+              </div>
+            </div>
+            <a
+              href={`mailto:${profileData.email}`}
+              className="mt-10 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              <Mail className="w-4 h-4" /> {profileData.email}
+            </a>
+          </div>
+        </section>
+      </main>
+
+      {/* ── FOOTER ── */}
+      <footer className="border-t border-border mt-10">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+          <div>
+            <p className="text-lg font-display font-semibold text-foreground">Jayakrishnan C Prakash</p>
+            <div className="mt-3 flex flex-wrap gap-4">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a key={label} href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Icon className="w-3.5 h-3.5" /> {label}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {moreLinks.map(({ label, href }) => (
+              <a key={label} href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors"
+              >
+                {label}
               </a>
             ))}
           </div>
         </div>
-
-        {/* ── OPEN TO OPPORTUNITIES ── */}
-        <div
-          style={{ gridArea: "ot", animationDelay: "340ms" }}
-          className="bento-block animate-border-pulse bg-card border border-accent/20 rounded-2xl p-4 lg:p-5 flex flex-col"
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 animate-pulse" />
-            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Open to Opportunities</span>
-          </div>
-
-          <div className="flex flex-col gap-3 flex-1">
-            {/* Target roles */}
-            <div>
-              <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-1.5">Target Roles</p>
-              <div className="flex flex-wrap gap-1.5">
-                {["Director, Information Security", "Director, Security Operations", "Head of Security"].map((r) => (
-                  <span key={r} className="px-2.5 py-1 text-xs bg-primary/10 text-primary border border-primary/20 rounded-full font-medium">{r}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Work style */}
-            <div>
-              <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-1.5">Work Style</p>
-              <div className="flex flex-wrap gap-1.5">
-                {["On-site", "Hybrid", "Remote"].map((t) => (
-                  <span key={t} className="px-2.5 py-1 text-[11px] bg-accent/10 text-accent border border-accent/20 rounded-full font-mono">{t}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Locations */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-              <div className="p-2.5 bg-muted/50 rounded-xl">
-                <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest mb-1">On-site</p>
-                <p className="text-xs text-foreground leading-snug">Washington DC · SF Bay Area · Chicago · Michigan</p>
-              </div>
-              <div className="p-2.5 bg-muted/50 rounded-xl">
-                <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest mb-1">Remote</p>
-                <p className="text-xs text-foreground">San Jose, CA</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Availability */}
-          <div className="pt-3 mt-auto border-t border-border">
-            <p className="text-xs font-display font-semibold text-foreground">Immediately available · Full-time</p>
-            <p className="text-[10px] text-muted-foreground font-mono mt-0.5">Actively applying</p>
-          </div>
-        </div>
-
-        {/* ── CURRENT ROLE — mini card grid, clickable ── */}
-        <button
-          style={{ gridArea: "rol", animationDelay: "180ms" }}
-          onClick={() => setShowExperience(true)}
-          aria-label="View full experience"
-          className="bento-block bg-accent/10 border border-accent/20 rounded-2xl p-4 lg:p-5 text-left flex flex-col justify-between group hover:border-accent/50 hover:scale-[1.01] transition-all"
-        >
-          <div className="w-full">
-            <span className="text-[10px] font-mono text-accent uppercase tracking-widest">Current Role · UltraViolet Cyber</span>
-            <div className="grid grid-cols-2 gap-2 mt-2.5">
-              {[
-                { label: "Since",      value: "Sep 2019", note: "6+ years"            },
-                { label: "Reports to", value: "CIO",      note: "& Head of Security"  },
-                { label: "Assets",     value: "7,000+",   note: "Hybrid environment"  },
-                { label: "Team",       value: "15+",      note: "Internal + vendors"  },
-              ].map(({ label, value, note }) => (
-                <div key={label} className="bg-accent/10 border border-accent/15 rounded-lg p-2">
-                  <span className="text-[9px] font-mono text-accent/70 uppercase tracking-widest">{label}</span>
-                  <p className="text-sm font-bold text-foreground font-display">{value}</p>
-                  <p className="text-[9px] text-muted-foreground">{note}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <span className="text-[10px] text-accent font-mono mt-2 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
-            View full experience →
-          </span>
-        </button>
-
-        {/* ── SKILLS — mini card grid, clickable ── */}
-        <button
-          style={{ gridArea: "ski", animationDelay: "220ms" }}
-          onClick={() => setShowSkills(true)}
-          aria-label="View all competencies and skills"
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 text-left group hover:border-primary/40 hover:scale-[1.01] transition-all w-full"
-        >
-          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest block mb-3">Core competencies</span>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            {skillsData.coreCompetencies.slice(0, 8).map((skill) => (
-              <div key={skill} className="bg-primary/5 border border-primary/10 rounded-lg px-2.5 py-2 flex items-center justify-center text-center">
-                <span className="text-xs font-display font-semibold text-primary leading-snug">{skill}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-[10px] text-muted-foreground font-mono mt-2">+{skillsData.coreCompetencies.length - 8} more inside</p>
-          <span className="text-[10px] text-primary font-mono mt-2 inline-block opacity-0 group-hover:opacity-100 transition-opacity">View all competencies →</span>
-        </button>
-
-        {/* ── PHILOSOPHY — single quote, click for all 8 ── */}
-        <button
-          style={{ gridArea: "ph", animationDelay: "260ms" }}
-          onClick={() => setShowPhilosophy(true)}
-          aria-label="View all 8 security principles"
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 text-left group hover:border-primary/40 hover:scale-[1.01] transition-all"
-        >
-          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest block mb-3">Philosophy</span>
-          <p className="text-sm lg:text-base font-display font-semibold text-foreground leading-snug italic">
-            "Precision over volume — a tuned detection is worth a thousand alerts."
-          </p>
-          <span className="text-[10px] text-primary font-mono mt-3 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
-            View all 8 principles →
-          </span>
-        </button>
-
-        {/* ── KEY OUTCOMES — visual metrics, clickable ── */}
-        <button
-          style={{ gridArea: "im", animationDelay: "300ms" }}
-          onClick={() => setShowImpact(true)}
-          aria-label="View all key outcomes and metrics"
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 text-left group hover:border-primary/40 hover:scale-[1.01] transition-all flex flex-col justify-between"
-        >
-          <div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest block mb-3">Key Outcomes</span>
-            <div className="grid grid-cols-2 gap-2">
-              {keyOutcomes.map((o) => (
-                <div key={o.metric} className="bg-primary/5 border border-primary/10 rounded-lg p-2 flex flex-col justify-between min-h-[64px]">
-                  <div className="flex items-center gap-1">
-                    <ArrowDownRight className="w-3 h-3 text-accent flex-shrink-0" />
-                    <span className="text-[10px] font-mono text-muted-foreground uppercase leading-none">{o.metric}</span>
-                  </div>
-                  <p className="text-sm font-bold text-primary font-display leading-none mt-1">{o.to}</p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">{o.note}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <span className="text-[10px] text-primary font-mono mt-3 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
-            View all outcomes →
-          </span>
-        </button>
-
-        {/* ── BLUEPRINTS — domain overview, clickable ── */}
-        <button
-          style={{ gridArea: "bl", animationDelay: "180ms" }}
-          onClick={() => setShowBlueprints(true)}
-          aria-label="View all 256 blueprints across 12 domains"
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 flex flex-col justify-between group hover:border-primary/40 hover:scale-[1.01] transition-all text-left w-full"
-        >
-          <div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">256 Blueprints · 12 Domains</span>
-            <div className="grid grid-cols-2 gap-1.5 mt-3">
-              {projectCategories.slice(0, 6).map((cat) => (
-                <div key={cat.category} className="bg-muted/60 border border-border rounded-xl p-2.5 flex flex-col gap-1">
-                  <span className="text-lg font-display font-bold text-primary leading-none">{cat.count}+</span>
-                  <span className="text-xs font-display font-semibold text-foreground leading-tight">{cat.category}</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-[10px] text-muted-foreground font-mono mt-2">+6 more domains inside</p>
-          </div>
-          <span className="text-[10px] text-primary font-mono mt-3 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
-            View all domains →
-          </span>
-        </button>
-
-        {/* ── FEATURED PROJECT ── */}
-        <a
-          href={`/blueprints/${blueprintsData[4].file}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ gridArea: "fp", animationDelay: "200ms" }}
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 flex flex-col justify-between group hover:border-primary/40 hover:scale-[1.01] transition-all"
-        >
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Featured Project</span>
-              <span className="text-[10px] font-mono text-muted-foreground">{blueprintsData[4].duration}</span>
-            </div>
-            <span className="inline-block px-2 py-0.5 text-[10px] bg-primary/10 text-primary rounded-full font-mono mb-2">{blueprintsData[4].category}</span>
-            <h3 className="text-sm font-bold text-foreground leading-snug font-display">{blueprintsData[4].title}</h3>
-            <p className="text-[10px] text-muted-foreground font-mono mt-1">Role: {blueprintsData[4].role}</p>
-
-            <div className="mt-3 space-y-2">
-              <div>
-                <p className="text-[9px] font-mono text-red-500 uppercase tracking-widest mb-0.5">Objective</p>
-                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{blueprintsData[4].problem}</p>
-              </div>
-              <div>
-                <p className="text-[9px] font-mono text-green-600 uppercase tracking-widest mb-0.5">Impact</p>
-                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{blueprintsData[4].result}</p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-1.5 mt-3">
-              {blueprintsData[4].technologies.slice(0, 3).map((t, i) => (
-                <span key={i} className="px-2 py-0.5 text-[10px] bg-muted text-muted-foreground rounded font-mono">{t}</span>
-              ))}
-            </div>
-          </div>
-
-          <span className="text-[10px] text-primary font-mono mt-3 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
-            Open full blueprint →
-          </span>
-        </a>
-
-        {/* ── INNOVATION / ACTIVE INITIATIVES ── */}
-        <button
-          style={{ gridArea: "inn", animationDelay: "360ms" }}
-          onClick={() => setShowInnovation(true)}
-          aria-label="View active innovation initiatives"
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 text-left group hover:border-primary/40 hover:scale-[1.01] transition-all w-full flex flex-col justify-between"
-        >
-          <div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest block mb-3">Innovation · Active Initiatives</span>
-            <div className="grid grid-cols-2 gap-2">
-              {activeBuilding.slice(0, 4).map((item) => (
-                <div key={item.name} className="bg-primary/5 border border-primary/10 rounded-lg p-2.5">
-                  <span className={`inline-block px-1.5 py-0.5 text-[9px] font-mono rounded-full mb-1.5 ${
-                    item.status === 'Production'         ? 'bg-accent/15 text-accent'     :
-                    item.status === 'Expanding'          ? 'bg-primary/15 text-primary'   :
-                                                           'bg-muted text-muted-foreground'
-                  }`}>{item.status}</span>
-                  <p className="text-xs font-display font-bold text-foreground leading-snug">{item.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <span className="text-[10px] text-primary font-mono mt-3 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
-            View all {activeBuilding.length} initiatives →
-          </span>
-        </button>
-
-        {/* ── BOARD COMMUNICATION & INFLUENCE ── */}
-        <button
-          style={{ gridArea: "brd", animationDelay: "380ms" }}
-          onClick={() => setShowBoardComms(true)}
-          aria-label="View board communication and executive reporting"
-          className="bento-block bg-card border border-border rounded-2xl p-4 lg:p-5 text-left group hover:border-primary/40 hover:scale-[1.01] transition-all w-full flex flex-col justify-between"
-        >
-          <div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest block mb-3">Board Communication & Influence</span>
-            <div className="flex flex-col gap-2">
-              {executiveReporting.audiences.map((audience) => (
-                <div key={audience} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-primary/5 border border-primary/10">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                  <span className="text-xs font-display font-semibold text-foreground">{audience}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <span className="text-[10px] text-primary font-mono mt-3 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
-            View details →
-          </span>
-        </button>
-
-      </div>
+      </footer>
 
       {/* ── EXPERIENCE POPUP — horizontal carousel ── */}
       <Dialog open={showExperience} onOpenChange={setShowExperience}>
@@ -543,30 +586,6 @@ export function PortfolioBento() {
         </DialogContent>
       </Dialog>
 
-      {/* ── BOTTOM LINKS BAR ── */}
-      <div className="max-w-7xl mx-auto mt-3">
-        <div className="bg-card border border-border rounded-2xl px-5 py-3 flex items-center justify-between flex-wrap gap-3">
-          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">More from Jay</span>
-          <div className="flex items-center gap-1 flex-wrap">
-            {[
-              { label: "Blog",                  href: "https://blog.jayakrishnancp.com",              Icon: BookOpen  },
-              { label: "n8n Projects",          href: "https://n8n.jayakrishnancp.com",           Icon: ArrowDownRight },
-              { label: "Security Blueprints",   href: "/security-blueprints.html",               Icon: BookOpen  },
-              { label: "Cyber Periodic Table",  href: "/cybersecurity-periodic-table.html",      Icon: BookOpen  },
-            ].map(({ label, href, Icon }) => (
-              <a key={label} href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all"
-              >
-                <Icon className="w-3 h-3" />
-                {label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* ── INNOVATION POPUP ── */}
       <Dialog open={showInnovation} onOpenChange={setShowInnovation}>
         <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
@@ -577,7 +596,6 @@ export function PortfolioBento() {
           <div className="space-y-4 mt-3">
             {activeBuilding.map((item) => (
               <div key={item.name} className="p-4 bg-card border border-border rounded-2xl flex flex-col gap-3">
-                {/* Header row */}
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-sm font-bold font-display text-foreground leading-snug">{item.name}</h3>
                   <span className={`px-2 py-0.5 text-[10px] font-mono rounded-full flex-shrink-0 ${
@@ -586,13 +604,10 @@ export function PortfolioBento() {
                                                            'bg-muted text-muted-foreground'
                   }`}>{item.status}</span>
                 </div>
-                {/* Highlight */}
                 {item.highlight && (
                   <p className="text-[11px] font-mono text-primary">{item.highlight}</p>
                 )}
-                {/* Description */}
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
-                {/* Tags */}
                 {item.tags && item.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5">
                     {item.tags.map((tag) => (
@@ -600,7 +615,6 @@ export function PortfolioBento() {
                     ))}
                   </div>
                 )}
-                {/* View link */}
                 {item.url && (
                   <a href={item.url} target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs text-primary font-mono hover:underline self-start">
@@ -710,7 +724,6 @@ export function PortfolioBento() {
             </p>
           </DialogHeader>
 
-          {/* Domain breakdown grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
             {projectCategories.map((cat) => (
               <div key={cat.category} className="p-3 bg-card border border-border rounded-xl hover:border-primary/30 transition-colors">
@@ -728,7 +741,6 @@ export function PortfolioBento() {
             ))}
           </div>
 
-          {/* Featured blueprints */}
           <div className="mt-6">
             <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-3">Featured Work</p>
             <div className="space-y-2">
@@ -754,7 +766,6 @@ export function PortfolioBento() {
             </div>
           </div>
 
-          {/* CTA */}
           <div className="mt-5 text-center">
             <a
               href="/security-blueprints.html"
@@ -775,7 +786,6 @@ export function PortfolioBento() {
             <DialogTitle className="font-display text-2xl">Skills & Competencies</DialogTitle>
           </DialogHeader>
 
-          {/* Core Competencies */}
           <div className="mt-3">
             <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-3">Core Competencies</p>
             <div className="flex flex-wrap gap-2">
@@ -785,7 +795,6 @@ export function PortfolioBento() {
             </div>
           </div>
 
-          {/* Strategy / Analytics / Financial */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
             {[
               { label: "Strategy & Operations", items: skillsData.strategyOperations },
@@ -803,7 +812,6 @@ export function PortfolioBento() {
             ))}
           </div>
 
-          {/* Technical Skills */}
           <div className="mt-5">
             <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-3">Technical Platforms & Tools</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -842,6 +850,6 @@ export function PortfolioBento() {
           </div>
         </DialogContent>
       </Dialog>
-    </section>
+    </div>
   );
 }
