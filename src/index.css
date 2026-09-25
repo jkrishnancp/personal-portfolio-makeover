@@ -64,33 +64,33 @@
 
   .dark {
     /* Dark mode — warm charcoal */
-    --background: 20 14% 9%;
-    --foreground: 35 18% 92%;
+    --background: 20 16% 7%;
+    --foreground: 35 18% 93%;
 
-    --card: 20 14% 12%;
-    --card-foreground: 35 18% 92%;
+    --card: 22 13% 13%;
+    --card-foreground: 35 18% 93%;
 
-    --popover: 20 14% 12%;
-    --popover-foreground: 35 18% 92%;
+    --popover: 22 13% 13%;
+    --popover-foreground: 35 18% 93%;
 
-    --primary: 16 87% 52%;
+    --primary: 16 90% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 20 14% 17%;
-    --secondary-foreground: 35 18% 92%;
+    --secondary: 22 12% 18%;
+    --secondary-foreground: 35 18% 93%;
 
-    --muted: 20 14% 15%;
-    --muted-foreground: 25 8% 56%;
+    --muted: 22 12% 16%;
+    --muted-foreground: 25 9% 62%;
 
-    --accent: 175 60% 38%;
+    --accent: 175 62% 42%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 20 14% 22%;
-    --input: 20 14% 22%;
-    --ring: 16 87% 52%;
+    --border: 24 12% 26%;
+    --input: 24 12% 26%;
+    --ring: 16 90% 55%;
 
     --sidebar-background: 20 14% 7%;
     --sidebar-foreground: 35 18% 92%;
@@ -258,18 +258,22 @@
 @keyframes bentoEnter {
   from {
     opacity: 0;
-    transform: translateY(22px) scale(0.96);
-    filter: blur(6px);
+    transform: translateY(14px) scale(0.985);
   }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0);
   }
 }
 
 .bento-block {
-  animation: bentoEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: bentoEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-block {
+    animation: none;
+  }
 }
 
 /* ── Float — for photo in identity block ── */
