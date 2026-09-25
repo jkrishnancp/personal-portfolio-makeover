@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { profileData, securityPhilosophy, impactHighlights, experienceData, skillsData, projectCategories, industriesServed, activeBuilding, executiveReporting } from "@/data/portfolioData";
+import { profileData, securityPhilosophy, impactHighlights, experienceData, skillsData, projectCategories, industriesServed, activeBuilding, executiveReporting, openToRoles } from "@/data/portfolioData";
 import { blueprintsData, type BlueprintEntry } from "@/data/blueprintsData";
-import { Mail, Linkedin, Github, BookOpen, ArrowUpRight, Sun, Moon } from "lucide-react";
+import { Mail, Linkedin, Github, BookOpen, ArrowUpRight, Sun, Moon, Shield, Cloud, Search, Radar, Activity, KeyRound, FileCheck, Workflow, Bug, Network, Lock, Server, Eye, Boxes, TrendingDown, Presentation, Rocket, MapPin, Users } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import profilePhoto from "@/assets/profile-photo.png";
@@ -94,6 +94,39 @@ const keyOutcomes = [
   { metric: "Vuln",     to: "−40%", note: "Backlog reduction"                },
   { metric: "Cloud IR", to: "−42%", note: "Incidents in first year"          },
 ];
+
+const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  "SIEM & Detection": Radar,
+  "SOC Operations": Activity,
+  "Zero Trust & IAM": KeyRound,
+  "MDR/XDR & Endpoint": Shield,
+  "Cloud Security": Cloud,
+  "GRC & Audit": FileCheck,
+  "SOAR & Automation": Workflow,
+  "Vulnerability Management": Bug,
+  "Network Security": Network,
+  "Data Protection": Lock,
+  "Forensics & IR": Search,
+  "IT Security & Hardening": Server,
+};
+
+const techCategoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  "SIEM/Detection": Radar,
+  "Endpoint/XDR": Shield,
+  "Cloud Security": Cloud,
+  "Identity/Access": KeyRound,
+  "GRC/Compliance": FileCheck,
+  "Automation/SOAR": Workflow,
+  "Vulnerability Management": Bug,
+  "Network Security": Network,
+  "Threat Intelligence": Eye,
+  "Application Security": Boxes,
+};
+
+const targetRoles = openToRoles.interests.map((entry) => {
+  const [role, ...rest] = entry.split(" – ");
+  return { role, detail: rest.join(" – ") };
+});
 
 export function PortfolioBento() {
   const [showExperience, setShowExperience] = useState(false);
@@ -233,7 +266,7 @@ export function PortfolioBento() {
           </div>
         </section>
 
-        {/* ── EXPERIENCE (editorial rows) ── */}
+        {/* ── EXPERIENCE (timeline) ── */}
         <section className="reveal py-20">
           <SectionHeader
             index="02"
@@ -244,28 +277,36 @@ export function PortfolioBento() {
               </button>
             }
           />
-          <ul className="divide-y divide-border">
+          <ol className="relative ml-1.5 border-l border-border space-y-4">
             {experienceData.slice(0, 5).map((job) => (
-              <li key={job.id}>
+              <li key={job.id} className="relative pl-6 sm:pl-8">
+                <span className="absolute -left-[6.5px] top-6 w-3 h-3 rounded-full border-2 border-primary bg-background" aria-hidden />
                 <button
                   onClick={() => setShowExperience(true)}
-                  className="group w-full text-left grid grid-cols-1 sm:grid-cols-[130px_1fr_auto] gap-1 sm:gap-6 items-baseline py-6"
+                  className="group block w-full text-left rounded-2xl border border-border p-5 sm:p-6 hover:border-primary/50 hover:bg-card transition-colors"
                 >
-                  <span className="text-xs font-mono text-muted-foreground pt-1">{job.period}</span>
-                  <span>
-                    <span className="block text-lg lg:text-xl font-display font-medium text-foreground group-hover:text-primary transition-colors">
-                      {job.title}
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mb-3">
+                    <span className="px-2.5 py-0.5 text-[10px] font-mono rounded-full bg-primary/10 text-primary">{job.period}</span>
+                    <span className="inline-flex items-center gap-1 text-[10px] font-mono text-muted-foreground">
+                      <MapPin className="w-3 h-3" /> {job.location}
                     </span>
-                    <span className="block text-sm text-muted-foreground mt-0.5">{job.company}</span>
-                  </span>
-                  <span className="text-xs font-mono text-muted-foreground sm:text-right pt-1 inline-flex items-center gap-1 sm:justify-end">
-                    {job.location}
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
-                  </span>
+                  </div>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-lg lg:text-xl font-display font-medium text-foreground group-hover:text-primary transition-colors">{job.title}</h3>
+                      <p className="text-sm text-muted-foreground mt-0.5">{job.company}</p>
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted text-[11px] text-muted-foreground max-w-full">
+                      <Users className="w-3 h-3 flex-shrink-0" /> <span className="truncate">{job.scope.teamSize}</span>
+                    </span>
+                  </div>
                 </button>
               </li>
             ))}
-          </ul>
+          </ol>
         </section>
 
         {/* ── SELECTED WORK ── */}
